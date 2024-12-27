@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f6e4f6;
+  color: #000;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.carousel-container {
+  width: 80%;
+  margin: auto;
+}
+
+.carousel-item {
+  text-align: center;
+}
+
+.carousel-image {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.swiper-button-prev::after {
+  color: green;
+}
+
+.swiper-button-next::after {
+  color: green;
+}
