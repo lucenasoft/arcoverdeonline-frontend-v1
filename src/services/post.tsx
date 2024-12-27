@@ -1,5 +1,6 @@
 import { apiRequest } from "@/utils/api";
 
+// Rota que cria a publicação
 export async function createPost({
   title,
   pdf,
@@ -17,7 +18,7 @@ export async function createPost({
       },
       body: JSON.stringify({ title, pdf, subCategoryId }),
     });
-
+    
     return res;
   } catch (error: any) {
     console.error("Erro ao criar publicação:", error.message);
@@ -25,6 +26,7 @@ export async function createPost({
   }
 }
 
+// Rota que mostra todas as publicações
 export async function getAllPost() {
   try {
     const res = await apiRequest("/post", {
@@ -33,11 +35,11 @@ export async function getAllPost() {
         "Content-Type": "application/json",
       },
     });
-
+    
     if (!Array.isArray(res)) {
       throw new Error("Erro ao listar publicações.");
     }
-
+    
     return res;
   } catch (error: any) {
     console.error("Erro ao listar publicações:", error.message || error);
@@ -47,11 +49,12 @@ export async function getAllPost() {
   }
 }
 
+// Rota que mostra a publicação selecionada pelo ID
 export async function getPostId(id: any) {
   if (!id) {
     throw new Error("O ID da publicação é obrigatório.");
   }
-
+  
   try {
     const res = await apiRequest(`/post/${id}`, {
       method: "GET",
@@ -72,6 +75,7 @@ export async function getPostId(id: any) {
   }
 }
 
+// Rota que faz atualização/edição da publicação selecionada pelo ID
 export async function updatePost(
   id: any,
   {
@@ -87,7 +91,7 @@ export async function updatePost(
   if (!id) {
     throw new Error("O ID da publicação é obrigatório.");
   }
-
+  
   try {
     const res = await apiRequest(`/post/${id}`, {
       method: "PUT",
@@ -109,6 +113,7 @@ export async function updatePost(
   }
 }
 
+// Rota que deleta a publicação selecionada pelo ID
 export async function deletePost(id: any) {
   if (!id) {
     throw new Error("O ID da publicação é obrigatório.");

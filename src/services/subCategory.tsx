@@ -1,5 +1,6 @@
 import { apiRequest } from "@/utils/api";
 
+// Rota que cria a sub-categoria
 export async function createSubCategory({
   name,
   categoryId,
@@ -15,7 +16,7 @@ export async function createSubCategory({
       },
       body: JSON.stringify({ name, categoryId }),
     });
-
+    
     return res;
   } catch (error: any) {
     console.error("Erro ao criar sub-categoria:", error.message);
@@ -23,6 +24,7 @@ export async function createSubCategory({
   }
 }
 
+// Rota que mostra todas as sub-categorias
 export async function getAllSubCategory() {
   try {
     const res = await apiRequest("/sub-category", {
@@ -31,11 +33,11 @@ export async function getAllSubCategory() {
         "Content-Type": "application/json",
       },
     });
-
+    
     if (!Array.isArray(res)) {
       throw new Error("Erro ao listar sub-categorias.");
     }
-
+    
     return res;
   } catch (error: any) {
     console.error("Erro ao listar sub-categorias:", error.message || error);
@@ -45,11 +47,12 @@ export async function getAllSubCategory() {
   }
 }
 
+// Rota que mostra a sub-categoria selecionada pelo ID
 export async function getSubCategoryId(id: any) {
   if (!id) {
     throw new Error("O ID da sub-categoria é obrigatório.");
   }
-
+  
   try {
     const res = await apiRequest(`/sub-category/${id}`, {
       method: "GET",
@@ -57,7 +60,7 @@ export async function getSubCategoryId(id: any) {
         "Content-Type": "application/json",
       },
     });
-
+    
     return res;
   } catch (error: any) {
     console.error(
@@ -70,6 +73,7 @@ export async function getSubCategoryId(id: any) {
   }
 }
 
+// Rota que faz atualização/edição da sub-categoria selecionada pelo ID
 export async function updateSubCategory(
   id: any,
   {
@@ -92,7 +96,7 @@ export async function updateSubCategory(
       },
       body: JSON.stringify({ name, categoryId }),
     });
-
+    
     return res;
   } catch (error: any) {
     console.error(
@@ -105,6 +109,7 @@ export async function updateSubCategory(
   }
 }
 
+// Rota que deleta a sub-categoria selecionada pelo ID
 export async function deleteSubCategory(id: any) {
   if (!id) {
     throw new Error("O ID da sub-categoria é obrigatório.");

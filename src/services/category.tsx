@@ -1,5 +1,6 @@
 import { apiRequest } from "@/utils/api";
 
+// Rota que cria a categoria
 export async function createCategory({ name }: { name: string }) {
   try {
     const res = await apiRequest("/category", {
@@ -17,6 +18,7 @@ export async function createCategory({ name }: { name: string }) {
   }
 }
 
+// Rota que mostra todas as categorias
 export async function getAllCategory() {
   try {
     const res = await apiRequest("/category", {
@@ -39,6 +41,7 @@ export async function getAllCategory() {
   }
 }
 
+// Rota que mostra a categoria selecionada pelo ID
 export async function getCategoryId(id: any) {
   if (!id) {
     throw new Error("O ID da categoria é obrigatório.");
@@ -64,6 +67,7 @@ export async function getCategoryId(id: any) {
   }
 }
 
+// Rota que faz atualização/edição da categoria selecionada pelo ID
 export async function updateCategory(
   id: any,
   {
@@ -97,6 +101,7 @@ export async function updateCategory(
   }
 }
 
+// Rota que deleta a categoria selecionada pelo ID
 export async function deleteCategory(id: any) {
   if (!id) {
     throw new Error("O ID da categoria é obrigatório.");

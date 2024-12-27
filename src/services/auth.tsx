@@ -1,5 +1,6 @@
 import { apiRequest } from "../utils/api";
 
+// Rota que faz o login do Administrador
 export async function LoginAdmin({
   email,
   password,
@@ -26,6 +27,7 @@ export async function LoginAdmin({
   }
 }
 
+// Rota que faz o logout do Administrador
 export async function LogoutAdmin(token: string) {
   if (!token) {
     throw new Error("O token é obrigatório para fazer o logout.");

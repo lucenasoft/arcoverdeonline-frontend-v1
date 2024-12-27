@@ -1,5 +1,6 @@
 import { apiRequest } from "@/utils/api";
 
+// Rota que cria o patrocinador
 export async function createSponsor({
   name,
   logo,
@@ -19,7 +20,7 @@ export async function createSponsor({
       },
       body: JSON.stringify({ name, logo, contact, url }),
     });
-
+    
     return res;
   } catch (error: any) {
     console.error("Erro ao criar patrocinador:", error.message);
@@ -27,6 +28,7 @@ export async function createSponsor({
   }
 }
 
+// Rota que mostra todos os patrocinadores
 export async function getAllSponsor() {
   try {
     const res = await apiRequest("/sponsor", {
@@ -35,11 +37,11 @@ export async function getAllSponsor() {
         "Content-Type": "application/json",
       },
     });
-
+    
     if (!Array.isArray(res)) {
       throw new Error("Erro ao listar patrocinadores.");
     }
-
+    
     return res;
   } catch (error: any) {
     console.error("Erro ao listar patrocinadores.", error.message || error);
@@ -49,11 +51,12 @@ export async function getAllSponsor() {
   }
 }
 
+// Rota que mostra o patrocinador selecionado pelo ID
 export async function getSponsorId(id: any) {
   if (!id) {
     throw new Error("O ID do patrocinador é obrigatório.");
   }
-
+  
   try {
     const res = await apiRequest(`/sponsor/${id}`, {
       method: "GET",
@@ -61,7 +64,7 @@ export async function getSponsorId(id: any) {
         "Content-Type": "application/json",
       },
     });
-
+    
     return res;
   } catch (error: any) {
     console.error(
@@ -74,6 +77,7 @@ export async function getSponsorId(id: any) {
   }
 }
 
+// Rota que faz atualização/edição do patrocinador selecionado pelo ID
 export async function updateSponsor(
   id: any,
   {
@@ -113,11 +117,12 @@ export async function updateSponsor(
   }
 }
 
+// Rota que deleta o patrocinador selecionado pelo ID
 export async function deleteSponsor(id: any) {
   if (!id) {
     throw new Error("O ID do patrocinador é obrigatório.");
   }
-
+  
   try {
     const res = await apiRequest(`/sponsor/${id}`, {
       method: "DELETE",
