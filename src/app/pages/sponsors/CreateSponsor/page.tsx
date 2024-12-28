@@ -1,8 +1,7 @@
 "use client";
 
 // CHAKRA UI
-import { Button, Fieldset, Input, Stack } from "@chakra-ui/react";
-import { Field } from "@/components/ui/field";
+import { Button, Stack } from "@chakra-ui/react";
 import { Alert } from "@/components/ui/alert";
 
 //SERVICES
@@ -11,11 +10,14 @@ import { createSponsor } from "@/services/sponsor";
 // HOOKS
 import { useState } from "react";
 
+// COMPONENTES
+import FormSponsor from "@/components/Form/FormSponsor";
+
 export default function CreateSponsor() {
-  const [name, setName] = useState("");
-  const [logo, setLogo] = useState("");
-  const [contact, setContact] = useState("");
-  const [url, setUrl] = useState("");
+  const [name, setName] = useState<string>("");
+  const [logo, setLogo] = useState<string>("");
+  const [contact, setContact] = useState<string>("");
+  const [url, setUrl] = useState<string>("");
 
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
@@ -54,86 +56,29 @@ export default function CreateSponsor() {
         onSubmit={handleSubmit}
         className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg"
       >
-        <Fieldset.Root size="lg" maxW="md">
-          <Stack>
-            <Fieldset.Legend className="text-2xl font-semibold text-green-700">
-              Criar Patrocinador
-            </Fieldset.Legend>
-            <Fieldset.HelperText className="text-sm text-gray-500">
-              Preencha os campos abaixo para criar um novo patrocinador.
-            </Fieldset.HelperText>
-          </Stack>
+        <FormSponsor
+          name={name}
+          setName={setName}
+          logo={logo}
+          setLogo={setLogo}
+          contact={contact}
+          setContact={setContact}
+          url={url}
+          setUrl={setUrl}
+        />
 
-          <Fieldset.Content>
-            <Field label="Nome">
-              <Input
-                name="name"
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-                border="1px solid #ddd"
-                placeholder="Insira o nome do patrocinador"
-                padding="1rem"
-                _placeholder={{ color: "gray.400" }}
-              />
-            </Field>
-
-            <Field label="Logo">
-              <Input
-                name="logo"
-                type="text"
-                value={logo}
-                onChange={(e) => setLogo(e.target.value)}
-                required
-                border="1px solid #ddd"
-                placeholder="Insira a logo do patrocinador"
-                padding="1rem"
-                _placeholder={{ color: "gray.400" }}
-              />
-            </Field>
-
-            <Field label="Contato">
-              <Input
-                name="contact"
-                type="text"
-                value={contact}
-                onChange={(e) => setContact(e.target.value)}
-                required
-                border="1px solid #ddd"
-                placeholder="Insira o contato do patrocinador"
-                padding="1rem"
-                _placeholder={{ color: "gray.400" }}
-              />
-            </Field>
-
-            <Field label="URL">
-              <Input
-                name="url"
-                type="text"
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
-                required
-                border="1px solid #ddd"
-                placeholder="Insira a URL do patrocinador"
-                padding="1rem"
-                _placeholder={{ color: "gray.400" }}
-              />
-            </Field>
-          </Fieldset.Content>
-          <Button
-            type="submit"
-            marginTop="1rem"
-            width="full"
-            variant="solid"
-            colorScheme="green"
-            className="transition-all hover:opacity-80"
-            border="1px solid green"
-            color="green.700"
-          >
-            Criar Patrocinador
-          </Button>
-        </Fieldset.Root>
+        <Button
+          type="submit"
+          marginTop="1rem"
+          width="full"
+          variant="solid"
+          colorScheme="green"
+          className="transition-all hover:opacity-80"
+          border="1px solid green"
+          color="green.700"
+        >
+          Criar patrocinador
+        </Button>
 
         <Stack marginTop="1rem">
           {success && (

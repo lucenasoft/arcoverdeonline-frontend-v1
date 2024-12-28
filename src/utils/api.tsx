@@ -1,5 +1,6 @@
 const BASE_URL = "http://localhost:3000";
 
+// funcao que faz o fetch das rotas
 export async function apiRequest(endpoint: string, options = {}) {
   const res = await fetch(`${BASE_URL}${endpoint}`, options);
 
