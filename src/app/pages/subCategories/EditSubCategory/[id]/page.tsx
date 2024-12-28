@@ -2,16 +2,6 @@
 
 // CHAKRA UI
 import { Button } from "@chakra-ui/react";
-import {
-  DialogActionTrigger,
-  DialogCloseTrigger,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogRoot,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 
 // HOOKS
 import { useParams } from "next/navigation";
@@ -24,7 +14,10 @@ import {
   deleteSubCategory,
 } from "@/services/subCategory";
 import { useGetCategory } from "@/hooks/useGetCategory";
+
+// COMPONENTES
 import FormSubCategory from "@/components/Form/FormSubCategory";
+import DialogFormEdit from "@/components/DialogFormEdit/DialogFormEdit";
 
 export default function EditSubCategory() {
   const { id } = useParams();
@@ -93,7 +86,6 @@ export default function EditSubCategory() {
   return (
     <div className="flex items-center justify-center flex-col py-28 bg-white">
       <form className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg">
-        
         <FormSubCategory
           handleChange={handleChange}
           name={name}
@@ -102,67 +94,8 @@ export default function EditSubCategory() {
           categories={categories}
         />
 
-        <div className="flex justify-between gap-4 mt-4">
-          <DialogRoot role="alertdialog" placement="center">
-            <DialogTrigger asChild>
-              <Button
-                variant="outline"
-                size="sm"
-                border="1px solid green"
-                width="48%"
-                color="green"
-              >
-                Editar
-              </Button>
-            </DialogTrigger>
-            <DialogContent backgroundColor="white">
-              <DialogHeader>
-                <DialogTitle>
-                  Tem certeza que deseja editar esta sub-categoria?
-                </DialogTitle>
-              </DialogHeader>
-              <DialogFooter>
-                <DialogActionTrigger asChild>
-                  <Button variant="outline">Cancelar</Button>
-                </DialogActionTrigger>
-                <Button color="green" onClick={handleEdit}>
-                  Editar
-                </Button>
-              </DialogFooter>
-              <DialogCloseTrigger />
-            </DialogContent>
-          </DialogRoot>
+        <DialogFormEdit handleEdit={handleEdit} handleDelete={handleDelete} />
 
-          <DialogRoot role="alertdialog" placement="center">
-            <DialogTrigger asChild>
-              <Button
-                variant="outline"
-                size="sm"
-                border="1px solid red"
-                width="48%"
-                color="red"
-              >
-                Apagar
-              </Button>
-            </DialogTrigger>
-            <DialogContent backgroundColor="white">
-              <DialogHeader>
-                <DialogTitle>
-                  Tem certeza que deseja apagar esta sub-categoria?
-                </DialogTitle>
-              </DialogHeader>
-              <DialogFooter>
-                <DialogActionTrigger asChild>
-                  <Button variant="outline">Cancelar</Button>
-                </DialogActionTrigger>
-                <Button color="red" onClick={handleDelete}>
-                  Apagar
-                </Button>
-              </DialogFooter>
-              <DialogCloseTrigger />
-            </DialogContent>
-          </DialogRoot>
-        </div>
         <Button
           size="sm"
           type="submit"

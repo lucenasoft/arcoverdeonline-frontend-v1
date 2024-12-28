@@ -1,18 +1,7 @@
 "use client";
 
 // CHAKRA UI
-import { Button, Fieldset, Input, Stack } from "@chakra-ui/react";
-import { Field } from "@/components/ui/field";
-import {
-  DialogActionTrigger,
-  DialogCloseTrigger,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogRoot,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Button } from "@chakra-ui/react";
 
 // HOOKS
 import { useParams } from "next/navigation";
@@ -20,7 +9,10 @@ import { useEffect, useState } from "react";
 
 // SERVICES
 import { deleteSponsor, getSponsorId, updateSponsor } from "@/services/sponsor";
+
+// COMPONENTES
 import FormSponsor from "@/components/Form/FormSponsor";
+import DialogFormEdit from "@/components/DialogFormEdit/DialogFormEdit";
 
 export default function EditSponsor() {
   const { id } = useParams();
@@ -100,67 +92,8 @@ export default function EditSponsor() {
           setUrl={setUrl}
         />
 
-        <div className="flex justify-between gap-4 mt-4">
-          <DialogRoot role="alertdialog" placement="center">
-            <DialogTrigger asChild>
-              <Button
-                variant="outline"
-                size="sm"
-                border="1px solid green"
-                width="48%"
-                color="green"
-              >
-                Editar
-              </Button>
-            </DialogTrigger>
-            <DialogContent backgroundColor="white">
-              <DialogHeader>
-                <DialogTitle>
-                  Tem certeza que deseja editar este patrocinador?
-                </DialogTitle>
-              </DialogHeader>
-              <DialogFooter>
-                <DialogActionTrigger asChild>
-                  <Button variant="outline">Cancelar</Button>
-                </DialogActionTrigger>
-                <Button color="green" onClick={handleEdit}>
-                  Editar
-                </Button>
-              </DialogFooter>
-              <DialogCloseTrigger />
-            </DialogContent>
-          </DialogRoot>
+        <DialogFormEdit handleEdit={handleEdit} handleDelete={handleDelete} />
 
-          <DialogRoot role="alertdialog" placement="center">
-            <DialogTrigger asChild>
-              <Button
-                variant="outline"
-                size="sm"
-                border="1px solid red"
-                width="48%"
-                color="red"
-              >
-                Apagar
-              </Button>
-            </DialogTrigger>
-            <DialogContent backgroundColor="white">
-              <DialogHeader>
-                <DialogTitle>
-                  Tem certeza que deseja apagar este patrocinador?
-                </DialogTitle>
-              </DialogHeader>
-              <DialogFooter>
-                <DialogActionTrigger asChild>
-                  <Button variant="outline">Cancelar</Button>
-                </DialogActionTrigger>
-                <Button color="red" onClick={handleDelete}>
-                  Apagar
-                </Button>
-              </DialogFooter>
-              <DialogCloseTrigger />
-            </DialogContent>
-          </DialogRoot>
-        </div>
         <Button
           size="sm"
           type="submit"
