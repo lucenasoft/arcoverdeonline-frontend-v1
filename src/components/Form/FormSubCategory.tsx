@@ -24,7 +24,8 @@ const FormSubCategory = ({
       currentSubTitle = "Preencha os campos abaixo para criar a Sub-Categoria.";
     } else if (pathname.startsWith("/pages/subCategories/EditSubCategory")) {
       currentTitle = "Editar Sub-Categoria";
-      currentSubTitle = "Preencha os campos abaixo para editar a Sub-Categoria.";
+      currentSubTitle =
+        "Preencha os campos abaixo para editar a Sub-Categoria.";
     }
 
     setTitleForm(currentTitle);
@@ -55,6 +56,7 @@ const FormSubCategory = ({
               placeholder="Insira a sub-categoria"
               padding="1rem"
               _placeholder={{ color: "gray.400" }}
+              className="focus:ring focus:ring-gray-600"
             />
           </Field>
 
@@ -68,7 +70,8 @@ const FormSubCategory = ({
             id="category-select"
             value={categoryId}
             onChange={handleChange}
-            className="w-full mt-2 p-3 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none text-gray-700"
+            className="w-full mt-2 p-3 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none text-gray-700 focus:ring focus:ring-gray-600"
+            required
           >
             <option value="">Selecione a categoria</option>
             {categories.map((categ: any) => (

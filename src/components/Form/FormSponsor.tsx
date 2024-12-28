@@ -60,6 +60,7 @@ const FormSponsor = ({
               placeholder="Insira o nome do patrocinador"
               padding="1rem"
               _placeholder={{ color: "gray.400" }}
+              className="focus:ring focus:ring-gray-600"
             />
           </Field>
 
@@ -74,6 +75,7 @@ const FormSponsor = ({
               placeholder="Insira a logo do patrocinador"
               padding="1rem"
               _placeholder={{ color: "gray.400" }}
+              className="focus:ring focus:ring-gray-600"
             />
           </Field>
 
@@ -88,6 +90,7 @@ const FormSponsor = ({
               placeholder="Insira o contato do patrocinador"
               padding="1rem"
               _placeholder={{ color: "gray.400" }}
+              className="focus:ring focus:ring-gray-600"
             />
           </Field>
 
@@ -102,6 +105,7 @@ const FormSponsor = ({
               placeholder="Insira a URL do patrocinador"
               padding="1rem"
               _placeholder={{ color: "gray.400" }}
+              className="focus:ring focus:ring-gray-600"
             />
           </Field>
         </Fieldset.Content>

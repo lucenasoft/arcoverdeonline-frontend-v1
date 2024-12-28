@@ -57,6 +57,7 @@ const FormPost = ({
               placeholder="Insira o título"
               padding="1rem"
               _placeholder={{ color: "gray.400" }}
+              className="focus:ring focus:ring-gray-600"
             />
           </Field>
 
@@ -71,6 +72,7 @@ const FormPost = ({
               placeholder="Insira o link do PDF"
               padding="1rem"
               _placeholder={{ color: "gray.400" }}
+              className="focus:ring focus:ring-gray-600"
             />
           </Field>
 
@@ -84,7 +86,8 @@ const FormPost = ({
             id="sub-category-select"
             value={subCategoryId}
             onChange={handleChange}
-            className="w-full mt-2 p-3 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none text-gray-700"
+            className="w-full mt-2 p-3 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none text-gray-700 focus:ring focus:ring-gray-600"
+            required
           >
             <option value="">Selecione uma sub-categoria</option>
             {subCategories.map((categ:any) => (

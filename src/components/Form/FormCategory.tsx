@@ -49,6 +49,7 @@ const FormCategory = ({ name, setName }: any) => {
               placeholder="Insira o nome da categoria"
               padding="1rem"
               _placeholder={{ color: "gray.400" }}
+              className="focus:ring focus:ring-gray-600"
             />
           </Field>
         </Fieldset.Content>
