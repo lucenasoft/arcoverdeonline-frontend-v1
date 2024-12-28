@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Fieldset, Input, Stack } from "@chakra-ui/react";
+import { Fieldset, Input, Stack } from "@chakra-ui/react";
 import { Field } from "@/components/ui/field";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
