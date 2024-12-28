@@ -11,6 +11,7 @@ import { createPost } from "@/services/post";
 // HOOKS
 import { useState } from "react";
 import { useGetSubCategory } from "@/hooks/useGetSubCategory";
+import FormPost from "@/components/Form/FormPost";
 
 export default function CreatePost() {
   const [title, setTitle] = useState("");
@@ -53,88 +54,32 @@ export default function CreatePost() {
         onSubmit={handleSubmit}
         className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg"
       >
-        <Fieldset.Root size="lg" maxW="md">
-          <Stack>
-            <Fieldset.Legend className="text-2xl font-semibold text-green-700">
-              Criar Publicação
-            </Fieldset.Legend>
-            <Fieldset.HelperText className="text-sm text-gray-500">
-              Preencha os campos abaixo para criar uma nova publicação.
-            </Fieldset.HelperText>
-          </Stack>
+        <FormPost
+          handleChange={handleChange}
+          title={title}
+          setTitle={setTitle}
+          pdf={pdf}
+          setPdf={setPdf}
+          subCategoryId={subCategoryId}
+          subCategories={subCategories}
+        />
 
-          <Fieldset.Content>
-            <Field label="Título">
-              <Input
-                name="title"
-                type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                required
-                border="1px solid #ddd"
-                placeholder="Insira o título"
-                padding="1rem"
-                _placeholder={{ color: "gray.400" }}
-              />
-            </Field>
-
-            <Field label="PDF">
-              <Input
-                name="pdf"
-                type="text"
-                value={pdf}
-                onChange={(e) => setPdf(e.target.value)}
-                required
-                border="1px solid #ddd"
-                placeholder="Insira o link do PDF"
-                padding="1rem"
-                _placeholder={{ color: "gray.400" }}
-              />
-            </Field>
-
-            <label
-              className="text-sm font-medium text-gray-700 -mb-4"
-              htmlFor="sub-category-select"
-            >
-              Selecione uma Sub-Categoria
-            </label>
-            <select
-              id="sub-category-select"
-              onChange={handleChange}
-              value={subCategoryId}
-              className="w-full mt-2 p-3 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 text-gray-700"
-            >
-              <option value="">
-                Escolha uma sub-categoria
-              </option>
-              {subCategories.map((categ) => (
-                <option key={categ.id} value={categ.id}>
-                  {categ.name}
-                </option>
-              ))}
-            </select>
-          </Fieldset.Content>
-
-          <Button
-            type="submit"
-            marginTop="1rem"
-            width="full"
-            variant="solid"
-            colorScheme="green"
-            className="transition-all hover:opacity-80"
-            border="1px solid green"
-            color="green.700"
-          >
-            Criar Publicação
-          </Button>
-        </Fieldset.Root>
+        <Button
+          type="submit"
+          marginTop="1rem"
+          width="full"
+          variant="solid"
+          colorScheme="green"
+          className="transition-all hover:opacity-80"
+          border="1px solid green"
+          color="green.700"
+        >
+          Criar Publicação
+        </Button>
 
         <Stack marginTop="1rem">
           {success && (
-            <Alert
-              status="success"
-              title="Publicação criada com sucesso!"
-            />
+            <Alert status="success" title="Publicação criada com sucesso!" />
           )}
           {error && (
             <Alert

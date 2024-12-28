@@ -11,6 +11,7 @@ import { createSubCategory } from "@/services/subCategory";
 // HOOKS
 import { useState } from "react";
 import { useGetCategory } from "@/hooks/useGetCategory";
+import FormSubCategory from "@/components/Form/FormSubCategory";
 
 export default function CreateSubCategory() {
   const [name, setName] = useState("");
@@ -51,67 +52,26 @@ export default function CreateSubCategory() {
         onSubmit={handleSubmit}
         className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg"
       >
-        <Fieldset.Root size="lg" maxW="md">
-          <Stack>
-            <Fieldset.Legend className="text-2xl font-semibold text-green-700">
-              Criar Sub-Categoria
-            </Fieldset.Legend>
-            <Fieldset.HelperText className="text-sm text-gray-500">
-              Preencha os campos abaixo para criar uma nova sub-categoria.
-            </Fieldset.HelperText>
-          </Stack>
+        <FormSubCategory
+          handleChange={handleChange}
+          name={name}
+          setName={setName}
+          categoryId={categoryId}
+          categories={categories}
+        />
 
-          <Fieldset.Content>
-            <Field label="Nome">
-              <Input
-                name="namr"
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-                border="1px solid #ddd"
-                placeholder="Insira a sub-categoria"
-                padding="1rem"
-                _placeholder={{ color: "gray.400" }}
-              />
-            </Field>
-
-            <label
-              className="text-sm font-medium text-gray-700 -mb-4"
-              htmlFor="category-select"
-            >
-              Selecione uma categoria
-            </label>
-            <select
-              id="category-select"
-              onChange={handleChange}
-              value={categoryId}
-              className="w-full mt-2 p-3 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 text-gray-700"
-            >
-              <option value="">
-                Selecione a categoria
-              </option>
-              {categories.map((categ) => (
-                <option key={categ.id} value={categ.id}>
-                  {categ.name}
-                </option>
-              ))}
-            </select>
-          </Fieldset.Content>
-
-          <Button
-            type="submit"
-            marginTop="1rem"
-            width="full"
-            variant="solid"
-            colorScheme="green"
-            className="transition-all hover:opacity-80"
-            border="1px solid green"
-            color="green.700"
-          >
-            Criar Sub-Categoria
-          </Button>
-        </Fieldset.Root>
+        <Button
+          type="submit"
+          marginTop="1rem"
+          width="full"
+          variant="solid"
+          colorScheme="green"
+          className="transition-all hover:opacity-80"
+          border="1px solid green"
+          color="green.700"
+        >
+          Criar Sub-Categoria
+        </Button>
 
         <Stack marginTop="1rem">
           {success && (

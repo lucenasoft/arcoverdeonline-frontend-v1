@@ -3,7 +3,7 @@ import { Field } from "@/components/ui/field";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
-const FormCategory = ({ name, setName }: { name: string; setName: any }) => {
+const FormCategory = ({ name, setName }: any) => {
   const pathname = usePathname();
   const [title, setTitle] = useState("");
   const [subTitle, setSubTitle] = useState("");

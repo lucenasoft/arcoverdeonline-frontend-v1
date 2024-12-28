@@ -14,16 +14,7 @@ const FormSponsor = ({
   setContact,
   url,
   setUrl,
-}: {
-  name: string;
-  setName: any;
-  logo: string;
-  setLogo: any;
-  contact: string;
-  setContact: any;
-  url: string;
-  setUrl: any;
-}) => {
+}: any) => {
   const pathname = usePathname();
   const [title, setTitle] = useState("");
   const [subTitle, setSubTitle] = useState("");
