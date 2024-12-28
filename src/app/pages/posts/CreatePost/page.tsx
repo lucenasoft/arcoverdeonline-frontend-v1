@@ -1,8 +1,7 @@
 "use client";
 
 // CHAKRA UI
-import { Button, Fieldset, Input, Stack } from "@chakra-ui/react";
-import { Field } from "@/components/ui/field";
+import { Stack } from "@chakra-ui/react";
 import { Alert } from "@/components/ui/alert";
 
 // SERVICES
@@ -11,7 +10,10 @@ import { createPost } from "@/services/post";
 // HOOKS
 import { useState } from "react";
 import { useGetSubCategory } from "@/hooks/useGetSubCategory";
+
+// COMPONENTES
 import FormPost from "@/components/Form/FormPost";
+import ButtonFormCreate from "@/components/ButtonFormCreate/ButtonFormCreate";
 
 export default function CreatePost() {
   const [title, setTitle] = useState("");
@@ -64,18 +66,7 @@ export default function CreatePost() {
           subCategories={subCategories}
         />
 
-        <Button
-          type="submit"
-          marginTop="1rem"
-          width="full"
-          variant="solid"
-          colorScheme="green"
-          className="transition-all hover:opacity-80"
-          border="1px solid green"
-          color="green.700"
-        >
-          Criar Publicação
-        </Button>
+        <ButtonFormCreate />
 
         <Stack marginTop="1rem">
           {success && (

@@ -1,8 +1,7 @@
 "use client";
 
 // CHAKRA UI
-import { Button, Fieldset, Input, Stack } from "@chakra-ui/react";
-import { Field } from "@/components/ui/field";
+import { Stack } from "@chakra-ui/react";
 import { Alert } from "@/components/ui/alert";
 
 // SERVICES
@@ -10,7 +9,10 @@ import { createCategory } from "@/services/category";
 
 // HOOKS
 import { useState } from "react";
+
+// COMPONENTES
 import FormCategory from "@/components/Form/FormCategory";
+import ButtonFormCreate from "@/components/ButtonFormCreate/ButtonFormCreate";
 
 export default function CreateCategory() {
   const [name, setName] = useState("");
@@ -47,18 +49,7 @@ export default function CreateCategory() {
       >
         <FormCategory name={name} setName={setName} />
 
-        <Button
-          type="submit"
-          marginTop="1rem"
-          width="full"
-          variant="solid"
-          colorScheme="green"
-          className="transition-all hover:opacity-80"
-          border="1px solid green"
-          color="green.700"
-        >
-          Criar Categoria
-        </Button>
+        <ButtonFormCreate/>
 
         <Stack marginTop="1rem">
           {success && (

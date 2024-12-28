@@ -1,8 +1,7 @@
 "use client";
 
 // CHAKRA UI
-import { Button, Fieldset, Input, Stack } from "@chakra-ui/react";
-import { Field } from "@/components/ui/field";
+import { Stack } from "@chakra-ui/react";
 import { Alert } from "@/components/ui/alert";
 
 //SERVICES
@@ -11,7 +10,10 @@ import { createSubCategory } from "@/services/subCategory";
 // HOOKS
 import { useState } from "react";
 import { useGetCategory } from "@/hooks/useGetCategory";
+
+// COMPONENTES
 import FormSubCategory from "@/components/Form/FormSubCategory";
+import ButtonFormCreate from "@/components/ButtonFormCreate/ButtonFormCreate";
 
 export default function CreateSubCategory() {
   const [name, setName] = useState("");
@@ -60,18 +62,7 @@ export default function CreateSubCategory() {
           categories={categories}
         />
 
-        <Button
-          type="submit"
-          marginTop="1rem"
-          width="full"
-          variant="solid"
-          colorScheme="green"
-          className="transition-all hover:opacity-80"
-          border="1px solid green"
-          color="green.700"
-        >
-          Criar Sub-Categoria
-        </Button>
+        <ButtonFormCreate />
 
         <Stack marginTop="1rem">
           {success && (

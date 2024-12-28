@@ -1,7 +1,7 @@
 "use client";
 
 // CHAKRA UI
-import { Button, Stack } from "@chakra-ui/react";
+import { Stack } from "@chakra-ui/react";
 import { Alert } from "@/components/ui/alert";
 
 //SERVICES
@@ -12,6 +12,7 @@ import { useState } from "react";
 
 // COMPONENTES
 import FormSponsor from "@/components/Form/FormSponsor";
+import ButtonFormCreate from "@/components/ButtonFormCreate/ButtonFormCreate";
 
 export default function CreateSponsor() {
   const [name, setName] = useState<string>("");
@@ -67,18 +68,7 @@ export default function CreateSponsor() {
           setUrl={setUrl}
         />
 
-        <Button
-          type="submit"
-          marginTop="1rem"
-          width="full"
-          variant="solid"
-          colorScheme="green"
-          className="transition-all hover:opacity-80"
-          border="1px solid green"
-          color="green.700"
-        >
-          Criar patrocinador
-        </Button>
+        <ButtonFormCreate />
 
         <Stack marginTop="1rem">
           {success && (
