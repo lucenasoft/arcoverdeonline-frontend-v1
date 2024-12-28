@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Link from "next/link";
 import { Button, HStack } from "@chakra-ui/react";
@@ -43,7 +43,7 @@ const Sidebar: React.FC = () => {
           </HStack>
         </div>
 
-        <div className="flex flex-col pt-10 pb-44 px-4 gap-4">
+        <div className="flex flex-col pt-10 px-4 gap-4">
           <Link href="/">
             <Button
               type="submit"
@@ -113,9 +113,65 @@ const Sidebar: React.FC = () => {
               Criar Patrocinador
             </Button>
           </Link>
+
+          <Link href="/pages/categories/AllCategory">
+            <Button
+              type="submit"
+              width="full"
+              variant="solid"
+              colorScheme="green"
+              className="transition-all hover:opacity-80"
+              color="white"
+              backgroundColor="green.700"
+            >
+              Editar Categorias
+            </Button>
+          </Link>
+
+          <Link href="/pages/subCategories/AllSubCategory">
+            <Button
+              type="submit"
+              width="full"
+              variant="solid"
+              colorScheme="green"
+              className="transition-all hover:opacity-80"
+              color="white"
+              backgroundColor="green.700"
+            >
+              Editar Sub-Categorias
+            </Button>
+          </Link>
+
+          <Link href="/pages/posts/AllPost">
+            <Button
+              type="submit"
+              width="full"
+              variant="solid"
+              colorScheme="green"
+              className="transition-all hover:opacity-80"
+              color="white"
+              backgroundColor="green.700"
+            >
+              Editar Publicações
+            </Button>
+          </Link>
+
+          <Link href="/pages/sponsors/AllSponsor">
+            <Button
+              type="submit"
+              width="full"
+              variant="solid"
+              colorScheme="green"
+              className="transition-all hover:opacity-80"
+              color="white"
+              backgroundColor="green.700"
+            >
+              Editar Patrocinadores
+            </Button>
+          </Link>
         </div>
 
-        <footer className="flex flex-col pt-64 px-4 gap-4">
+        <footer className="flex flex-col pt-48 px-4 gap-4">
           <Button
             type="submit"
             width="full"

@@ -38,7 +38,7 @@ export default function EditSubCategory() {
         const data = await getSubCategoryId(id);
         setSubCategory(data);
         setName(data.name);
-        setCategoryId(data.subCategoryId);
+        setCategoryId(data.categoryId);
       } catch (error: any) {
         setError("Erro ao buscar a sub-categoria, tente novamente mais tarde.");
       } finally {
@@ -54,7 +54,7 @@ export default function EditSubCategory() {
 
     try {
       await updateSubCategory(id, { name, categoryId });
-      window.location.href = `/`;
+      window.location.href = "/pages/subCategories/AllSubCategory";
     } catch (error: any) {
       setError(
         "Erro ao atualizar a sub-categoria, tente novamente mais tarde."
@@ -65,7 +65,7 @@ export default function EditSubCategory() {
   const handleDelete = async () => {
     try {
       await deleteSubCategory(id);
-      window.location.href = "/";
+      window.location.href = "/pages/subCategories/AllSubCategory";
     } catch (error) {
       setError("Erro ao excluir a sub-categoria, tente novamente mais tarde.");
     }
@@ -73,7 +73,7 @@ export default function EditSubCategory() {
 
   const handleRedirect = async (e: any) => {
     e.preventDefault();
-    window.location.href = `/`;
+    window.location.href = "/pages/subCategories/AllSubCategory";
   };
 
   if (loading) return <p className="flex justify-center pt-8">Carregando...</p>;

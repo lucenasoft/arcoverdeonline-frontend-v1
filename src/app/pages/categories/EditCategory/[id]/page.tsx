@@ -47,7 +47,7 @@ export default function EditCategory() {
     e.preventDefault();
     try {
       await updateCategory(id, { name });
-      window.location.href = `/`;
+      window.location.href = "/pages/categories/AllCategory";
     } catch (error: any) {
       setError("Erro ao atualizar a categoria, tente novamente mais tarde.");
     }
@@ -56,7 +56,7 @@ export default function EditCategory() {
   const handleDelete = async () => {
     try {
       await deleteCategory(id);
-      window.location.href = "/";
+      window.location.href = "/pages/categories/AllCategory";
     } catch (error) {
       setError("Erro ao excluir a categoria, tente novamente mais tarde.");
     }
@@ -64,7 +64,7 @@ export default function EditCategory() {
 
   const handleRedirect = async (e: any) => {
     e.preventDefault();
-    window.location.href = `/`;
+    window.location.href = "/pages/categories/AllCategory";
   };
 
   if (loading) return <p className="flex justify-center pt-8">Carregando...</p>;

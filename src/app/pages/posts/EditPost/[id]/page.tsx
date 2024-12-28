@@ -50,7 +50,7 @@ export default function EditPost() {
   const handleEdit = async () => {
     try {
       await updatePost(id, { title, pdf, subCategoryId });
-      window.location.href = `/`;
+      window.location.href = "/pages/posts/AllPost";
     } catch {
       setError("Erro ao atualizar a publicação. Tente novamente.");
     }
@@ -59,7 +59,7 @@ export default function EditPost() {
   const handleDelete = async () => {
     try {
       await deletePost(id);
-      window.location.href = "/";
+      window.location.href = "/pages/posts/AllPost";
     } catch {
       setError("Erro ao excluir a publicação. Tente novamente.");
     }
@@ -67,7 +67,7 @@ export default function EditPost() {
 
   const handleRedirect = async (e: any) => {
     e.preventDefault();
-    window.location.href = `/`;
+    window.location.href = "/pages/posts/AllPost";
   };
 
   if (loading) return <p className="flex justify-center pt-8">Carregando...</p>;

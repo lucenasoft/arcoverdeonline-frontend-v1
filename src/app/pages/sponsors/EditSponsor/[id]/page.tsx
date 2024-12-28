@@ -51,7 +51,7 @@ export default function EditSponsor() {
 
     try {
       await updateSponsor(id, { name, logo, contact, url });
-      window.location.href = `/`;
+      window.location.href = "/pages/sponsors/AllSponsor";
     } catch (error: any) {
       setError("Erro ao atualizar o patrocinador, tente novamente mais tarde.");
     }
@@ -60,7 +60,7 @@ export default function EditSponsor() {
   const handleDelete = async () => {
     try {
       await deleteSponsor(id);
-      window.location.href = "/";
+      window.location.href = "/pages/sponsors/AllSponsor";
     } catch (error) {
       setError("Erro ao excluir o patrocinador, tente novamente mais tarde.");
     }
@@ -68,7 +68,7 @@ export default function EditSponsor() {
 
   const handleRedirect = async (e: any) => {
     e.preventDefault();
-    window.location.href = `/`;
+    window.location.href = "/pages/sponsors/AllSponsor";
   };
 
   if (loading) return <p className="flex justify-center pt-8">Carregando...</p>;

@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
 const FormSubCategory = ({
+  handleChange,
   name,
   setName,
   categoryId,
-  handleChange,
   categories,
 }: any) => {
   const pathname = usePathname();

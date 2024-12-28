@@ -1,5 +1,6 @@
 "use client";
 
+// COMPONENTE DO CARROSEL
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -7,12 +8,17 @@ import "swiper/css/pagination";
 import "swiper/css/autoplay";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
+// COMPONENTE CHAKRA
+import { Button } from "@chakra-ui/react";
+
+// HOOKS
+import Link from "next/link";
 import { useEffect, useState } from "react";
+
+// SERVICES
 import { getAllCategory } from "@/services/category";
 import { getAllSponsor } from "@/services/sponsor";
 
-import { Button } from "@chakra-ui/react";
-import Link from "next/link";
 
 export default function Home() {
   const [categories, setCategories] = useState<any[]>([]);
@@ -62,25 +68,25 @@ export default function Home() {
           slidesPerView={1}
           className="rounded-lg shadow-lg overflow-hidden"
         >
-          {sponsors.map((item) => (
-            <SwiperSlide key={item.id} className="bg-white">
-              <div className="carousel-item flex flex-col items-center text-center p-6">
+          {sponsors.map((sponsor) => (
+            <SwiperSlide key={sponsor.id} className="bg-white">
+              <div className="carousel-item flex flex-col items-center text-center rounded-md p-6">
                 <img
-                  src={item.logo}
-                  alt={item.name}
-                  className="h-32 w-auto object-contain mb-4"
+                  src={sponsor.logo}
+                  alt={sponsor.name}
+                  className="relative h-full w-full object-contain mb-4 rounded-md"
                 />
                 <h3 className="text-green-700 text-lg font-semibold">
-                  {item.name}
+                  {sponsor.name}
                 </h3>
-                <p className="text-gray-600">{item.contact}</p>
+                <p className="text-gray-600">{sponsor.contact}</p>
                 <a
-                  href={item.url}
+                  href={sponsor.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-green-500 underline mt-2"
                 >
-                  {item.url}
+                  {sponsor.url}
                 </a>
               </div>
             </SwiperSlide>
@@ -92,14 +98,13 @@ export default function Home() {
         <h2 className="text-center text-2xl font-bold text-green-700 mb-8">
           Categorias
         </h2>
-        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-center">
           {categories.length > 0 &&
             [...categories].reverse().map((categ) => (
               <li key={categ.id}>
                 <Link href={`/pages/categories/CategoryId/${categ.id}`}>
                   <Button
-                    variant="outline"
-                    className="w-full bg-green-700 text-white font-semibold rounded-lg shadow-lg hover:bg-green-600 transition"
+                    className="w-full md:w-10/12 bg-green-700 text-white font-semibold rounded-lg shadow-lg hover:bg-green-600 transition"
                   >
                     {categ.name}
                   </Button>
