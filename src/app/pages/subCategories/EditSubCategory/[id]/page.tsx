@@ -1,8 +1,5 @@
 "use client";
 
-// CHAKRA UI
-import { Button } from "@chakra-ui/react";
-
 // HOOKS
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -11,13 +8,12 @@ import { useEffect, useState } from "react";
 import {
   getSubCategoryId,
   updateSubCategory,
-  deleteSubCategory,
 } from "@/services/subCategory";
 import { useGetCategory } from "@/hooks/useGetCategory";
 
 // COMPONENTES
 import FormSubCategory from "@/components/Form/FormSubCategory";
-import DialogFormEdit from "@/components/DialogFormEdit/DialogFormEdit";
+import DialogFormEdit from "@/components/DialogForm/DialogFormEdit";
 
 export default function EditSubCategory() {
   const { id } = useParams();
@@ -62,20 +58,6 @@ export default function EditSubCategory() {
     }
   };
 
-  const handleDelete = async () => {
-    try {
-      await deleteSubCategory(id);
-      window.location.href = "/pages/subCategories/AllSubCategory";
-    } catch (error) {
-      setError("Erro ao excluir a sub-categoria, tente novamente mais tarde.");
-    }
-  };
-
-  const handleRedirect = async (e: any) => {
-    e.preventDefault();
-    window.location.href = "/pages/subCategories/AllSubCategory";
-  };
-
   if (loading) return <p className="flex justify-center pt-8">Carregando...</p>;
   if (error) return <p className="flex justify-center pt-8">{error}</p>;
   if (!subCategory)
@@ -94,21 +76,7 @@ export default function EditSubCategory() {
           categories={categories}
         />
 
-        <DialogFormEdit handleEdit={handleEdit} handleDelete={handleDelete} />
-
-        <Button
-          size="sm"
-          type="submit"
-          alignSelf="flex-start"
-          width="48%"
-          variant="solid"
-          color="gray"
-          border="1px solid gray"
-          marginTop="1rem"
-          onClick={handleRedirect}
-        >
-          Voltar
-        </Button>
+        <DialogFormEdit handleEdit={handleEdit} />
       </form>
     </div>
   );

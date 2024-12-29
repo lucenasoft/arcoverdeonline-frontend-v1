@@ -1,19 +1,16 @@
 "use client";
 
-// CHAKRA UI
-import { Button } from "@chakra-ui/react";
-
 // HOOKS
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 // SERVICES
-import { getPostId, updatePost, deletePost } from "@/services/post";
+import { getPostId, updatePost } from "@/services/post";
 import { useGetSubCategory } from "@/hooks/useGetSubCategory";
 
 // COMPONENTES
 import FormPost from "@/components/Form/FormPost";
-import DialogFormEdit from "@/components/DialogFormEdit/DialogFormEdit";
+import DialogFormEdit from "@/components/DialogForm/DialogFormEdit";
 
 export default function EditPost() {
   const { id } = useParams();
@@ -56,20 +53,6 @@ export default function EditPost() {
     }
   };
 
-  const handleDelete = async () => {
-    try {
-      await deletePost(id);
-      window.location.href = "/pages/posts/AllPost";
-    } catch {
-      setError("Erro ao excluir a publicação. Tente novamente.");
-    }
-  };
-
-  const handleRedirect = async (e: any) => {
-    e.preventDefault();
-    window.location.href = "/pages/posts/AllPost";
-  };
-
   if (loading) return <p className="flex justify-center pt-8">Carregando...</p>;
   if (error) return <p className="flex justify-center pt-8">{error}</p>;
   if (!post)
@@ -90,21 +73,7 @@ export default function EditPost() {
           subCategories={subCategories}
         />
 
-        <DialogFormEdit handleEdit={handleEdit} handleDelete={handleDelete} />
-
-        <Button
-          size="sm"
-          type="submit"
-          alignSelf="flex-start"
-          width="48%"
-          variant="solid"
-          color="gray"
-          border="1px solid gray"
-          marginTop="1rem"
-          onClick={handleRedirect}
-        >
-          Voltar
-        </Button>
+        <DialogFormEdit handleEdit={handleEdit} />
       </form>
     </div>
   );

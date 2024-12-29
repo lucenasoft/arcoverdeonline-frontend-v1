@@ -12,7 +12,7 @@ import {
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
-const DialogFormEdit = ({ handleEdit, handleDelete }: any) => {
+const DialogFormDelete = ({ handleDelete }: any) => {
   const pathname = usePathname();
   const [name, setName] = useState("");
 
@@ -34,36 +34,17 @@ const DialogFormEdit = ({ handleEdit, handleDelete }: any) => {
     setName(currentEdit);
   }, [pathname]);
 
+  const handleDelete = async () => {
+    try {
+      await deletePost(id);
+      window.location.href = "/pages/posts/AllPost";
+    } catch {
+      setError("Erro ao excluir a publicação. Tente novamente.");
+    }
+  };
+
   return (
     <div className="flex justify-between gap-4 mt-4">
-      <DialogRoot role="alertdialog" placement="center">
-        <DialogTrigger asChild>
-          <Button
-            variant="outline"
-            size="sm"
-            border="1px solid green"
-            width="48%"
-            color="green"
-          >
-            Editar
-          </Button>
-        </DialogTrigger>
-        <DialogContent backgroundColor="white">
-          <DialogHeader>
-            <DialogTitle>Tem certeza que deseja editar {name}?</DialogTitle>
-          </DialogHeader>
-          <DialogFooter>
-            <DialogActionTrigger asChild>
-              <Button variant="outline">Cancelar</Button>
-            </DialogActionTrigger>
-            <Button color="green" onClick={handleEdit}>
-              Editar
-            </Button>
-          </DialogFooter>
-          <DialogCloseTrigger />
-        </DialogContent>
-      </DialogRoot>
-
       <DialogRoot role="alertdialog" placement="center">
         <DialogTrigger asChild>
           <Button
@@ -95,4 +76,4 @@ const DialogFormEdit = ({ handleEdit, handleDelete }: any) => {
   );
 };
 
-export default DialogFormEdit;
+export default DialogFormDelete;

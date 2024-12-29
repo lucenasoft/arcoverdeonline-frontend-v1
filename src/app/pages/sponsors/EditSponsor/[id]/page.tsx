@@ -1,18 +1,15 @@
 "use client";
 
-// CHAKRA UI
-import { Button } from "@chakra-ui/react";
-
 // HOOKS
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 // SERVICES
-import { deleteSponsor, getSponsorId, updateSponsor } from "@/services/sponsor";
+import { getSponsorId, updateSponsor } from "@/services/sponsor";
 
 // COMPONENTES
 import FormSponsor from "@/components/Form/FormSponsor";
-import DialogFormEdit from "@/components/DialogFormEdit/DialogFormEdit";
+import DialogFormEdit from "@/components/DialogForm/DialogFormEdit";
 
 export default function EditSponsor() {
   const { id } = useParams();
@@ -57,20 +54,6 @@ export default function EditSponsor() {
     }
   };
 
-  const handleDelete = async () => {
-    try {
-      await deleteSponsor(id);
-      window.location.href = "/pages/sponsors/AllSponsor";
-    } catch (error) {
-      setError("Erro ao excluir o patrocinador, tente novamente mais tarde.");
-    }
-  };
-
-  const handleRedirect = async (e: any) => {
-    e.preventDefault();
-    window.location.href = "/pages/sponsors/AllSponsor";
-  };
-
   if (loading) return <p className="flex justify-center pt-8">Carregando...</p>;
   if (error) return <p className="flex justify-center pt-8">{error}</p>;
   if (!sponsor)
@@ -92,21 +75,7 @@ export default function EditSponsor() {
           setUrl={setUrl}
         />
 
-        <DialogFormEdit handleEdit={handleEdit} handleDelete={handleDelete} />
-
-        <Button
-          size="sm"
-          type="submit"
-          alignSelf="flex-start"
-          width="48%"
-          variant="solid"
-          color="gray"
-          border="1px solid gray"
-          marginTop="1rem"
-          onClick={handleRedirect}
-        >
-          Voltar
-        </Button>
+        <DialogFormEdit handleEdit={handleEdit} />
       </form>
     </div>
   );
