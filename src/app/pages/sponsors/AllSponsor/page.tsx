@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 
 import { getAllSponsor, deleteSponsor } from "@/services/sponsor";
 import DialogFormDelete from "@/components/DialogForm/DialogFormDelete";
+import ButtonFormCreate from "@/components/ButtonCreate/ButtonFormCreate";
+import ButtonPageAllCreate from "@/components/ButtonCreate/ButtonPageAllCreate";
 
 interface Sponsor {
   id: string;
@@ -70,6 +72,10 @@ const AllSponsor = () => {
         <h2 className="text-center text-2xl font-bold text-green-700 pb-5">
           Patrocinadores
         </h2>
+
+        <div className="pb-5">
+          <ButtonPageAllCreate />
+        </div>
 
         <div>
           <Table.Root size="md">

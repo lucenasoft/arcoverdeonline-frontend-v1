@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 
 import { getAllCategory, deleteCategory } from "@/services/category";
 import DialogFormDelete from "@/components/DialogForm/DialogFormDelete";
+import ButtonFormCreate from "@/components/ButtonCreate/ButtonFormCreate";
+import ButtonPageAllCreate from "@/components/ButtonCreate/ButtonPageAllCreate";
 
 interface Category {
   id: string;
@@ -55,7 +57,9 @@ const AllCategory = () => {
   if (!categories) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <p className="text-green-700 text-xl font-semibold">Categoria não encontrada.</p>
+        <p className="text-green-700 text-xl font-semibold">
+          Categoria não encontrada.
+        </p>
       </div>
     );
   }
@@ -66,6 +70,10 @@ const AllCategory = () => {
         <h2 className="text-center text-2xl font-bold text-green-700 pb-5">
           Categorias
         </h2>
+
+        <div className="pb-5">
+          <ButtonPageAllCreate />
+        </div>
 
         <div>
           <Table.Root size="lg">

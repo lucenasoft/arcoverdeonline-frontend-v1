@@ -11,6 +11,8 @@ import { getAllSubCategory, deleteSubCategory } from "@/services/subCategory";
 import DialogFormDelete from "@/components/DialogForm/DialogFormDelete";
 
 import { useGetCategory } from "@/hooks/useGetCategory";
+import ButtonFormCreate from "@/components/ButtonCreate/ButtonFormCreate";
+import ButtonPageAllCreate from "@/components/ButtonCreate/ButtonPageAllCreate";
 
 interface SubCategory {
   id: string;
@@ -72,6 +74,10 @@ const AllSubCategory = () => {
         <h2 className="text-center text-2xl font-bold text-green-700 pb-5">
           Sub-Categorias
         </h2>
+
+        <div className="pb-5">
+          <ButtonPageAllCreate />
+        </div>
 
         <div>
           <Table.Root size="md">

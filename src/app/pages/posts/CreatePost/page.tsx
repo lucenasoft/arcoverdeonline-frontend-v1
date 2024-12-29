@@ -13,7 +13,7 @@ import { useGetSubCategory } from "@/hooks/useGetSubCategory";
 
 // COMPONENTES
 import FormPost from "@/components/Form/FormPost";
-import ButtonFormCreate from "@/components/ButtonFormCreate/ButtonFormCreate";
+import ButtonFormCreate from "@/components/ButtonCreate/ButtonFormCreate";
 
 export default function CreatePost() {
   const [title, setTitle] = useState("");

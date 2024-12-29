@@ -11,6 +11,8 @@ import { getAllPost, deletePost } from "@/services/post";
 import DialogFormDelete from "@/components/DialogForm/DialogFormDelete";
 
 import { useGetSubCategory } from "@/hooks/useGetSubCategory";
+import ButtonFormCreate from "@/components/ButtonCreate/ButtonFormCreate";
+import ButtonPageAllCreate from "@/components/ButtonCreate/ButtonPageAllCreate";
 
 interface Post {
   id: string;
@@ -75,6 +77,10 @@ const AllPost = () => {
         <h2 className="text-center text-2xl font-bold text-green-700 pb-5">
           Publicações
         </h2>
+
+        <div className="pb-5">
+          <ButtonPageAllCreate />
+        </div>
 
         <div>
           <Table.Root size="sm">

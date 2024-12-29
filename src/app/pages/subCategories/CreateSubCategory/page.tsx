@@ -13,7 +13,7 @@ import { useGetCategory } from "@/hooks/useGetCategory";
 
 // COMPONENTES
 import FormSubCategory from "@/components/Form/FormSubCategory";
-import ButtonFormCreate from "@/components/ButtonFormCreate/ButtonFormCreate";
+import ButtonFormCreate from "@/components/ButtonCreate/ButtonFormCreate";
 
 export default function CreateSubCategory() {
   const [name, setName] = useState("");

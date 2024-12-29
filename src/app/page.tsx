@@ -54,7 +54,7 @@ export default function Home() {
   }
 
   return (
-    <div className="py-16 px-4 bg-white">
+    <div className="py-20 px-4 bg-white">
 
       <div className="carousel-container pb-16">
         <Swiper
@@ -70,11 +70,11 @@ export default function Home() {
         >
           {sponsors.map((sponsor) => (
             <SwiperSlide key={sponsor.id} className="bg-white">
-              <div className="carousel-item flex flex-col items-center text-center rounded-md p-6">
+              <div className="carousel-item flex flex-col items-center text-center rounded-sm p-3">
                 <img
                   src={sponsor.logo}
                   alt={sponsor.name}
-                  className="relative h-full w-full object-contain mb-4 rounded-md"
+                  className="relative h-full w-full object-contain mb-4 rounded-t-sm"
                 />
                 <h3 className="text-green-700 text-lg font-semibold">
                   {sponsor.name}

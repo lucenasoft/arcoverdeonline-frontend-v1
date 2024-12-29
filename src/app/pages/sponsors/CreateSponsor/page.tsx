@@ -12,7 +12,7 @@ import { useState } from "react";
 
 // COMPONENTES
 import FormSponsor from "@/components/Form/FormSponsor";
-import ButtonFormCreate from "@/components/ButtonFormCreate/ButtonFormCreate";
+import ButtonFormCreate from "@/components/ButtonCreate/ButtonFormCreate";
 
 export default function CreateSponsor() {
   const [name, setName] = useState<string>("");

@@ -1,6 +1,8 @@
 import { Button } from "@chakra-ui/react";
+import { IoIosAddCircleOutline } from "react-icons/io";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 const ButtonFormCreate = () => {
   const pathname = usePathname();
@@ -9,16 +11,16 @@ const ButtonFormCreate = () => {
   useEffect(() => {
     let currentTitle = "Criar";
 
-    if (pathname === "/pages/categories/CreateCategory")
+    if (pathname === "/pages/categories/EditCategory")
       currentTitle = "Criar Categoria";
 
-    else if (pathname === "/pages/subCategories/CreateSubCategory")
+    else if (pathname === "/pages/subCategories/EditSubCategory")
       currentTitle = "Criar Sub-Categoria";
 
-    else if (pathname === "/pages/posts/CreatePost")
+    else if (pathname === "/pages/posts/EditPost")
       currentTitle = "Criar Publicação";
-
-    else if (pathname === "/pages/sponsors/CreateSponsor")
+    
+    else if (pathname === "/pages/sponsors/EditSponsor")
       currentTitle = "Criar Patrocinador";
 
     setName(currentTitle);
@@ -37,6 +39,7 @@ const ButtonFormCreate = () => {
         color="green.700"
       >
         {name}
+        <IoIosAddCircleOutline />
       </Button>
     </div>
   );
