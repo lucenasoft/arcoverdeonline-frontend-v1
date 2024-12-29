@@ -9,6 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { BsTrash } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
@@ -19,42 +20,31 @@ const DialogFormDelete = ({ handleDelete }: any) => {
   useEffect(() => {
     let currentEdit = "Editar";
 
-    if (pathname.startsWith("/pages/categories/EditCategory"))
+    if (pathname.startsWith("/pages/categories/AllCategory"))
       currentEdit = "esta categoria";
-
-    else if (pathname.startsWith("/pages/subCategories/EditSubCategory"))
+    else if (pathname.startsWith("/pages/subCategories/AllSubCategory"))
       currentEdit = "esta sub-categoria";
-
-    else if (pathname.startsWith("/pages/posts/EditPost"))
+    else if (pathname.startsWith("/pages/posts/AllPost"))
       currentEdit = "esta publicação";
-
-    else if (pathname.startsWith("/pages/sponsors/EditSponsor/"))
+    else if (pathname.startsWith("/pages/sponsors/AllSponsor"))
       currentEdit = "este patrocinador";
 
     setName(currentEdit);
   }, [pathname]);
 
-  const handleDelete = async () => {
-    try {
-      await deletePost(id);
-      window.location.href = "/pages/posts/AllPost";
-    } catch {
-      setError("Erro ao excluir a publicação. Tente novamente.");
-    }
-  };
-
   return (
-    <div className="flex justify-between gap-4 mt-4">
+    <div className="flex justify-between">
       <DialogRoot role="alertdialog" placement="center">
         <DialogTrigger asChild>
           <Button
             variant="outline"
             size="sm"
             border="1px solid red"
-            width="48%"
+            width="full"
             color="red"
           >
             Apagar
+            <BsTrash />
           </Button>
         </DialogTrigger>
         <DialogContent backgroundColor="white">

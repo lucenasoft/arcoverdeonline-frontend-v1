@@ -58,62 +58,6 @@ const Sidebar: React.FC = () => {
             </Button>
           </Link>
 
-          <Link href="/pages/categories/CreateCategory">
-            <Button
-              type="submit"
-              width="full"
-              variant="solid"
-              colorScheme="green"
-              className="transition-all hover:opacity-80"
-              color="white"
-              backgroundColor="green.700"
-            >
-              Criar Categoria
-            </Button>
-          </Link>
-
-          <Link href="/pages/subCategories/CreateSubCategory">
-            <Button
-              type="submit"
-              width="full"
-              variant="solid"
-              colorScheme="green"
-              className="transition-all hover:opacity-80"
-              color="white"
-              backgroundColor="green.700"
-            >
-              Criar Sub-Categoria
-            </Button>
-          </Link>
-
-          <Link href="/pages/posts/CreatePost">
-            <Button
-              type="submit"
-              width="full"
-              variant="solid"
-              colorScheme="green"
-              className="transition-all hover:opacity-80"
-              color="white"
-              backgroundColor="green.700"
-            >
-              Criar Publicação
-            </Button>
-          </Link>
-
-          <Link href="/pages/sponsors/CreateSponsor">
-            <Button
-              type="submit"
-              width="full"
-              variant="solid"
-              colorScheme="green"
-              className="transition-all hover:opacity-80"
-              color="white"
-              backgroundColor="green.700"
-            >
-              Criar Patrocinador
-            </Button>
-          </Link>
-
           <Link href="/pages/categories/AllCategory">
             <Button
               type="submit"
@@ -124,7 +68,7 @@ const Sidebar: React.FC = () => {
               color="white"
               backgroundColor="green.700"
             >
-              Editar Categorias
+              Categorias
             </Button>
           </Link>
 
@@ -138,7 +82,7 @@ const Sidebar: React.FC = () => {
               color="white"
               backgroundColor="green.700"
             >
-              Editar Sub-Categorias
+              Sub-Categorias
             </Button>
           </Link>
 
@@ -152,7 +96,7 @@ const Sidebar: React.FC = () => {
               color="white"
               backgroundColor="green.700"
             >
-              Editar Publicações
+              Publicações
             </Button>
           </Link>
 
@@ -166,7 +110,7 @@ const Sidebar: React.FC = () => {
               color="white"
               backgroundColor="green.700"
             >
-              Editar Patrocinadores
+              Patrocinadores
             </Button>
           </Link>
         </div>
