@@ -67,7 +67,7 @@ const AllSponsor = () => {
   }
 
   return (
-    <div className="py-20 px-4 bg-white">
+    <div className="py-20 bg-white">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-center text-2xl font-bold text-green-700 pb-5">
           Patrocinadores
@@ -78,21 +78,21 @@ const AllSponsor = () => {
         </div>
 
         <div>
-          <Table.Root size="md">
+          <Table.Root size="sm">
             <Table.Header>
               <Table.Row
                 backgroundColor="transparent"
                 borderBottom="1px solid #ddd"
               >
-                <Table.ColumnHeader color="green.700" fontSize="1.2rem">
+                <Table.ColumnHeader color="green.700">
                   Nome
                 </Table.ColumnHeader>
 
-                <Table.ColumnHeader color="green.700" fontSize="1.2rem">
+                <Table.ColumnHeader color="green.700">
                   Contato
                 </Table.ColumnHeader>
 
-                <Table.ColumnHeader color="green.700" fontSize="1.2rem">
+                <Table.ColumnHeader color="green.700" className="hidden sm:block">
                   URL
                 </Table.ColumnHeader>
 
@@ -108,7 +108,7 @@ const AllSponsor = () => {
                 >
                   <Table.Cell color="green.700">{sponsor.name}</Table.Cell>
                   <Table.Cell color="green.700">{sponsor.contact}</Table.Cell>
-                  <Table.Cell color="green.700">{sponsor.url}</Table.Cell>
+                  <Table.Cell color="green.700" className="hidden sm:block">{sponsor.url}</Table.Cell>
 
                   <Table.Cell textAlign="right">
                     <Link href={`/pages/sponsors/EditSponsor/${sponsor.id}`}>
@@ -119,7 +119,7 @@ const AllSponsor = () => {
                         width="full"
                         color="green"
                       >
-                        Editar
+                        <span className="hidden sm:block">Editar</span>
                         <BsPencil />
                       </Button>
                     </Link>
@@ -129,7 +129,7 @@ const AllSponsor = () => {
                     <DialogFormDelete
                       handleDelete={() => handleDelete(sponsor.id)}
                     >
-                      Apagar
+                      <span className="hidden sm:block">Apagar</span>
                     </DialogFormDelete>
                   </Table.Cell>
                 </Table.Row>

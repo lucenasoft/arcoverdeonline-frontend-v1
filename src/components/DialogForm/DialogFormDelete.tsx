@@ -43,7 +43,7 @@ const DialogFormDelete = ({ handleDelete }: any) => {
             width="full"
             color="red"
           >
-            Apagar
+            <span className="hidden sm:block">Apagar</span>
             <BsTrash />
           </Button>
         </DialogTrigger>

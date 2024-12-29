@@ -18,8 +18,8 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="py-4 w-full border-b border-green-700 shadow-md bg-green-50">
-      <div className="max-w-6xl mx-auto flex justify-between items-center px-4">
+    <nav className="py-4 px-1 w-full border-b border-green-700 shadow-md bg-green-50">
+      <div className="max-w-6xl mx-auto flex justify-between items-center">
         <div>
           <Link href="/">
             <Image
@@ -39,7 +39,7 @@ export default function Navbar() {
             placeholder="Buscar..."
             value={searchTerm}
             onChange={handleInputChange}
-            className="px-4 py-2 w-60 bg-transparent text-green-800 rounded-lg border border-green-700 focus:ring focus:ring-green-500 focus:outline-none placeholder:text-green-600"
+            className="px-4 py-2 w-40 bg-transparent text-green-800 rounded-lg border border-green-700 focus:ring focus:ring-green-500 focus:outline-none placeholder:text-green-600"
           />
           <button
             onClick={handleSearch}

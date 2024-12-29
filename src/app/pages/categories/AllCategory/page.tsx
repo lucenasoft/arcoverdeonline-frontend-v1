@@ -65,7 +65,7 @@ const AllCategory = () => {
   }
 
   return (
-    <div className="py-20 px-4 bg-white">
+    <div className="py-20 bg-white">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-center text-2xl font-bold text-green-700 pb-5">
           Categorias
@@ -76,15 +76,13 @@ const AllCategory = () => {
         </div>
 
         <div>
-          <Table.Root size="lg">
+          <Table.Root size="sm">
             <Table.Header>
               <Table.Row
                 backgroundColor="transparent"
                 borderBottom="1px solid #ddd"
               >
-                <Table.ColumnHeader color="green.700" fontSize="1.2rem">
-                  Nome
-                </Table.ColumnHeader>
+                <Table.ColumnHeader color="green.700">Nome</Table.ColumnHeader>
               </Table.Row>
             </Table.Header>
 
@@ -106,7 +104,7 @@ const AllCategory = () => {
                         width="full"
                         color="green"
                       >
-                        Editar
+                        <span className="hidden sm:block">Editar</span>
                         <BsPencil />
                       </Button>
                     </Link>
@@ -116,7 +114,7 @@ const AllCategory = () => {
                     <DialogFormDelete
                       handleDelete={() => handleDelete(categ.id)}
                     >
-                      Apagar
+                      <span className="hidden sm:block">Apagar</span>
                     </DialogFormDelete>
                   </Table.Cell>
                 </Table.Row>

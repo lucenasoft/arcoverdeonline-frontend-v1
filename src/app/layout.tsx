@@ -38,13 +38,13 @@ const user = true;
           <aside className={user ? "block" : "hidden"}>
             <Sidebar />
           </aside>
-          <header className={user ? "ml-56" : "ml-0"}>
+          <header className={user ? "lg:ml-56 sm:ml0" : "ml-0"}>
             <Navbar />
           </header>
 
-          <main className={user ? "ml-56" : "ml-0"}>{children}</main>
+          <main className={user ? "lg:ml-56 sm:ml0" : "ml-0"}>{children}</main>
 
-          <footer className={user ? "ml-56" : "ml-0"}>
+          <footer className={user ? "lg:ml-56 sm:ml0" : "ml-0"}>
             <Footer />
           </footer>
         </Provider>

@@ -72,7 +72,7 @@ const AllPost = () => {
   }
 
   return (
-    <div className="py-20 px-4 bg-white">
+    <div className="py-20 bg-white">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-center text-2xl font-bold text-green-700 pb-5">
           Publicações
@@ -89,15 +89,15 @@ const AllPost = () => {
                 backgroundColor="transparent"
                 borderBottom="1px solid #ddd"
               >
-                <Table.ColumnHeader color="green.700" fontSize="1.2rem">
+                <Table.ColumnHeader color="green.700">
                   Nome
                 </Table.ColumnHeader>
 
-                <Table.ColumnHeader color="green.700" fontSize="1.2rem">
+                <Table.ColumnHeader color="green.700">
                   PDF
                 </Table.ColumnHeader>
 
-                <Table.ColumnHeader color="green.700" fontSize="1.2rem">
+                <Table.ColumnHeader color="green.700">
                   Sub-Categoria
                 </Table.ColumnHeader>
               </Table.Row>
@@ -119,7 +119,7 @@ const AllPost = () => {
                     }
                   </Table.Cell>
 
-                  <Table.Cell textAlign="right">
+                  <Table.Cell>
                     <Link
                       href={`/pages/posts/EditPost/${post.id}`}
                     >
@@ -130,7 +130,7 @@ const AllPost = () => {
                         width="full"
                         color="green"
                       >
-                        Editar
+                        <span className="hidden sm:block">Editar</span>
                         <BsPencil />
                       </Button>
                     </Link>
@@ -140,7 +140,7 @@ const AllPost = () => {
                     <DialogFormDelete
                       handleDelete={() => handleDelete(post.id)}
                     >
-                      Apagar
+                      <span className="hidden sm:block">Apagar</span>
                     </DialogFormDelete>
                   </Table.Cell>
                 </Table.Row>
