@@ -18,7 +18,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="py-4 px-1 w-full border-b border-green-700 shadow-md bg-green-50">
+    <nav className="py-4 px-1 sm:px-5 w-full border-b border-green-700 shadow-md bg-green-50">
       <div className="max-w-6xl mx-auto flex justify-between items-center">
         <div>
           <Link href="/">

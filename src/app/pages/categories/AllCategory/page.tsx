@@ -65,7 +65,7 @@ const AllCategory = () => {
   }
 
   return (
-    <div className="py-20 bg-white">
+    <div className="py-20 sm:px-5 bg-white">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-center text-2xl font-bold text-green-700 pb-5">
           Categorias

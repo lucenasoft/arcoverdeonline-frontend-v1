@@ -42,7 +42,7 @@ const DialogFormEdit = ({ handleEdit }: any) => {
       location = "/pages/categories/AllCategory";
 
     else if (pathname.startsWith("/pages/subCategories/EditSubCategory"))
-      location = "/pages/subCategories/AllSubCategories";
+      location = "/pages/subCategories/AllSubCategory";
 
     else if (pathname.startsWith("/pages/posts/EditPost"))
       location = "/pages/posts/AllPost";
