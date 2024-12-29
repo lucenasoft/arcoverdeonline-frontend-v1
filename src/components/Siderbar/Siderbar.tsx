@@ -37,7 +37,7 @@ const Sidebar: React.FC = () => {
 
   return (
     <aside>
-      <div className="w-56 h-full bg-green-50 text-gray-800 fixed top-0 left-0 shadow-md shadow-black hidden">
+      <div className="w-56 h-full bg-green-50 text-gray-800 fixed top-0 left-0 shadow-md shadow-black hidden lg:block">
         <nav className="flex flex-col py-16 px-4 gap-4">
           <div className="px-16">
             <HStack>
@@ -126,7 +126,7 @@ const Sidebar: React.FC = () => {
             </Link>
           </div>
 
-          <footer className="flex flex-col pt-96">
+          <footer className="flex flex-col pt-52">
             <Button
               type="submit"
               width="full"
@@ -143,7 +143,7 @@ const Sidebar: React.FC = () => {
         </nav>
       </div>
 
-      <div className="fixed z-10 right-5 bottom-10 md:right-20">
+      <div className="fixed z-10 right-5 bottom-10 lg:hidden">
         <DrawerRoot placement="start" size="xs">
           <DrawerBackdrop />
           <DrawerTrigger asChild>
@@ -246,7 +246,7 @@ const Sidebar: React.FC = () => {
                 </Link>
               </div>
               <footer 
-              className="flex flex-col pt-80">
+              className="flex flex-col pt-52">
                 <Button
                   type="submit"
                   width="full"
