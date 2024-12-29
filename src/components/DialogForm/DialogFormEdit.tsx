@@ -36,7 +36,21 @@ const DialogFormEdit = ({ handleEdit }: any) => {
 
   const handleRedirect = async (e: any) => {
     e.preventDefault();
-    window.location.href = "/pages/categories/AllCategory";
+    let location = "/"
+
+    if (pathname.startsWith("/pages/categories/EditCategory"))
+      location = "/pages/categories/AllCategory";
+
+    else if (pathname.startsWith("/pages/subCategories/EditSubCategory"))
+      location = "/pages/subCategories/AllSubCategories";
+
+    else if (pathname.startsWith("/pages/posts/EditPost"))
+      location = "/pages/posts/AllPost";
+
+    else if (pathname.startsWith("/pages/sponsors/EditSponsor/"))
+      location = "/pages/sponsors/AllSponsor";
+
+    window.location.href = location;
   };
 
   return (

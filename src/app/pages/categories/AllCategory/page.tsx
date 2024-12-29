@@ -52,6 +52,14 @@ const AllCategory = () => {
     );
   }
 
+  if (!categories) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-green-700 text-xl font-semibold">Categoria não encontrada.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="py-10 px-4 bg-white">
       <div className="max-w-6xl mx-auto">
@@ -61,6 +69,17 @@ const AllCategory = () => {
 
         <div className="md:px-10">
           <Table.Root size="lg">
+            <Table.Header>
+              <Table.Row
+                backgroundColor="transparent"
+                borderBottom="1px solid #ddd"
+              >
+                <Table.ColumnHeader color="green.700" fontSize="1.2rem">
+                  Nome da cateogoria
+                </Table.ColumnHeader>
+              </Table.Row>
+            </Table.Header>
+
             <Table.Body>
               {categories.map((categ) => (
                 <Table.Row
@@ -68,9 +87,7 @@ const AllCategory = () => {
                   backgroundColor="transparent"
                   borderBottom="1px solid #ddd"
                 >
-                  <Table.Cell color="green.700" fontSize="1.2rem">
-                    {categ.name}
-                  </Table.Cell>
+                  <Table.Cell color="green.700">{categ.name}</Table.Cell>
 
                   <Table.Cell textAlign="right">
                     <Link href={`/pages/categories/EditCategory/${categ.id}`}>

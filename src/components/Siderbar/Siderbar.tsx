@@ -43,7 +43,7 @@ const Sidebar: React.FC = () => {
           </HStack>
         </div>
 
-        <div className="flex flex-col pt-10 px-4 gap-4">
+        <div className="flex flex-col pt-10 pb-14 gap-4">
           <Link href="/">
             <Button
               type="submit"
@@ -115,7 +115,7 @@ const Sidebar: React.FC = () => {
           </Link>
         </div>
 
-        <footer className="flex flex-col pt-48 px-4 gap-4">
+        <footer className="flex flex-col pt-96">
           <Button
             type="submit"
             width="full"
