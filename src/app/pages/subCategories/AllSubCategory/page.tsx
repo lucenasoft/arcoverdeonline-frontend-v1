@@ -46,7 +46,7 @@ const AllSubCategory = () => {
         prev.filter((subCateg) => subCateg.id !== subCategoryId)
       );
     } catch (error: any) {
-      console.error("Erro ao deletar categoria:", error.message);
+      console.error("Erro ao deletar sub-categoria:", error.message);
     }
   };
 
@@ -58,26 +58,34 @@ const AllSubCategory = () => {
     );
   }
 
+  if (!subCategories) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-green-700 text-xl font-semibold">Sub-categoria não encontrada.</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="py-10 px-4 bg-white">
+    <div className="py-20 px-4 bg-white">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-center pb-8 text-2xl font-bold text-green-700 mb-8">
+        <h2 className="text-center text-2xl font-bold text-green-700 pb-5">
           Sub-Categorias
         </h2>
 
         <div>
-          <Table.Root size="lg">
+          <Table.Root size="md">
             <Table.Header>
               <Table.Row
                 backgroundColor="transparent"
                 borderBottom="1px solid #ddd"
               >
                 <Table.ColumnHeader color="green.700" fontSize="1.2rem">
-                  Nome da sub-categoria
+                  Nome
                 </Table.ColumnHeader>
 
                 <Table.ColumnHeader color="green.700" fontSize="1.2rem">
-                  Nome da categoria
+                  Categoria
                 </Table.ColumnHeader>
               </Table.Row>
             </Table.Header>

@@ -10,21 +10,26 @@ import { useEffect, useState } from "react";
 import { getAllPost, deletePost } from "@/services/post";
 import DialogFormDelete from "@/components/DialogForm/DialogFormDelete";
 
-interface SubCategory {
+import { useGetSubCategory } from "@/hooks/useGetSubCategory";
+
+interface Post {
   id: string;
-  name: string;
+  title: string;
+  pdf: string;
+  subCategoryId: string;
 }
 
-const AllSubCategory = () => {
-  const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
+const AllPost = () => {
+  const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
+  const { subCategories } = useGetSubCategory();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const subCategoryData = await getAllSubCategory();
-        setSubCategories(subCategoryData);
+        const postData = await getAllPost();
+        setPosts(postData);
       } catch (error: any) {
         console.error("Erro ao carregar dados:", error.message);
       } finally {
@@ -35,14 +40,14 @@ const AllSubCategory = () => {
     fetchData();
   }, []);
 
-  const handleDelete = async (subCategoryId: string) => {
+  const handleDelete = async (postId: string) => {
     try {
-      await deleteSubCategory(subCategoryId);
-      setSubCategories((prev) =>
-        prev.filter((subCateg) => subCateg.id !== subCategoryId)
+      await deletePost(postId);
+      setPosts((prev) =>
+        prev.filter((post) => post.id !== postId)
       );
     } catch (error: any) {
-      console.error("Erro ao deletar categoria:", error.message);
+      console.error("Erro ao deletar publicação:", error.message);
     }
   };
 
@@ -54,29 +59,63 @@ const AllSubCategory = () => {
     );
   }
 
+  if (!posts) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-green-700 text-xl font-semibold">
+          Publicação não encontrada.
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <div className="py-10 px-4 bg-white">
+    <div className="py-20 px-4 bg-white">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-center pb-8 text-2xl font-bold text-green-700 mb-8">
-          Sub-Categorias
+        <h2 className="text-center text-2xl font-bold text-green-700 pb-5">
+          Publicações
         </h2>
 
-        <div className="md:px-10">
-          <Table.Root size="lg">
+        <div>
+          <Table.Root size="sm">
+            <Table.Header>
+              <Table.Row
+                backgroundColor="transparent"
+                borderBottom="1px solid #ddd"
+              >
+                <Table.ColumnHeader color="green.700" fontSize="1.2rem">
+                  Nome
+                </Table.ColumnHeader>
+
+                <Table.ColumnHeader color="green.700" fontSize="1.2rem">
+                  PDF
+                </Table.ColumnHeader>
+
+                <Table.ColumnHeader color="green.700" fontSize="1.2rem">
+                  Sub-Categoria
+                </Table.ColumnHeader>
+              </Table.Row>
+            </Table.Header>
             <Table.Body>
-              {subCategories.map((subCateg) => (
+              {posts.map((post) => (
                 <Table.Row
-                  key={subCateg.id}
+                  key={post.id}
                   backgroundColor="transparent"
                   borderBottom="1px solid #ddd"
                 >
-                  <Table.Cell color="green.700" fontSize="1.2rem">
-                    {subCateg.name}
+                  <Table.Cell color="green.700">{post.title}</Table.Cell>
+                  <Table.Cell color="green.700">{post.pdf}</Table.Cell>
+                  <Table.Cell color="green.700">
+                    {
+                      subCategories.find(
+                        (subCateg) => subCateg.id === post.subCategoryId
+                      )?.name
+                    }
                   </Table.Cell>
 
                   <Table.Cell textAlign="right">
                     <Link
-                      href={`/pages/subCategories/EditSubCategory/${subCateg.id}`}
+                      href={`/pages/posts/EditPost/${post.id}`}
                     >
                       <Button
                         variant="outline"
@@ -93,7 +132,7 @@ const AllSubCategory = () => {
 
                   <Table.Cell>
                     <DialogFormDelete
-                      handleDelete={() => handleDelete(subCateg.id)}
+                      handleDelete={() => handleDelete(post.id)}
                     >
                       Apagar
                     </DialogFormDelete>
@@ -108,4 +147,4 @@ const AllSubCategory = () => {
   );
 };
 
-export default AllSubCategory;
+export default AllPost;

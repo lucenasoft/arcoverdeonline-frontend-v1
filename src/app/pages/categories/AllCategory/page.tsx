@@ -61,13 +61,13 @@ const AllCategory = () => {
   }
 
   return (
-    <div className="py-10 px-4 bg-white">
+    <div className="py-20 px-4 bg-white">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-center pb-8 text-2xl font-bold text-green-700 mb-8">
+        <h2 className="text-center text-2xl font-bold text-green-700 pb-5">
           Categorias
         </h2>
 
-        <div className="md:px-10">
+        <div>
           <Table.Root size="lg">
             <Table.Header>
               <Table.Row
@@ -75,7 +75,7 @@ const AllCategory = () => {
                 borderBottom="1px solid #ddd"
               >
                 <Table.ColumnHeader color="green.700" fontSize="1.2rem">
-                  Nome da cateogoria
+                  Nome
                 </Table.ColumnHeader>
               </Table.Row>
             </Table.Header>
