@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import logo from "../../Images/ArcoverdeOnline.png";
+import logo from "../../assets/images/ArcoverdeOnline.png";
 import { useState } from "react";
 
 export default function Navbar() {
