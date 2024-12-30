@@ -154,7 +154,7 @@ const Sidebar: React.FC = () => {
               shadowColor="black"
               rounded="full"
             >
-              <IoMdMenu className="w-full h-full bg-green-700 rounded-full text-white p-2" />
+              <IoMdMenu className="w-full h-full bg-green-700 hover:bg-green-500 rounded-full text-white p-2" />
             </Button>
           </DrawerTrigger>
           <DrawerContent backgroundColor="green.50">
