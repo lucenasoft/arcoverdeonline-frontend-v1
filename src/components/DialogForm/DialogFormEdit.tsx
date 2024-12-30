@@ -21,13 +21,10 @@ const DialogFormEdit = ({ handleEdit }: any) => {
 
     if (pathname.startsWith("/pages/categories/EditCategory"))
       currentEdit = "esta categoria";
-
     else if (pathname.startsWith("/pages/subCategories/EditSubCategory"))
       currentEdit = "esta sub-categoria";
-
     else if (pathname.startsWith("/pages/posts/EditPost"))
       currentEdit = "esta publicação";
-
     else if (pathname.startsWith("/pages/sponsors/EditSponsor/"))
       currentEdit = "este patrocinador";
 
@@ -36,17 +33,14 @@ const DialogFormEdit = ({ handleEdit }: any) => {
 
   const handleRedirect = async (e: any) => {
     e.preventDefault();
-    let location = "/"
+    let location = "/";
 
     if (pathname.startsWith("/pages/categories/EditCategory"))
       location = "/pages/categories/AllCategory";
-
     else if (pathname.startsWith("/pages/subCategories/EditSubCategory"))
       location = "/pages/subCategories/AllSubCategory";
-
     else if (pathname.startsWith("/pages/posts/EditPost"))
       location = "/pages/posts/AllPost";
-
     else if (pathname.startsWith("/pages/sponsors/EditSponsor/"))
       location = "/pages/sponsors/AllSponsor";
 
@@ -84,17 +78,17 @@ const DialogFormEdit = ({ handleEdit }: any) => {
       </DialogRoot>
 
       <Button
-            size="sm"
-            type="submit"
-            alignSelf="flex-start"
-            width="48%"
-            variant="solid"
-            color="gray"
-            border="1px solid gray"
-            onClick={handleRedirect}
-          >
-            Voltar
-          </Button>
+        size="sm"
+        type="submit"
+        alignSelf="flex-start"
+        width="48%"
+        variant="solid"
+        color="gray"
+        border="1px solid gray"
+        onClick={handleRedirect}
+      >
+        Voltar
+      </Button>
     </div>
   );
 };

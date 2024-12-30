@@ -93,7 +93,7 @@ export default function CategoryDetails() {
   }
 
   return (
-    <div className="py-44 px-4 bg-white">
+    <div className="h-screen px-4 pt-10 bg-white">
       <div className="max-w-5xl mx-auto">
         <h1 className="text-4xl font-bold text-center text-green-700 pb-6">
           {category.name}

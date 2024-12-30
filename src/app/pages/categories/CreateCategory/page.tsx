@@ -42,7 +42,7 @@ export default function CreateCategory() {
   };
 
   return (
-    <div className="flex items-center justify-center flex-col bg-white py-40">
+    <div className="flex items-center pt-10 flex-col bg-white h-screen">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg"
