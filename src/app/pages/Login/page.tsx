@@ -2,7 +2,6 @@
 
 // CHAKRA UI
 import { Button, Fieldset, Input, Stack } from "@chakra-ui/react";
-import { PasswordInput } from "@/components/ui/password-input";
 import { Field } from "@/components/ui/field";
 import { Alert } from "@/components/ui/alert";
 

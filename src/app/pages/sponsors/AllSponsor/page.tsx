@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 
 import { getAllSponsor, deleteSponsor } from "@/services/sponsor";
 import DialogFormDelete from "@/components/DialogForm/DialogFormDelete";
-import ButtonFormCreate from "@/components/ButtonCreate/ButtonFormCreate";
 import ButtonPageAllCreate from "@/components/ButtonCreate/ButtonPageAllCreate";
 
 interface Sponsor {

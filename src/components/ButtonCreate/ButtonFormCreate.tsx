@@ -2,7 +2,6 @@ import { Button } from "@chakra-ui/react";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import Link from "next/link";
 
 const ButtonFormCreate = () => {
   const pathname = usePathname();
