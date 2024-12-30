@@ -89,7 +89,7 @@ export default function SubCategoryDetails() {
   }
 
   return (
-    <div className="px-4 bg-white py-44">
+    <div className="px-4 bg-white pt-10 h-screen">
       <div className="max-w-5xl mx-auto">
         <h1 className="text-4xl font-bold text-center text-green-700 pb-6">
           {subCategory.name}

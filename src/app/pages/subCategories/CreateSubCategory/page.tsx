@@ -49,7 +49,7 @@ export default function CreateSubCategory() {
   };
 
   return (
-    <div className="flex items-center justify-center flex-col bg-white py-28">
+    <div className="flex items-center h-screen flex-col bg-white pt-10">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg"

@@ -61,7 +61,7 @@ export default function EditPost() {
     );
 
   return (
-    <div className="flex items-center justify-center flex-col py-16 bg-white">
+    <div className="flex items-center flex-col pt-10 h-screen bg-white">
       <form className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg">
         <FormPost
           handleChange={handleChange}

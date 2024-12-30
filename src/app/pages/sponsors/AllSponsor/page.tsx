@@ -49,7 +49,7 @@ const AllSponsor = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex pt-10 items-center h-screen">
         <p className="text-green-700 text-xl font-semibold">Carregando...</p>
       </div>
     );

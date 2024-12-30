@@ -47,7 +47,7 @@ export default function SponsorDetails() {
   }
 
   return (
-    <div className="bg-white py-36 px-6">
+    <div className="bg-white pt-10 h-screen px-6">
       <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-green-700">{sponsor.name}</h1>

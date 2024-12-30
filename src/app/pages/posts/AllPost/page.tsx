@@ -71,7 +71,7 @@ const AllPost = () => {
   }
 
   return (
-    <div className="py-20 sm:px-5 lg:h-screen bg-white">
+    <div className="pt-10 sm:px-5 h-screen bg-white">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-center text-2xl font-bold text-green-700 pb-5">
           Publicações

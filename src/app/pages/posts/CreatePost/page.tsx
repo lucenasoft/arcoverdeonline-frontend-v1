@@ -51,7 +51,7 @@ export default function CreatePost() {
   };
 
   return (
-    <div className="flex items-center justify-center flex-col bg-white py-16">
+    <div className="flex items-center flex-col bg-white pt-10 h-screen">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg"
