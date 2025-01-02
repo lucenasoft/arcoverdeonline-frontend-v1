@@ -74,7 +74,7 @@ export default function Home() {
                 <img
                   src={sponsor.logo}
                   alt={sponsor.name}
-                  className="lg:1/4 lg:w-1/4 object-contain rounded-sm"
+                  className="w-80 h-80 rounded-sm pb-5"
                 />
                 <h3 className="text-green-700 text-lg font-semibold">
                   {sponsor.name}
