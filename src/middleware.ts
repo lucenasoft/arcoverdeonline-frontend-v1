@@ -1,83 +1,37 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
-  const authenticate = false;
+  const token = request.cookies.get("token")?.value;
+  const protectedRoutes = [
+    "/pages/categories/AllCategory",
+    "/pages/categories/CreateCategory",
+    "/pages/categories/EditCategory/",
+    "/pages/subCategories/AllSubCategory",
+    "/pages/subCategories/CreateSubCategory",
+    "/pages/subCategories/EditSubCategory/",
+    "/pages/posts/AllPost",
+    "/pages/posts/CreatePost",
+    "/pages/posts/EditPost/",
+    "/pages/sponsors/AllSponsor",
+    "/pages/sponsors/CreateSponsor",
+    "/pages/sponsors/EditSponsor/",
+  ];
 
-  // ROTAS CATEGORIA
-  if (
-    request.nextUrl.pathname.startsWith("/pages/categories/CreateCategory") &&
-    !authenticate
-  )
-    return NextResponse.redirect(new URL("/pages/Login", request.url));
+  const isProtectedRoute = protectedRoutes.some((route) =>
+    request.nextUrl.pathname.startsWith(route)
+  );
 
-  if (
-    request.nextUrl.pathname.startsWith("/pages/categories/AllCategory") &&
-    !authenticate
-  )
-    return NextResponse.redirect(new URL("/pages/Login", request.url));
+  if (!isProtectedRoute) {
+    return NextResponse.next();
+  }
 
-  if (
-    request.nextUrl.pathname.startsWith("/pages/categories/EditCategory/") &&
-    !authenticate
-  )
+  if (!token) {
     return NextResponse.redirect(new URL("/pages/Login", request.url));
-
-  // ROTAS SUB-CATEGORIAS
-  if (
-    request.nextUrl.pathname.startsWith("/pages/subCategories/CreateSubCategory") &&
-    !authenticate
-  )
-    return NextResponse.redirect(new URL("/pages/Login", request.url));
-
-  if (
-    request.nextUrl.pathname.startsWith("/pages/subCategories/AllSubCategory") &&
-    !authenticate
-  )
-    return NextResponse.redirect(new URL("/pages/Login", request.url));
-
-  if (
-    request.nextUrl.pathname.startsWith("/pages/subCategories/EditSubCategory/") &&
-    !authenticate
-  )
-    return NextResponse.redirect(new URL("/pages/Login", request.url));
-
-  // ROTAS PUBLICAÇÕES
-  if (
-    request.nextUrl.pathname.startsWith("/pages/posts/CreatePost") &&
-    !authenticate
-  )
-    return NextResponse.redirect(new URL("/pages/Login", request.url));
-
-  if (
-    request.nextUrl.pathname.startsWith("/pages/posts/AllPost") &&
-    !authenticate
-  )
-    return NextResponse.redirect(new URL("/pages/Login", request.url));
-
-  if (
-    request.nextUrl.pathname.startsWith("/pages/posts/EditPost/") &&
-    !authenticate
-  )
-    return NextResponse.redirect(new URL("/pages/Login", request.url));
-
-  // ROTAS PATROCINADORES
-  if (
-    request.nextUrl.pathname.startsWith("/pages/sponsors/CreateSponsor") &&
-    !authenticate
-  )
-    return NextResponse.redirect(new URL("/pages/Login", request.url));
-
-  if (
-    request.nextUrl.pathname.startsWith("/pages/sponsors/AllSponsor") &&
-    !authenticate
-  )
-    return NextResponse.redirect(new URL("/pages/Login", request.url));
-
-  if (
-    request.nextUrl.pathname.startsWith("/pages/sponsors/EditSponsor/") &&
-    !authenticate
-  )
-    return NextResponse.redirect(new URL("/pages/Login", request.url));
+  }
 
   return NextResponse.next();
 }
+
+export const config = {
+  matcher: ["/pages/:path*"],
+};

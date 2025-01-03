@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "https://arcoverde-online-latest.onrender.com/api/v1";
 
 // funcao que faz o fetch das rotas
 export async function apiRequest(endpoint: string, options = {}) {

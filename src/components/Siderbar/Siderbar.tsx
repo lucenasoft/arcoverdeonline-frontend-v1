@@ -1,5 +1,6 @@
 "use client";
 
+import Cookies from "js-cookie";
 import Link from "next/link";
 import { Button, HStack } from "@chakra-ui/react";
 import { Avatar } from "@/components/ui/avatar";
@@ -18,7 +19,8 @@ import { LogoutAdmin } from "@/services/auth";
 
 const Sidebar: React.FC = () => {
   const handleLogout = async () => {
-    const token = localStorage.getItem("token");
+    const token = Cookies.get("token");
+
     if (!token) {
       console.error("Nenhum token encontrado.");
       return;
@@ -27,7 +29,7 @@ const Sidebar: React.FC = () => {
     try {
       await LogoutAdmin(token);
 
-      localStorage.removeItem("token");
+      Cookies.remove("token");
 
       window.location.href = "/";
     } catch (error) {
@@ -36,7 +38,7 @@ const Sidebar: React.FC = () => {
   };
 
   return (
-    <aside>
+    <>
       <div className="w-56 h-full bg-green-50 text-gray-800 fixed top-0 left-0 shadow-md shadow-black hidden lg:block">
         <nav className="flex flex-col py-16 px-4 gap-4">
           <div className="px-16">
@@ -142,7 +144,6 @@ const Sidebar: React.FC = () => {
           </footer>
         </nav>
       </div>
-
       <div className="fixed z-10 right-5 bottom-10 lg:hidden">
         <DrawerRoot placement="start" size="xs">
           <DrawerBackdrop />
@@ -245,8 +246,7 @@ const Sidebar: React.FC = () => {
                   </Button>
                 </Link>
               </div>
-              <footer 
-              className="flex flex-col pt-52">
+              <footer className="flex flex-col pt-52">
                 <Button
                   type="submit"
                   width="full"
@@ -265,7 +265,7 @@ const Sidebar: React.FC = () => {
           </DrawerContent>
         </DrawerRoot>
       </div>
-    </aside>
+    </>
   );
 };
 

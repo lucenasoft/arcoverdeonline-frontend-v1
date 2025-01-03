@@ -1,5 +1,7 @@
 "use client";
 
+import Cookies from "js-cookie";
+
 // CHAKRA UI
 import { Button, Fieldset, Input, Stack } from "@chakra-ui/react";
 import { Field } from "@/components/ui/field";
@@ -14,24 +16,29 @@ import { useState } from "react";
 export default function CreatePost() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setSuccess(false);
     setError(false);
-
-    e.preventDefault();
+    setIsLoading(true);
 
     try {
       const data = await LoginAdmin({ email, password });
-      setToken(data.token);
+      Cookies.set("token", data.token, { expires: 1 });
+      setSuccess(true);
     } catch (error: any) {
       console.log(error);
+      setError(true);
+    } finally {
+      setIsLoading(false);
     }
   };
+
 
   return (
     <div className="flex items-center justify-center flex-col bg-white py-44">
