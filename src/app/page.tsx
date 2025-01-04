@@ -54,7 +54,7 @@ export default function Home() {
   }
 
   return (
-    <div className="py-20 px-4 bg-white">
+    <div className="h-screen px-4 bg-white">
 
       <div className="carousel-container pb-16 lg:px-20">
         <Swiper

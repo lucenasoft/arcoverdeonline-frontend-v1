@@ -1,9 +1,10 @@
-const BASE_URL = "https://arcoverde-online-latest.onrender.com/api/v1";
+let BASE_URL = process.env.URL;
 
 // funcao que faz o fetch das rotas
 export async function apiRequest(endpoint: string, options = {}) {
   const res = await fetch(`${BASE_URL}${endpoint}`, options);
-
+  
+  console.log(BASE_URL)
   if (!res.ok) {
     let errorMessage = "Erro desconhecido";
 

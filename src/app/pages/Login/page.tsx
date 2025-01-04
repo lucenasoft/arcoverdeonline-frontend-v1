@@ -16,12 +16,11 @@ import { useState } from "react";
 export default function CreatePost() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSuccess(false);
     setError(false);
@@ -91,7 +90,7 @@ export default function CreatePost() {
             backgroundColor="green.800"
             color="white"
             border="1px solid green.950"
-            className="hover:opacity-80"
+            className="hover:opacity-80"        
           >
             Entrar
           </Button>
