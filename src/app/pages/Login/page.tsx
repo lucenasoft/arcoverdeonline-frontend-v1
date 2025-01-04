@@ -34,8 +34,7 @@ export default function Login() {
         password,
         jwt: jwtToken,
       });
-      setSuccess(true);
-      return res;
+      window.location.href = "/pages/users/Dashboard";
     } catch (error: any) {
       console.log(error);
       setError(true);
@@ -97,7 +96,8 @@ export default function Login() {
             border="1px solid green.950"
             className="hover:opacity-80"
           >
-            Entrar
+            {!isLoading && <p>Entrar</p>}
+            {isLoading && <p>Aguarde...</p>}
           </Button>
         </Fieldset.Root>
 

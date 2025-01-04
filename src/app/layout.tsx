@@ -19,7 +19,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-const user = true;
 
   return (
     <html lang="pt-br" suppressHydrationWarning={true}>
@@ -27,16 +26,16 @@ const user = true;
         className={`antialiased flex flex-col`}
       >
         <Provider>
-          <aside className={user ? "block" : "hidden"}>
+          <aside>
             <Sidebar />
           </aside>
-          <header className={user ? "lg:ml-56 sm:ml0" : "ml-0"}>
+          <header>
             <Navbar />
           </header>
 
-          <main className={user ? "lg:ml-56 sm:ml0" : "ml-0"}>{children}</main>
+          <main>{children}</main>
 
-          <footer className={user ? "lg:ml-56 sm:ml0" : "ml-0"}>
+          <footer>
             <Footer />
           </footer>
         </Provider>
