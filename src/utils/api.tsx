@@ -1,9 +1,10 @@
-const BASE_URL = "http://localhost:3000";
+let BASE_URL = process.env.API_URL;
 
 // funcao que faz o fetch das rotas
 export async function apiRequest(endpoint: string, options = {}) {
   const res = await fetch(`${BASE_URL}${endpoint}`, options);
-
+  
+  console.log(BASE_URL)
   if (!res.ok) {
     let errorMessage = "Erro desconhecido";
 

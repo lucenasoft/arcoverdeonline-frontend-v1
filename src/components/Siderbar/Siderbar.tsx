@@ -14,29 +14,11 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
-import { LogoutAdmin } from "@/services/auth";
 
 const Sidebar: React.FC = () => {
-  const handleLogout = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.error("Nenhum token encontrado.");
-      return;
-    }
-
-    try {
-      await LogoutAdmin(token);
-
-      localStorage.removeItem("token");
-
-      window.location.href = "/";
-    } catch (error) {
-      console.error("Erro ao fazer logout:", error);
-    }
-  };
 
   return (
-    <aside>
+    <>
       <div className="w-56 h-full bg-green-50 text-gray-800 fixed top-0 left-0 shadow-md shadow-black hidden lg:block">
         <nav className="flex flex-col py-16 px-4 gap-4">
           <div className="px-16">
@@ -125,24 +107,8 @@ const Sidebar: React.FC = () => {
               </Button>
             </Link>
           </div>
-
-          <footer className="flex flex-col pt-52">
-            <Button
-              type="submit"
-              width="full"
-              variant="solid"
-              colorScheme="green"
-              className="transition-all hover:opacity-80"
-              color="white"
-              backgroundColor="green.700"
-              onClick={handleLogout}
-            >
-              Sair
-            </Button>
-          </footer>
         </nav>
       </div>
-
       <div className="fixed z-10 right-5 bottom-10 lg:hidden">
         <DrawerRoot placement="start" size="xs">
           <DrawerBackdrop />
@@ -245,27 +211,12 @@ const Sidebar: React.FC = () => {
                   </Button>
                 </Link>
               </div>
-              <footer 
-              className="flex flex-col pt-52">
-                <Button
-                  type="submit"
-                  width="full"
-                  variant="solid"
-                  colorScheme="green"
-                  className="transition-all hover:opacity-80"
-                  color="white"
-                  backgroundColor="green.700"
-                  onClick={handleLogout}
-                >
-                  Sair
-                </Button>
-              </footer>
             </DrawerBody>
             <DrawerCloseTrigger />
           </DrawerContent>
         </DrawerRoot>
       </div>
-    </aside>
+    </>
   );
 };
 

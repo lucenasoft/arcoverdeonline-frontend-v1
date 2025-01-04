@@ -1,5 +1,7 @@
 "use client";
 
+import { signIn } from "next-auth/react";
+
 // CHAKRA UI
 import { Button, Fieldset, Input, Stack } from "@chakra-ui/react";
 import { Field } from "@/components/ui/field";
@@ -11,25 +13,34 @@ import { LoginAdmin } from "@/services/auth";
 // HOOKS
 import { useState } from "react";
 
-export default function CreatePost() {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState(null);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSuccess(false);
     setError(false);
-
-    e.preventDefault();
+    setIsLoading(true);
 
     try {
-      const data = await LoginAdmin({ email, password });
-      setToken(data.token);
+      const jwtToken = await LoginAdmin({ email, password });
+      const res = await signIn("credentials", {
+        redirect: false,
+        email,
+        password,
+        jwt: jwtToken,
+      });
+      setSuccess(true);
+      return res;
     } catch (error: any) {
       console.log(error);
+      setError(true);
+    } finally {
+      setIsLoading(false);
     }
   };
 

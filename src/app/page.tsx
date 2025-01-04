@@ -54,7 +54,7 @@ export default function Home() {
   }
 
   return (
-    <div className="py-20 px-4 bg-white">
+    <div className="h-screen px-4 bg-white">
 
       <div className="carousel-container pb-16 lg:px-20">
         <Swiper
@@ -74,7 +74,7 @@ export default function Home() {
                 <img
                   src={sponsor.logo}
                   alt={sponsor.name}
-                  className="lg:1/4 lg:w-1/4 object-contain rounded-sm"
+                  className="w-80 h-80 rounded-sm pb-5"
                 />
                 <h3 className="text-green-700 text-lg font-semibold">
                   {sponsor.name}

@@ -26,7 +26,6 @@ export default function Navbar() {
               src={logo}
               alt="Logo Arcoverde Online"
               width={120}
-              height={90}
               priority={true}
               className="hover:opacity-90 transition-opacity"
             />
