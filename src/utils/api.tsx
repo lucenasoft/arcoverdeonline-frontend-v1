@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
-
+        
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 // funcao que faz o fetch das rotas

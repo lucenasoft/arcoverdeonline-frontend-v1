@@ -15,6 +15,8 @@ export function middleware(request: NextRequest) {
     "/pages/sponsors/AllSponsor",
     "/pages/sponsors/CreateSponsor",
     "/pages/sponsors/EditSponsor/",
+    "/pages/users/Dashboard",
+    "/pages/users/EditUser",
   ];
 
   const isProtectedRoute = protectedRoutes.some((route) =>
@@ -31,7 +33,3 @@ export function middleware(request: NextRequest) {
 
   return NextResponse.next();
 }
-
-export const config = {
-  matcher: ["/pages/:path*"],
-};
