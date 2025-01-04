@@ -1,4 +1,4 @@
-let BASE_URL = process.env.URL;
+let BASE_URL = process.env.API_URL;
 
 // funcao que faz o fetch das rotas
 export async function apiRequest(endpoint: string, options = {}) {

@@ -1,6 +1,6 @@
 "use client";
 
-import Cookies from "js-cookie";
+import { signIn } from "next-auth/react";
 
 // CHAKRA UI
 import { Button, Fieldset, Input, Stack } from "@chakra-ui/react";
@@ -13,7 +13,7 @@ import { LoginAdmin } from "@/services/auth";
 // HOOKS
 import { useState } from "react";
 
-export default function CreatePost() {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [success, setSuccess] = useState(false);
@@ -27,9 +27,15 @@ export default function CreatePost() {
     setIsLoading(true);
 
     try {
-      const data = await LoginAdmin({ email, password });
-      Cookies.set("token", data.token, { expires: 1 });
+      const jwtToken = await LoginAdmin({ email, password });
+      const res = await signIn("credentials", {
+        redirect: false,
+        email,
+        password,
+        jwt: jwtToken,
+      });
       setSuccess(true);
+      return res;
     } catch (error: any) {
       console.log(error);
       setError(true);
@@ -37,7 +43,6 @@ export default function CreatePost() {
       setIsLoading(false);
     }
   };
-
 
   return (
     <div className="flex items-center justify-center flex-col bg-white py-44">
@@ -90,7 +95,7 @@ export default function CreatePost() {
             backgroundColor="green.800"
             color="white"
             border="1px solid green.950"
-            className="hover:opacity-80"        
+            className="hover:opacity-80"
           >
             Entrar
           </Button>

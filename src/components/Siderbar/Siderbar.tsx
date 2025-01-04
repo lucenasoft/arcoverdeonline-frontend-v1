@@ -1,6 +1,5 @@
 "use client";
 
-import Cookies from "js-cookie";
 import Link from "next/link";
 import { Button, HStack } from "@chakra-ui/react";
 import { Avatar } from "@/components/ui/avatar";
@@ -15,27 +14,8 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
-import { LogoutAdmin } from "@/services/auth";
 
 const Sidebar: React.FC = () => {
-  const handleLogout = async () => {
-    const token = Cookies.get("token");
-
-    if (!token) {
-      console.error("Nenhum token encontrado.");
-      return;
-    }
-
-    try {
-      await LogoutAdmin(token);
-
-      Cookies.remove("token");
-
-      window.location.href = "/";
-    } catch (error) {
-      console.error("Erro ao fazer logout:", error);
-    }
-  };
 
   return (
     <>
@@ -127,21 +107,6 @@ const Sidebar: React.FC = () => {
               </Button>
             </Link>
           </div>
-
-          <footer className="flex flex-col pt-52">
-            <Button
-              type="submit"
-              width="full"
-              variant="solid"
-              colorScheme="green"
-              className="transition-all hover:opacity-80"
-              color="white"
-              backgroundColor="green.700"
-              onClick={handleLogout}
-            >
-              Sair
-            </Button>
-          </footer>
         </nav>
       </div>
       <div className="fixed z-10 right-5 bottom-10 lg:hidden">
@@ -246,20 +211,6 @@ const Sidebar: React.FC = () => {
                   </Button>
                 </Link>
               </div>
-              <footer className="flex flex-col pt-52">
-                <Button
-                  type="submit"
-                  width="full"
-                  variant="solid"
-                  colorScheme="green"
-                  className="transition-all hover:opacity-80"
-                  color="white"
-                  backgroundColor="green.700"
-                  onClick={handleLogout}
-                >
-                  Sair
-                </Button>
-              </footer>
             </DrawerBody>
             <DrawerCloseTrigger />
           </DrawerContent>
