@@ -37,7 +37,7 @@ export default NextAuth({
     },
   },
   pages: {
-    signIn: "/",
+    signIn: "/pages/users/Dashboard",
   },
   cookies: {
     sessionToken: {
