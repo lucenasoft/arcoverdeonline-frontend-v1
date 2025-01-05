@@ -57,6 +57,7 @@ const FormSubCategory = ({
               padding="1rem"
               _placeholder={{ color: "gray.400" }}
               className="focus:ring focus:ring-gray-600"
+              autoComplete="off"
             />
           </Field>
 
