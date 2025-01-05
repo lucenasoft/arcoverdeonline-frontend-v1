@@ -68,7 +68,6 @@ export default function Login() {
                 placeholder="Insira o email"
                 padding="1rem"
                 _placeholder={{ color: "gray.400" }}
-                autoComplete="off"
               />
             </Field>
 

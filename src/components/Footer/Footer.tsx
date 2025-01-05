@@ -9,7 +9,7 @@ export default function Footer() {
 
   useEffect(() => {
     const cookies = document.cookie.split("; ").map((cookie) => cookie.split("="));
-    const tokenCookie = cookies.find(([key]) => key === "token");
+    const tokenCookie = cookies.find(([key]) => key === "next-auth.session-token");
 
     setUser(!!tokenCookie);
   }, []);
