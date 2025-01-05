@@ -58,6 +58,7 @@ const FormPost = ({
               padding="1rem"
               _placeholder={{ color: "gray.400" }}
               className="focus:ring focus:ring-gray-600"
+              autoComplete="off"
             />
           </Field>
 
@@ -90,7 +91,7 @@ const FormPost = ({
             required
           >
             <option value="">Selecione uma sub-categoria</option>
-            {subCategories.map((categ:any) => (
+            {subCategories.map((categ: any) => (
               <option key={categ.id} value={categ.id}>
                 {categ.name}
               </option>

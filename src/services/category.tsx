@@ -3,7 +3,7 @@ import { apiRequest } from "@/utils/api";
 // Rota que cria a categoria
 export async function createCategory({ name }: { name: string }) {
   try {
-    const res = await apiRequest("/category", {
+    const res = await apiRequest("/categories", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -21,7 +21,7 @@ export async function createCategory({ name }: { name: string }) {
 // Rota que mostra todas as categorias
 export async function getAllCategory() {
   try {
-    const res = await apiRequest("/category", {
+    const res = await apiRequest("/categories", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -48,7 +48,7 @@ export async function getCategoryId(id: any) {
   }
 
   try {
-    const res = await apiRequest(`/category/${id}`, {
+    const res = await apiRequest(`/categories/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -81,7 +81,7 @@ export async function updateCategory(
   }
 
   try {
-    const res = await apiRequest(`/category/${id}`, {
+    const res = await apiRequest(`/categories/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -108,7 +108,7 @@ export async function deleteCategory(id: any) {
   }
 
   try {
-    const res = await apiRequest(`/category/${id}`, {
+    const res = await apiRequest(`/categories/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

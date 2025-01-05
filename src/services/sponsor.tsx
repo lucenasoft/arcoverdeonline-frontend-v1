@@ -13,7 +13,7 @@ export async function createSponsor({
   url: string;
 }) {
   try {
-    const res = await apiRequest("/sponsor", {
+    const res = await apiRequest("/sponsors", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +31,7 @@ export async function createSponsor({
 // Rota que mostra todos os patrocinadores
 export async function getAllSponsor() {
   try {
-    const res = await apiRequest("/sponsor", {
+    const res = await apiRequest("/sponsors", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -58,7 +58,7 @@ export async function getSponsorId(id: any) {
   }
   
   try {
-    const res = await apiRequest(`/sponsor/${id}`, {
+    const res = await apiRequest(`/sponsors/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -97,7 +97,7 @@ export async function updateSponsor(
   }
 
   try {
-    const res = await apiRequest(`/sponsor/${id}`, {
+    const res = await apiRequest(`/sponsors/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -124,7 +124,7 @@ export async function deleteSponsor(id: any) {
   }
   
   try {
-    const res = await apiRequest(`/sponsor/${id}`, {
+    const res = await apiRequest(`/sponsors/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

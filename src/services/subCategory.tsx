@@ -9,7 +9,7 @@ export async function createSubCategory({
   categoryId: string;
 }) {
   try {
-    const res = await apiRequest("/sub-category", {
+    const res = await apiRequest("/subcategories", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +27,7 @@ export async function createSubCategory({
 // Rota que mostra todas as sub-categorias
 export async function getAllSubCategory() {
   try {
-    const res = await apiRequest("/sub-category", {
+    const res = await apiRequest("/subcategories", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -54,7 +54,7 @@ export async function getSubCategoryId(id: any) {
   }
   
   try {
-    const res = await apiRequest(`/sub-category/${id}`, {
+    const res = await apiRequest(`/subcategories/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -89,7 +89,7 @@ export async function updateSubCategory(
   }
 
   try {
-    const res = await apiRequest(`/sub-category/${id}`, {
+    const res = await apiRequest(`/subcategories/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -116,7 +116,7 @@ export async function deleteSubCategory(id: any) {
   }
 
   try {
-    const res = await apiRequest(`/sub-category/${id}`, {
+    const res = await apiRequest(`/subcategories/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
