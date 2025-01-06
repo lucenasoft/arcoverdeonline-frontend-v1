@@ -17,7 +17,7 @@ import ButtonFormCreate from "@/components/ButtonCreate/ButtonFormCreate";
 
 export default function CreatePost() {
   const [title, setTitle] = useState("");
-  const [pdf, setPdf] = useState("");
+  const [pdf, setPdf] = useState<File | null>(null);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 
@@ -33,7 +33,7 @@ export default function CreatePost() {
       try {
         const res = await createPost({
           title,
-          pdf,
+          pdf: pdf!,
           subCategoryId,
         });
 
@@ -46,7 +46,7 @@ export default function CreatePost() {
 
     newPost();
     setTitle("");
-    setPdf("");
+    setPdf(null);
     setSubCategoryId("");
   };
 

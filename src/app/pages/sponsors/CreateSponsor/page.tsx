@@ -4,7 +4,7 @@
 import { Stack } from "@chakra-ui/react";
 import { Alert } from "@/components/ui/alert";
 
-//SERVICES
+// SERVICES
 import { createSponsor } from "@/services/sponsor";
 
 // HOOKS
@@ -16,39 +16,36 @@ import ButtonFormCreate from "@/components/ButtonCreate/ButtonFormCreate";
 
 export default function CreateSponsor() {
   const [name, setName] = useState<string>("");
-  const [logo, setLogo] = useState<string>("");
+  const [logo, setLogo] = useState<File | null>(null);
   const [contact, setContact] = useState<string>("");
   const [url, setUrl] = useState<string>("");
 
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSuccess(false);
     setError(false);
 
-    const newSponsor = async () => {
-      try {
-        const res = await createSponsor({
-          name,
-          logo,
-          contact,
-          url,
-        });
+    try {
+      await createSponsor({
+        name,
+        logo: logo!,
+        contact,
+        url,
+      });
 
-        setSuccess(true);
-        return res;
-      } catch (error) {
-        setError(true);
-      }
-    };
+      setSuccess(true);
 
-    newSponsor();
-    setName("");
-    setLogo("");
-    setContact("");
-    setUrl("");
+      setName("");
+      setLogo(null);
+      setContact("");
+      setUrl("");
+    } catch (err: any) {
+      console.error("Erro ao criar patrocinador:", err.message || err);
+      setError(true);
+    }
   };
 
   return (
@@ -72,16 +69,13 @@ export default function CreateSponsor() {
 
         <Stack marginTop="1rem">
           {success && (
-            <Alert
-              status="success"
-              title="Patrocinador feito com sucesso!"
-            ></Alert>
+            <Alert status="success" title="Patrocinador criado com sucesso!" />
           )}
           {error && (
             <Alert
               status="error"
               title="Erro ao criar patrocinador, tente novamente mais tarde."
-            ></Alert>
+            />
           )}
         </Stack>
       </form>

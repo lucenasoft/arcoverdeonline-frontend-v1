@@ -15,7 +15,7 @@ import DialogFormEdit from "@/components/DialogForm/DialogFormEdit";
 export default function EditPost() {
   const { id } = useParams();
   const [title, setTitle] = useState("");
-  const [pdf, setPdf] = useState("");
+  const [pdf, setPdf] = useState<File | undefined>(undefined);
 
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -31,9 +31,11 @@ export default function EditPost() {
       try {
         const data = await getPostId(id);
         setPost(data);
-        setTitle(data.title);
-        setPdf(data.pdf);
-        setSubCategoryId(data.subCategoryId);
+        setTitle(data.title || "");
+        setSubCategoryId(data.subCategoryId || "");
+        if (data.pdf) {
+          setPdf(undefined);
+        }
       } catch (err) {
         setError("Erro ao buscar a publicação. Tente novamente mais tarde.");
       } finally {

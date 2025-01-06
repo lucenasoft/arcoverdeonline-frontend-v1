@@ -32,7 +32,7 @@ const ButtonPageAllCreate = () => {
   }, [pathname]);
 
   return (
-    <div>
+    <div className="px-4">
       <Link href={href}>
         <Button
           type="submit"

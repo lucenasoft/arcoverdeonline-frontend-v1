@@ -68,16 +68,16 @@ const FormSponsor = ({
           <Field label="Logo">
             <Input
               name="logo"
-              type="text"
+              type="file"
               value={logo}
               onChange={(e) => setLogo(e.target.value)}
               required
               border="1px solid #ddd"
               placeholder="Insira a logo do patrocinador"
               padding="1rem"
+              paddingBottom="3rem"
               _placeholder={{ color: "gray.400" }}
               className="focus:ring focus:ring-gray-600"
-              autoComplete="off"
             />
           </Field>
 

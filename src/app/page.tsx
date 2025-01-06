@@ -27,8 +27,12 @@ export default function Home() {
   const [user, setUser] = useState(false);
 
   useEffect(() => {
-    const cookies = document.cookie.split("; ").map((cookie) => cookie.split("="));
-    const tokenCookie = cookies.find(([key]) => key === "next-auth.session-token");
+    const cookies = document.cookie
+      .split("; ")
+      .map((cookie) => cookie.split("="));
+    const tokenCookie = cookies.find(
+      ([key]) => key === "next-auth.session-token"
+    );
 
     setUser(!!tokenCookie);
   }, []);
@@ -64,6 +68,9 @@ export default function Home() {
   return (
     <div className={user ? "lg:ml-56 sm:ml0" : "ml-0"}>
       <div className="h-screen px-4 bg-white">
+        <h2 className="text-center pt-4 text-2xl font-bold text-green-700 mb-8">
+          Patrocinadores
+        </h2>
         <div className="carousel-container pb-16 lg:px-20">
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}
