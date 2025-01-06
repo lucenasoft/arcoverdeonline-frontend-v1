@@ -14,7 +14,7 @@ import DialogFormEdit from "@/components/DialogForm/DialogFormEdit";
 export default function EditSponsor() {
   const { id } = useParams();
   const [name, setName] = useState("");
-  const [logo, setLogo] = useState("");
+  const [logo, setLogo] = useState<File | undefined>(undefined)
   const [contact, setContact] = useState("");
   const [url, setUrl] = useState("");
 
@@ -29,10 +29,12 @@ export default function EditSponsor() {
       try {
         const data = await getSponsorId(id);
         setSponsor(data);
-        setName(data.name);
-        setLogo(data.logo);
-        setContact(data.contact);
-        setUrl(data.url);
+        setName(data.name || "");
+        setContact(data.contact || "");
+        setUrl(data.url || "");
+        if (data.logo) {
+          setLogo(undefined);
+        }
       } catch (error: any) {
         setError("Erro ao buscar o patrocinador, tente novamente mais tarde.");
       } finally {

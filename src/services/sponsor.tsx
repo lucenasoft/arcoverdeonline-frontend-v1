@@ -1,3 +1,8 @@
+import dotenv from 'dotenv';
+dotenv.config();
+        
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+
 import { apiRequest } from "@/utils/api";
 
 // Rota que cria o patrocinador
@@ -8,19 +13,22 @@ export async function createSponsor({
   url
 }: {
   name: string;
-  logo: string;
+  logo: File;
   contact: string;
   url: string;
 }) {
   try {
-    const res = await apiRequest("/sponsors", {
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("logo", logo);
+    formData.append("contact", contact);
+    formData.append("url", url);
+
+    const res = await fetch(`${BASE_URL}/sponsors`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name, logo, contact, url }),
+      body: formData,
     });
-    
+
     return res;
   } catch (error: any) {
     console.error("Erro ao criar patrocinador:", error.message);
@@ -87,7 +95,7 @@ export async function updateSponsor(
     url
   }: {
     name: string;
-    logo: string;
+    logo?: File;
     contact: string;
     url: string;
   }
@@ -97,12 +105,17 @@ export async function updateSponsor(
   }
 
   try {
-    const res = await apiRequest(`/sponsors/${id}`, {
+    const formData = new FormData();
+    formData.append("name", name);
+    if (logo) {
+      formData.append("logo", logo);
+    }
+    formData.append("contact", contact);
+    formData.append("url", url);
+
+    const res = await fetch(`${BASE_URL}/sponsors${id}`, {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name, logo, contact, url }),
+      body: formData,
     });
 
     return res;
@@ -116,6 +129,7 @@ export async function updateSponsor(
     );
   }
 }
+
 
 // Rota que deleta o patrocinador selecionado pelo ID
 export async function deleteSponsor(id: any) {

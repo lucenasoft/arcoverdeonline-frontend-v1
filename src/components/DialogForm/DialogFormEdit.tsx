@@ -17,7 +17,7 @@ const DialogFormEdit = ({ handleEdit }: any) => {
   const [name, setName] = useState("");
 
   useEffect(() => {
-    let currentEdit = "Editar";
+    let currentEdit = "";
 
     if (pathname.startsWith("/pages/categories/EditCategory"))
       currentEdit = "esta categoria";

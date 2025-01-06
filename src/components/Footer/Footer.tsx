@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Link from "next/link";
 
@@ -8,8 +8,12 @@ export default function Footer() {
   const [user, setUser] = useState(false);
 
   useEffect(() => {
-    const cookies = document.cookie.split("; ").map((cookie) => cookie.split("="));
-    const tokenCookie = cookies.find(([key]) => key === "next-auth.session-token");
+    const cookies = document.cookie
+      .split("; ")
+      .map((cookie) => cookie.split("="));
+    const tokenCookie = cookies.find(
+      ([key]) => key === "next-auth.session-token"
+    );
 
     setUser(!!tokenCookie);
   }, []);
@@ -27,16 +31,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/sobre" className="hover:text-green-600 transition">
+                <Link href="/pages/About" className="hover:text-green-600 transition">
                   Sobre
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contatos"
-                  className="hover:text-green-600 transition"
-                >
-                  Contatos
                 </Link>
               </li>
             </ul>

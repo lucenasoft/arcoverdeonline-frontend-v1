@@ -16,14 +16,17 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
-
 const Sidebar: React.FC = () => {
   const [user, setUser] = useState(false);
 
   useEffect(() => {
     // Verifica se o cookie "token" existe
-    const cookies = document.cookie.split("; ").map((cookie) => cookie.split("="));
-    const tokenCookie = cookies.find(([key]) => key === "next-auth.session-token");
+    const cookies = document.cookie
+      .split("; ")
+      .map((cookie) => cookie.split("="));
+    const tokenCookie = cookies.find(
+      ([key]) => key === "next-auth.session-token"
+    );
 
     // Habilita a sidebar se o token estiver presente
     setUser(!!tokenCookie);
@@ -34,18 +37,20 @@ const Sidebar: React.FC = () => {
       <div className="w-56 h-full bg-green-50 text-gray-800 fixed top-0 left-0 shadow-md shadow-black hidden lg:block">
         <nav className="flex flex-col py-16 px-4 gap-4">
           <div className="px-16">
-            <HStack>
-              <Avatar
-                variant="solid"
-                name="Usuário Adm"
-                size="2xl"
-                width="full"
-                outlineWidth="2px"
-                outlineColor="green.700"
-                outlineOffset="2px"
-                outlineStyle="solid"
-              />
-            </HStack>
+            <Link href="/pages/users/EditUser/1">
+              <HStack>
+                <Avatar
+                  variant="solid"
+                  name="Usuário Adm"
+                  size="2xl"
+                  width="full"
+                  outlineWidth="2px"
+                  outlineColor="green.700"
+                  outlineOffset="2px"
+                  outlineStyle="solid"
+                />
+              </HStack>
+            </Link>
           </div>
 
           <div className="flex flex-col pt-10 pb-14 gap-4">
@@ -138,18 +143,20 @@ const Sidebar: React.FC = () => {
           <DrawerContent backgroundColor="green.50">
             <DrawerBody>
               <div className="px-24 pt-16">
-                <HStack>
-                  <Avatar
-                    variant="solid"
-                    name="Usuário Adm"
-                    size="2xl"
-                    width="full"
-                    outlineWidth="2px"
-                    outlineColor="green.700"
-                    outlineOffset="2px"
-                    outlineStyle="solid"
-                  />
-                </HStack>
+                <Link href="/pages/users/EditUser/1">
+                  <HStack>
+                    <Avatar
+                      variant="solid"
+                      name="Usuário Adm"
+                      size="2xl"
+                      width="full"
+                      outlineWidth="2px"
+                      outlineColor="green.700"
+                      outlineOffset="2px"
+                      outlineStyle="solid"
+                    />
+                  </HStack>
+                </Link>
               </div>
 
               <div className="flex flex-col pt-10 pb-14 gap-4">

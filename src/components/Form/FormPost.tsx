@@ -65,13 +65,14 @@ const FormPost = ({
           <Field label="PDF">
             <Input
               name="pdf"
-              type="text"
+              type="file"
               value={pdf}
               onChange={(e) => setPdf(e.target.value)}
               required
               border="1px solid #ddd"
               placeholder="Insira o link do PDF"
               padding="1rem"
+              paddingBottom="3rem"
               _placeholder={{ color: "gray.400" }}
               className="focus:ring focus:ring-gray-600"
             />

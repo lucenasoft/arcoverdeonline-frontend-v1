@@ -1,3 +1,8 @@
+import dotenv from 'dotenv';
+dotenv.config();
+        
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+
 import { apiRequest } from "@/utils/api";
 
 // Rota que cria a publicação
@@ -7,29 +12,32 @@ export async function createPost({
   subCategoryId,
 }: {
   title: string;
-  pdf: string;
+  pdf: File;
   subCategoryId: string;
 }) {
   try {
-    const res = await apiRequest("/post", {
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("pdf", pdf);
+    formData.append("subCategoryId", subCategoryId);
+
+    const res = await fetch(`${BASE_URL}/posts`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ title, pdf, subCategoryId }),
+      body: formData,
     });
-    
+
     return res;
   } catch (error: any) {
-    console.error("Erro ao criar publicação:", error.message);
+    console.error("Erro ao criar publicação:", error.message || error);
     throw new Error("Erro ao criar publicação. Tente novamente mais tarde.");
   }
 }
 
+
 // Rota que mostra todas as publicações
 export async function getAllPost() {
   try {
-    const res = await apiRequest("/post", {
+    const res = await apiRequest("/posts", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -56,7 +64,7 @@ export async function getPostId(id: any) {
   }
   
   try {
-    const res = await apiRequest(`/post/${id}`, {
+    const res = await apiRequest(`/posts/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -84,21 +92,25 @@ export async function updatePost(
     subCategoryId,
   }: {
     title: string;
-    pdf: string;
+    pdf?: File;
     subCategoryId: string;
   }
 ) {
   if (!id) {
     throw new Error("O ID da publicação é obrigatório.");
   }
-  
+
   try {
-    const res = await apiRequest(`/post/${id}`, {
+    const formData = new FormData();
+    formData.append("title", title);
+    if (pdf) {
+      formData.append("pdf", pdf);
+    }
+    formData.append("subCategoryId", subCategoryId);
+
+    const res = await fetch(`${BASE_URL}/posts${id}`, {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ title, pdf, subCategoryId }),
+      body: formData,
     });
 
     return res;
@@ -113,6 +125,7 @@ export async function updatePost(
   }
 }
 
+
 // Rota que deleta a publicação selecionada pelo ID
 export async function deletePost(id: any) {
   if (!id) {
@@ -120,7 +133,7 @@ export async function deletePost(id: any) {
   }
 
   try {
-    const res = await apiRequest(`/post/${id}`, {
+    const res = await apiRequest(`/posts/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
