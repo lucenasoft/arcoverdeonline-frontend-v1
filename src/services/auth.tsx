@@ -1,5 +1,4 @@
 import { apiRequest } from "@/utils/api";
-
 export async function getUserInfo() {
   try {
     const res = await apiRequest("/session/me", {
