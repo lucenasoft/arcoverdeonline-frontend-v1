@@ -28,10 +28,6 @@ export async function getAllCategory() {
       },
     });
 
-    if (!Array.isArray(res)) {
-      throw new Error("Erro ao listar categorias.");
-    }
-
     return res;
   } catch (error: any) {
     console.error("Erro ao listar categorias:", error.message || error);
