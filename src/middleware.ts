@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
-  const token = request.cookies.get("next-auth.session-token")?.value;
+  const token = request.cookies.get("nextauth.token")?.value;
+
   const protectedRoutes = [
     "/pages/categories/AllCategory",
     "/pages/categories/CreateCategory",
@@ -23,11 +24,14 @@ export function middleware(request: NextRequest) {
     request.nextUrl.pathname.startsWith(route)
   );
 
-  if (!isProtectedRoute) {
-    return NextResponse.next();
+  if ((request.nextUrl.pathname === "/" && token) || (request.nextUrl.pathname === "/pages/Login" && token)) {
+    return NextResponse.redirect(
+      new URL("/pages/users/Dashboard", request.url)
+    );
   }
 
-  if (!token) {
+  // Verificar rotas protegidas
+  if (isProtectedRoute && !token) {
     return NextResponse.redirect(new URL("/pages/Login", request.url));
   }
 
