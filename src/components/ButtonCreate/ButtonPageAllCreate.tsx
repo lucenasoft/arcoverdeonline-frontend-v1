@@ -13,18 +13,18 @@ const ButtonPageAllCreate = () => {
     let currentTitle = "Criar";
     let href = "";
 
-    if (pathname === "/pages/categories/AllCategory") {
+    if (pathname === "/pages/categories/allcategory") {
       currentTitle = "Criar Categoria";
-      href = "/pages/categories/CreateCategory";
-    } else if (pathname === "/pages/subCategories/AllSubCategory") {
+      href = "/pages/categories/createcategory";
+    } else if (pathname === "/pages/subcategories/allsubcategory") {
       currentTitle = "Criar Sub-Categoria";
-      href = "/pages/subCategories/CreateSubCategory";
-    } else if (pathname === "/pages/posts/AllPost") {
+      href = "/pages/subcategories/createsubcategory";
+    } else if (pathname === "/pages/posts/allpost") {
       currentTitle = "Criar Publicação";
-      href = "/pages/posts/CreatePost";
-    } else if (pathname === "/pages/sponsors/AllSponsor") {
+      href = "/pages/posts/createpost";
+    } else if (pathname === "/pages/sponsors/allsponsor") {
       currentTitle = "Criar Patrocinador";
-      href = "/pages/sponsors/CreateSponsor";
+      href = "/pages/sponsors/createsponsor";
     }
 
     setName(currentTitle);

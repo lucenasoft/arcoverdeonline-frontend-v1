@@ -24,10 +24,10 @@ const FormSponsor = ({
     let currentSubTitle =
       "Preencha os campos abaixo para criar ou editar o patrocinador.";
 
-    if (pathname === "/pages/sponsors/CreateSponsor") {
+    if (pathname === "/pages/sponsors/createsponsor") {
       currentTitle = "Criar Patrocinador";
       currentSubTitle = "Preencha os campos abaixo para criar o patrocinador.";
-    } else if (pathname.startsWith("/pages/sponsors/EditSponsor")) {
+    } else if (pathname.startsWith("/pages/sponsors/editsponsor")) {
       currentTitle = "Editar Patrocinador";
       currentSubTitle = "Preencha os campos abaixo para editar o patrocinador.";
     }

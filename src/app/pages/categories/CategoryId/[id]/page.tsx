@@ -107,7 +107,7 @@ export default function CategoryDetails() {
             {subCategories.map((subCategory) => (
               <li key={subCategory.id}>
                 <Link
-                  href={`/pages/subCategories/SubCategoryId/${subCategory.id}`}
+                  href={`/pages/subcategories/subcategoryid/${subCategory.id}`}
                 >
                   <Button
                     borderBottom="1px solid green"

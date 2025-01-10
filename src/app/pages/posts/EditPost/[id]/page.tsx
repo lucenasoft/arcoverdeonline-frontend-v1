@@ -49,7 +49,7 @@ export default function EditPost() {
   const handleEdit = async () => {
     try {
       await updatePost(id, { title, pdf, subCategoryId });
-      window.location.href = "/pages/posts/AllPost";
+      window.location.href = "/pages/posts/allpost";
     } catch {
       setError("Erro ao atualizar a publicação. Tente novamente.");
     }

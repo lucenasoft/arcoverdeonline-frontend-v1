@@ -50,7 +50,7 @@ export default function EditSubCategory() {
 
     try {
       await updateSubCategory(id, { name, categoryId });
-      window.location.href = "/pages/subCategories/AllSubCategory";
+      window.location.href = "/pages/subcategories/allsubcategory";
     } catch (error: any) {
       setError(
         "Erro ao atualizar a sub-categoria, tente novamente mais tarde."

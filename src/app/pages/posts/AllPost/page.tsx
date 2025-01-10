@@ -120,7 +120,7 @@ const AllPost = () => {
 
                   <Table.Cell>
                     <Link
-                      href={`/pages/posts/EditPost/${post.id}`}
+                      href={`/pages/posts/editpost/${post.id}`}
                     >
                       <Button
                         variant="outline"

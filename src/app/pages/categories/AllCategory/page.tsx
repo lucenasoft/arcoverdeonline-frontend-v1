@@ -95,7 +95,7 @@ const AllCategory = () => {
                   <Table.Cell color="green.700">{categ.name}</Table.Cell>
 
                   <Table.Cell textAlign="right">
-                    <Link href={`/pages/categories/EditCategory/${categ.id}`}>
+                    <Link href={`/pages/categories/editcategory/${categ.id}`}>
                       <Button
                         variant="outline"
                         size="sm"

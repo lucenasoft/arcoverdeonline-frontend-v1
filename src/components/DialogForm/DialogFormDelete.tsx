@@ -20,13 +20,13 @@ const DialogFormDelete = ({ handleDelete }: any) => {
   useEffect(() => {
     let currentEdit = "Editar";
 
-    if (pathname.startsWith("/pages/categories/AllCategory"))
+    if (pathname.startsWith("/pages/categories/allcategory"))
       currentEdit = "esta categoria";
-    else if (pathname.startsWith("/pages/subCategories/AllSubCategory"))
+    else if (pathname.startsWith("/pages/subcategories/allsubcategory"))
       currentEdit = "esta sub-categoria";
-    else if (pathname.startsWith("/pages/posts/AllPost"))
+    else if (pathname.startsWith("/pages/posts/allpost"))
       currentEdit = "esta publicação";
-    else if (pathname.startsWith("/pages/sponsors/AllSponsor"))
+    else if (pathname.startsWith("/pages/sponsors/allsponsor"))
       currentEdit = "este patrocinador";
 
     setName(currentEdit);

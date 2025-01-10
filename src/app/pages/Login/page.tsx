@@ -6,7 +6,6 @@ import { Field } from "@/components/ui/field";
 import { Alert } from "@/components/ui/alert";
 
 //SERVICES
-// import { LoginAdmin } from "@/services/auth";
 import { useContext } from "react";
 import { AuthContext } from "@/contexts/AuthContext";
 
@@ -30,7 +29,7 @@ export default function Login() {
     try {
       const res = await LoginAdmin({ email, password });
       setSuccess(true)
-      window.location.href = "/pages/users/Dashboard"
+      window.location.href = "/pages/users/dashboard"
     } catch (error) {
       console.error("Login error:", error);
       setError(true);

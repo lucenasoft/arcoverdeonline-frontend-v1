@@ -50,7 +50,7 @@ export default function EditSponsor() {
 
     try {
       await updateSponsor(id, { name, logo, contact, url });
-      window.location.href = "/pages/sponsors/AllSponsor";
+      window.location.href = "/pages/sponsors/allsponsor";
     } catch (error: any) {
       setError("Erro ao atualizar o patrocinador, tente novamente mais tarde.");
     }

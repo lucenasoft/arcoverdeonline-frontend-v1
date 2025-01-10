@@ -112,7 +112,7 @@ const AllSubCategory = () => {
 
                   <Table.Cell>
                     <Link
-                      href={`/pages/subCategories/EditSubCategory/${subCateg.id}`}
+                      href={`/pages/subcategories/editsubcategory/${subCateg.id}`}
                     >
                       <Button
                         variant="outline"

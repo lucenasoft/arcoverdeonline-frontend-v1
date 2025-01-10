@@ -43,7 +43,7 @@ export default function EditCategory() {
     e.preventDefault();
     try {
       await updateCategory(id, { name });
-      window.location.href = "/pages/categories/AllCategory";
+      window.location.href = "/pages/categories/allcategory";
     } catch (error: any) {
       setError("Erro ao atualizar a categoria, tente novamente mais tarde.");
     }

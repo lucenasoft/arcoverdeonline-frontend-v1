@@ -21,10 +21,10 @@ const FormPost = ({
     let currentSubTitle =
       "Preencha os campos abaixo para criar ou editar a Publicação.";
 
-    if (pathname === "/pages/posts/CreatePost") {
+    if (pathname === "/pages/posts/createpost") {
       currentTitle = "Criar Publicação";
       currentSubTitle = "Preencha os campos abaixo para criar a Publicação.";
-    } else if (pathname.startsWith("/pages/posts/EditPost")) {
+    } else if (pathname.startsWith("/pages/posts/editpost")) {
       currentTitle = "Editar Publicação";
       currentSubTitle = "Preencha os campos abaixo para editar a Publicação.";
     }
