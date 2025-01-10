@@ -1,22 +1,25 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
-        
+
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 import { apiRequest } from "@/utils/api";
+import Cookies from "js-cookie";
 
 // Rota que cria o patrocinador
 export async function createSponsor({
   name,
   logo,
   contact,
-  url
+  url,
 }: {
   name: string;
   logo: File;
   contact: string;
   url: string;
 }) {
+  const token = Cookies.get("nextauth.token");
+
   try {
     const formData = new FormData();
     formData.append("name", name);
@@ -26,6 +29,9 @@ export async function createSponsor({
 
     const res = await fetch(`${BASE_URL}/sponsors`, {
       method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
       body: formData,
     });
 
@@ -45,11 +51,11 @@ export async function getAllSponsor() {
         "Content-Type": "application/json",
       },
     });
-    
+
     if (!Array.isArray(res)) {
       throw new Error("Erro ao listar patrocinadores.");
     }
-    
+
     return res;
   } catch (error: any) {
     console.error("Erro ao listar patrocinadores.", error.message || error);
@@ -64,7 +70,7 @@ export async function getSponsorId(id: any) {
   if (!id) {
     throw new Error("O ID do patrocinador é obrigatório.");
   }
-  
+
   try {
     const res = await apiRequest(`/sponsors/${id}`, {
       method: "GET",
@@ -72,7 +78,7 @@ export async function getSponsorId(id: any) {
         "Content-Type": "application/json",
       },
     });
-    
+
     return res;
   } catch (error: any) {
     console.error(
@@ -92,7 +98,7 @@ export async function updateSponsor(
     name,
     logo,
     contact,
-    url
+    url,
   }: {
     name: string;
     logo?: File;
@@ -103,6 +109,8 @@ export async function updateSponsor(
   if (!id) {
     throw new Error("O ID do patrocinador é obrigatório.");
   }
+
+  const token = Cookies.get("nextauth.token");
 
   try {
     const formData = new FormData();
@@ -115,6 +123,9 @@ export async function updateSponsor(
 
     const res = await fetch(`${BASE_URL}/sponsors${id}`, {
       method: "PUT",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
       body: formData,
     });
 
@@ -130,18 +141,20 @@ export async function updateSponsor(
   }
 }
 
-
 // Rota que deleta o patrocinador selecionado pelo ID
 export async function deleteSponsor(id: any) {
   if (!id) {
     throw new Error("O ID do patrocinador é obrigatório.");
   }
-  
+
+  const token = Cookies.get("nextauth.token");
+
   try {
     const res = await apiRequest(`/sponsors/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
       },
     });
 

@@ -1,9 +1,15 @@
 import { apiRequest } from "@/utils/api";
+import Cookies from "js-cookie";
+
 export async function getUserInfo() {
+  const token = Cookies.get('nextauth.token');
+
   try {
     const res = await apiRequest("/session/me", {
       method: "GET",
-      credentials: "include",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      }
     });
 
     if (!res.ok) {

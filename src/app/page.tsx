@@ -117,7 +117,7 @@ export default function Home() {
             {categories.length > 0 &&
               [...categories].reverse().map((categ) => (
                 <li key={categ.id}>
-                  <Link href={`/pages/categories/CategoryId/${categ.id}`}>
+                  <Link href={`/pages/categories/categoryid/${categ.id}`}>
                     <Button className="w-full md:w-10/12 bg-green-700 text-white font-semibold rounded-lg shadow-lg hover:bg-green-600 transition">
                       {categ.name}
                     </Button>

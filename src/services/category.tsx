@@ -1,12 +1,16 @@
 import { apiRequest } from "@/utils/api";
+import Cookies from 'js-cookie';
 
 // Rota que cria a categoria
 export async function createCategory({ name }: { name: string }) {
+  const token = Cookies.get('nextauth.token');
+
   try {
     const res = await apiRequest("/categories", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
       },
       body: JSON.stringify({ name }),
     });
@@ -76,11 +80,14 @@ export async function updateCategory(
     throw new Error("O ID da categoria é obrigatório.");
   }
 
+  const token = Cookies.get('nextauth.token');
+
   try {
     const res = await apiRequest(`/categories/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
       },
       body: JSON.stringify({ name }),
     });
@@ -99,15 +106,18 @@ export async function updateCategory(
 
 // Rota que deleta a categoria selecionada pelo ID
 export async function deleteCategory(id: any) {
+  const token = Cookies.get('nextauth.token');
+  
   if (!id) {
     throw new Error("O ID da categoria é obrigatório.");
   }
-
+  
   try {
     const res = await apiRequest(`/categories/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
       },
     });
 

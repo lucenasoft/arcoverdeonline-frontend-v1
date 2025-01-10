@@ -1,9 +1,10 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
-        
+
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 import { apiRequest } from "@/utils/api";
+import Cookies from "js-cookie";
 
 // Rota que cria a publicação
 export async function createPost({
@@ -15,6 +16,8 @@ export async function createPost({
   pdf: File;
   subCategoryId: string;
 }) {
+  const token = Cookies.get("nextauth.token");
+
   try {
     const formData = new FormData();
     formData.append("title", title);
@@ -23,6 +26,9 @@ export async function createPost({
 
     const res = await fetch(`${BASE_URL}/posts`, {
       method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
       body: formData,
     });
 
@@ -33,7 +39,6 @@ export async function createPost({
   }
 }
 
-
 // Rota que mostra todas as publicações
 export async function getAllPost() {
   try {
@@ -43,11 +48,11 @@ export async function getAllPost() {
         "Content-Type": "application/json",
       },
     });
-    
+
     if (!Array.isArray(res)) {
       throw new Error("Erro ao listar publicações.");
     }
-    
+
     return res;
   } catch (error: any) {
     console.error("Erro ao listar publicações:", error.message || error);
@@ -62,7 +67,7 @@ export async function getPostId(id: any) {
   if (!id) {
     throw new Error("O ID da publicação é obrigatório.");
   }
-  
+
   try {
     const res = await apiRequest(`/posts/${id}`, {
       method: "GET",
@@ -100,6 +105,8 @@ export async function updatePost(
     throw new Error("O ID da publicação é obrigatório.");
   }
 
+  const token = Cookies.get("nextauth.token");
+
   try {
     const formData = new FormData();
     formData.append("title", title);
@@ -110,6 +117,9 @@ export async function updatePost(
 
     const res = await fetch(`${BASE_URL}/posts${id}`, {
       method: "PUT",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
       body: formData,
     });
 
@@ -125,18 +135,20 @@ export async function updatePost(
   }
 }
 
-
 // Rota que deleta a publicação selecionada pelo ID
 export async function deletePost(id: any) {
   if (!id) {
     throw new Error("O ID da publicação é obrigatório.");
   }
+  
+  const token = Cookies.get("nextauth.token");
 
   try {
     const res = await apiRequest(`/posts/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
       },
     });
 

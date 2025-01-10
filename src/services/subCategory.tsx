@@ -1,4 +1,5 @@
 import { apiRequest } from "@/utils/api";
+import Cookies from "js-cookie";
 
 // Rota que cria a sub-categoria
 export async function createSubCategory({
@@ -8,15 +9,18 @@ export async function createSubCategory({
   name: string;
   categoryId: string;
 }) {
+  const token = Cookies.get("nextauth.token");
+
   try {
     const res = await apiRequest("/subcategories", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
       },
       body: JSON.stringify({ name, categoryId }),
     });
-    
+
     return res;
   } catch (error: any) {
     console.error("Erro ao criar sub-categoria:", error.message);
@@ -33,11 +37,11 @@ export async function getAllSubCategory() {
         "Content-Type": "application/json",
       },
     });
-    
+
     if (!Array.isArray(res)) {
       throw new Error("Erro ao listar sub-categorias.");
     }
-    
+
     return res;
   } catch (error: any) {
     console.error("Erro ao listar sub-categorias:", error.message || error);
@@ -52,7 +56,7 @@ export async function getSubCategoryId(id: any) {
   if (!id) {
     throw new Error("O ID da sub-categoria é obrigatório.");
   }
-  
+
   try {
     const res = await apiRequest(`/subcategories/${id}`, {
       method: "GET",
@@ -60,7 +64,7 @@ export async function getSubCategoryId(id: any) {
         "Content-Type": "application/json",
       },
     });
-    
+
     return res;
   } catch (error: any) {
     console.error(
@@ -78,7 +82,7 @@ export async function updateSubCategory(
   id: any,
   {
     name,
-    categoryId
+    categoryId,
   }: {
     name: string;
     categoryId: string;
@@ -88,15 +92,18 @@ export async function updateSubCategory(
     throw new Error("O ID da sub-categoria é obrigatório.");
   }
 
+  const token = Cookies.get("nextauth.token");
+
   try {
     const res = await apiRequest(`/subcategories/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
       },
       body: JSON.stringify({ name, categoryId }),
     });
-    
+
     return res;
   } catch (error: any) {
     console.error(
@@ -115,11 +122,14 @@ export async function deleteSubCategory(id: any) {
     throw new Error("O ID da sub-categoria é obrigatório.");
   }
 
+  const token = Cookies.get("nextauth.token");
+
   try {
     const res = await apiRequest(`/subcategories/${id}`, {
       method: "DELETE",
       headers: {
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
       },
     });
 

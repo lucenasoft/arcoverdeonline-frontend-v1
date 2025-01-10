@@ -1,4 +1,5 @@
 import { apiRequest } from "@/utils/api";
+import Cookies from "js-cookie";
 
 // Rota que mostra o usuario selecionada pelo ID
 export async function getUserId(id: any) {
@@ -6,11 +7,14 @@ export async function getUserId(id: any) {
     throw new Error("O ID do usuário é obrigatório.");
   }
 
+  const token = Cookies.get('nextauth.token');
+
   try {
     const res = await apiRequest(`/user/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
       },
     });
 
@@ -43,11 +47,14 @@ export async function updateUser(
     throw new Error("O ID do usuário é obrigatório.");
   }
 
+  const token = Cookies.get('nextauth.token');
+  
   try {
     const res = await apiRequest(`/user/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
       },
       body: JSON.stringify({ name, email, password }),
     });
