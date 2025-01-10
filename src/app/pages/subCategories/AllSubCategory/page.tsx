@@ -43,7 +43,7 @@ const AllSubCategory = () => {
         prev.filter((subCateg) => subCateg.id !== subCategoryId)
       );
     } catch (error: any) {
-      console.error("Erro ao deletar sub-categoria:", error.message);
+      window.location.reload();
     }
   };
 

@@ -10,30 +10,28 @@ import { useEffect, useState } from "react";
 
 // SERVICES
 import { getCategoryId } from "@/services/category";
-import { getAllSubCategory } from "@/services/subCategory";
 
 interface Category {
   id: string;
   name: string;
+  subCategories: SubCategory[];
 }
 
 interface SubCategory {
   id: string;
   name: string;
-  categoryId: string;
 }
 
 export default function CategoryDetails() {
   const { id } = useParams();
   const [category, setCategory] = useState<Category | null>(null);
-  const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!id) return;
 
-    const fetchCategoryAndSubCategories = async () => {
+    const fetchCategory = async () => {
       try {
         setLoading(true);
 
@@ -44,26 +42,16 @@ export default function CategoryDetails() {
           return;
         }
 
-        const allSubCategories = await getAllSubCategory();
-
-        const filteredSubCategories = allSubCategories.filter(
-          (sub) => sub.categoryId === id
-        );
-
         setCategory(categoryData);
-        setSubCategories(filteredSubCategories);
       } catch (err: any) {
         setError("Erro ao carregar os dados. Tente novamente mais tarde.");
-        console.error(
-          "Erro ao buscar a categoria ou subcategorias:",
-          err.message
-        );
+        console.error("Erro ao buscar a categoria:", err.message);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchCategoryAndSubCategories();
+    fetchCategory();
   }, [id]);
 
   if (loading) {
@@ -102,9 +90,9 @@ export default function CategoryDetails() {
         <h2 className="py-4 text-2xl font-semibold text-green-700">
           Subcategorias:
         </h2>
-        {subCategories.length > 0 ? (
+        {category.subCategories.length > 0 ? (
           <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {subCategories.map((subCategory) => (
+            {category.subCategories.map((subCategory) => (
               <li key={subCategory.id}>
                 <Link
                   href={`/pages/subcategories/subcategoryid/${subCategory.id}`}
