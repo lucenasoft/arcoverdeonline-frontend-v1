@@ -25,7 +25,7 @@ const Sidebar: React.FC = () => {
       .split("; ")
       .map((cookie) => cookie.split("="));
     const tokenCookie = cookies.find(
-      ([key]) => key === "next-auth.session-token"
+      ([key]) => key === "nextauth.token"
     );
 
     // Habilita a sidebar se o token estiver presente
