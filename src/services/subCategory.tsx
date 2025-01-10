@@ -23,10 +23,11 @@ export async function createSubCategory({
 
     return res;
   } catch (error: any) {
-    console.error("Erro ao criar sub-categoria:", error.message);
-    throw new Error("Erro ao criar sub-categoria. Tente novamente mais tarde.");
+    console.error("Erro ao criar subcategoria:", error.message);
+    throw new Error("Erro ao criar subcategoria. Tente novamente mais tarde.");
   }
 }
+
 
 // Rota que mostra todas as sub-categorias
 export async function getAllSubCategory() {
@@ -99,7 +100,7 @@ export async function updateSubCategory(
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ name, categoryId }),
     });
@@ -117,30 +118,25 @@ export async function updateSubCategory(
 }
 
 // Rota que deleta a sub-categoria selecionada pelo ID
-export async function deleteSubCategory(id: any) {
-  if (!id) {
-    throw new Error("O ID da sub-categoria é obrigatório.");
-  }
-
+export async function deleteSubCategory(subCategoryId: any) {
   const token = Cookies.get("nextauth.token");
 
   try {
-    const res = await apiRequest(`/subcategories/${id}`, {
+    const response = await apiRequest(`/subcategories/${subCategoryId}`, {
       method: "DELETE",
       headers: {
-        // "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
-    return res;
+    if (!response.ok) {
+      throw new Error(`Erro ao excluir a subcategoria com o ID ${subCategoryId}`);
+    }
+
+    return response; // Retorna a resposta para a função do frontend
   } catch (error: any) {
-    console.error(
-      `Erro ao excluir a sub-categoria com o ID ${id}:`,
-      error.message || error
-    );
-    throw new Error(
-      `Não foi possível excluir a sub-categoria com o ID ${id}. Tente novamente mais tarde.`
-    );
+    console.error("Erro ao deletar subcategoria:", error.message);
+    throw new Error("Erro ao excluir subcategoria.");
   }
 }
+

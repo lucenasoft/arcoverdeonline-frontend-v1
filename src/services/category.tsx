@@ -1,18 +1,18 @@
 import { apiRequest } from "@/utils/api";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 // Rota que cria a categoria
 export async function createCategory({ name }: { name: string }) {
-  const token = Cookies.get('nextauth.token');
+  const token = Cookies.get("nextauth.token");
 
   try {
     const res = await apiRequest("/categories", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ name }),
+      body: JSON.stringify({ name, subCategories: [] }), // Inclui o array vazio de subcategorias
     });
 
     return res;
@@ -80,14 +80,14 @@ export async function updateCategory(
     throw new Error("O ID da categoria é obrigatório.");
   }
 
-  const token = Cookies.get('nextauth.token');
+  const token = Cookies.get("nextauth.token");
 
   try {
     const res = await apiRequest(`/categories/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ name }),
     });
@@ -106,29 +106,25 @@ export async function updateCategory(
 
 // Rota que deleta a categoria selecionada pelo ID
 export async function deleteCategory(id: any) {
-  const token = Cookies.get('nextauth.token');
-  
   if (!id) {
     throw new Error("O ID da categoria é obrigatório.");
   }
-  
+
+  const token = Cookies.get("nextauth.token");
+
   try {
     const res = await apiRequest(`/categories/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
     return res;
   } catch (error: any) {
-    console.error(
-      `Erro ao excluir a categoria com o ID ${id}:`,
-      error.message || error
-    );
-    throw new Error(
-      `Não foi possível excluir a categoria com o ID ${id}. Tente novamente mais tarde.`
-    );
+    console.error(`Erro ao excluir a categoria com o ID ${id}:`, error.message || error);
+    throw new Error("Não foi possível excluir a categoria. Tente novamente mais tarde.");
   }
 }
+

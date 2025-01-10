@@ -39,9 +39,11 @@ const AllCategory = () => {
   const handleDelete = async (categoryId: string) => {
     try {
       await deleteCategory(categoryId);
-      setCategories((prev) => prev.filter((categ) => categ.id !== categoryId));
-    } catch (error: any) {
-      console.error("Erro ao deletar categoria:", error.message);
+      setCategories((prevCategories) =>
+        prevCategories.filter((category) => category.id !== categoryId)
+      );
+    } catch (error) {
+      window.location.reload()
     }
   };
 
@@ -115,6 +117,7 @@ const AllCategory = () => {
                     >
                       <span className="hidden sm:block">Apagar</span>
                     </DialogFormDelete>
+                    {/* <Button onClick={() => handleDelete(categ.id)}>Apagar</Button> */}
                   </Table.Cell>
                 </Table.Row>
               ))}

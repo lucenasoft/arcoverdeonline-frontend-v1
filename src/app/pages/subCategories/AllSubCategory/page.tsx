@@ -1,15 +1,11 @@
 "use client";
 
 import { BsPencil } from "react-icons/bs";
-
 import { Button, Table } from "@chakra-ui/react";
-
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
 import { getAllSubCategory, deleteSubCategory } from "@/services/subCategory";
 import DialogFormDelete from "@/components/DialogForm/DialogFormDelete";
-
 import { useGetCategory } from "@/hooks/useGetCategory";
 import ButtonPageAllCreate from "@/components/ButtonCreate/ButtonPageAllCreate";
 
@@ -59,10 +55,12 @@ const AllSubCategory = () => {
     );
   }
 
-  if (!subCategories) {
+  if (!categories || categories.length === 0) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <p className="text-green-700 text-xl font-semibold">Sub-categoria não encontrada.</p>
+        <p className="text-green-700 text-xl font-semibold">
+          Categorias não encontradas.
+        </p>
       </div>
     );
   }
@@ -85,57 +83,50 @@ const AllSubCategory = () => {
                 backgroundColor="transparent"
                 borderBottom="1px solid #ddd"
               >
-                <Table.ColumnHeader color="green.700">
-                  Nome
-                </Table.ColumnHeader>
-
+                <Table.ColumnHeader color="green.700">Nome</Table.ColumnHeader>
                 <Table.ColumnHeader color="green.700">
                   Categoria
                 </Table.ColumnHeader>
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              {subCategories.map((subCateg) => (
-                <Table.Row
-                  key={subCateg.id}
-                  backgroundColor="transparent"
-                  borderBottom="1px solid #ddd"
-                >
-                  <Table.Cell color="green.700">{subCateg.name}</Table.Cell>
-                  <Table.Cell color="green.700">
-                    {
-                      categories.find(
-                        (categ) => categ.id === subCateg.categoryId
-                      )?.name
-                    }
-                  </Table.Cell>
+              {categories.map((category) =>
+                category.subCategories.map((subCateg: any) => (
+                  <Table.Row
+                    key={subCateg.id}
+                    backgroundColor="transparent"
+                    borderBottom="1px solid #ddd"
+                  >
+                    <Table.Cell color="green.700">{subCateg.name}</Table.Cell>
+                    <Table.Cell color="green.700">{category.name}</Table.Cell>
 
-                  <Table.Cell>
-                    <Link
-                      href={`/pages/subcategories/editsubcategory/${subCateg.id}`}
-                    >
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        border="1px solid green"
-                        width="full"
-                        color="green"
+                    <Table.Cell>
+                      <Link
+                        href={`/pages/subcategories/editsubcategory/${subCateg.id}`}
                       >
-                        <span className="hidden sm:block">Editar</span>
-                        <BsPencil />
-                      </Button>
-                    </Link>
-                  </Table.Cell>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          border="1px solid green"
+                          width="full"
+                          color="green"
+                        >
+                          <span className="hidden sm:block">Editar</span>
+                          <BsPencil />
+                        </Button>
+                      </Link>
+                    </Table.Cell>
 
-                  <Table.Cell>
-                    <DialogFormDelete
-                      handleDelete={() => handleDelete(subCateg.id)}
-                    >
-                      <span className="hidden sm:block">Apagar</span>
-                    </DialogFormDelete>
-                  </Table.Cell>
-                </Table.Row>
-              ))}
+                    <Table.Cell>
+                      <DialogFormDelete
+                        handleDelete={() => handleDelete(subCateg.id)}
+                      >
+                        <span className="hidden sm:block">Apagar</span>
+                      </DialogFormDelete>
+                    </Table.Cell>
+                  </Table.Row>
+                ))
+              )}
             </Table.Body>
           </Table.Root>
         </div>

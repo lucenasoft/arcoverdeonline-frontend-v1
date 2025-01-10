@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getAllCategory } from "@/services/category";
 
 interface Category {
+  subCategories: any;
   id: string;
   name: string;
 }

@@ -4,7 +4,7 @@
 import { Stack } from "@chakra-ui/react";
 import { Alert } from "@/components/ui/alert";
 
-//SERVICES
+// SERVICES
 import { createSubCategory } from "@/services/subCategory";
 
 // HOOKS
@@ -17,33 +17,30 @@ import ButtonFormCreate from "@/components/ButtonCreate/ButtonFormCreate";
 
 export default function CreateSubCategory() {
   const [name, setName] = useState("");
-
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 
   const { categories, categoryId, setCategoryId, handleChange } =
     useGetCategory();
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSuccess(false);
     setError(false);
 
-    const newSubCategory = async () => {
-      try {
-        const res = await createSubCategory({
-          name,
-          categoryId,
-        });
+    try {
+      const newSubCategory = await createSubCategory({
+        name,
+        categoryId,
+      });
 
-        setSuccess(true);
-        return res;
-      } catch (error) {
-        setError(true);
-      }
-    };
+      setSuccess(true);
+      return newSubCategory;
+    } catch (err) {
+      console.error("Erro ao criar subcategoria:", err);
+      setError(true);
+    }
 
-    newSubCategory();
     setName("");
     setCategoryId("");
   };
