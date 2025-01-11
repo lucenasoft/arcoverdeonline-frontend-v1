@@ -32,7 +32,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         body: JSON.stringify({ email, password }),
       });
 
-      setCookie(undefined, "nextauth.token", token, { maxAge: 60 * 60 * 1, path: "/" });
+      setCookie(undefined, "nextauth.token", token, { maxAge: 60 * 60 * 24, path: "/" });
       setIsAuthenticated(true);
       window.location.href = "/";
     } catch (error: any) {

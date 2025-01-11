@@ -3,7 +3,17 @@ import { Field } from "@/components/ui/field";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
-const FormPost = ({
+interface FormPostProps {
+  handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  title: string;
+  setTitle: (title: string) => void;
+  pdf: File | null;
+  setPdf: (file: File | null) => void;
+  subCategoryId: string;
+  subCategories: Array<{ id: string; name: string }>;
+}
+
+const FormPost: React.FC<FormPostProps> = ({
   handleChange,
   title,
   setTitle,
@@ -21,10 +31,10 @@ const FormPost = ({
     let currentSubTitle =
       "Preencha os campos abaixo para criar ou editar a Publicação.";
 
-    if (pathname === "/pages/posts/CreatePost") {
+    if (pathname === "/pages/posts/createpost") {
       currentTitle = "Criar Publicação";
       currentSubTitle = "Preencha os campos abaixo para criar a Publicação.";
-    } else if (pathname.startsWith("/pages/posts/EditPost")) {
+    } else if (pathname.startsWith("/pages/posts/editpost")) {
       currentTitle = "Editar Publicação";
       currentSubTitle = "Preencha os campos abaixo para editar a Publicação.";
     }
@@ -66,14 +76,19 @@ const FormPost = ({
             <Input
               name="pdf"
               type="file"
-              value={pdf}
-              onChange={(e) => setPdf(e.target.value)}
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file && file.type === "application/pdf") {
+                  setPdf(file); // Salva o arquivo PDF no estado
+                } else {
+                  setPdf(null);
+                  alert("Por favor, selecione um arquivo PDF.");
+                }
+              }}
               required
               border="1px solid #ddd"
-              placeholder="Insira o link do PDF"
               padding="1rem"
               paddingBottom="3rem"
-              _placeholder={{ color: "gray.400" }}
               className="focus:ring focus:ring-gray-600"
             />
           </Field>

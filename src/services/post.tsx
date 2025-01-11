@@ -1,32 +1,21 @@
-import dotenv from 'dotenv';
-dotenv.config();
-        
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-
+import { apiRequestForm } from "@/utils/api";
 import { apiRequest } from "@/utils/api";
+import Cookies from "js-cookie";
 
 // Rota que cria a publicação
-export async function createPost({
-  title,
-  pdf,
-  subCategoryId,
-}: {
-  title: string;
-  pdf: File;
-  subCategoryId: string;
-}) {
-  try {
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("pdf", pdf);
-    formData.append("subCategoryId", subCategoryId);
+export async function createPost(formData: FormData) {
+  const token = Cookies.get("nextauth.token");
 
-    const res = await fetch(`${BASE_URL}/posts`, {
+  try {
+    const res = await apiRequestForm("/posts", {
       method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
       body: formData,
     });
 
-    return res;
+    return res.json();
   } catch (error: any) {
     console.error("Erro ao criar publicação:", error.message || error);
     throw new Error("Erro ao criar publicação. Tente novamente mais tarde.");
@@ -43,11 +32,11 @@ export async function getAllPost() {
         "Content-Type": "application/json",
       },
     });
-    
+
     if (!Array.isArray(res)) {
       throw new Error("Erro ao listar publicações.");
     }
-    
+
     return res;
   } catch (error: any) {
     console.error("Erro ao listar publicações:", error.message || error);
@@ -62,7 +51,7 @@ export async function getPostId(id: any) {
   if (!id) {
     throw new Error("O ID da publicação é obrigatório.");
   }
-  
+
   try {
     const res = await apiRequest(`/posts/${id}`, {
       method: "GET",
@@ -100,6 +89,8 @@ export async function updatePost(
     throw new Error("O ID da publicação é obrigatório.");
   }
 
+  const token = Cookies.get("nextauth.token");
+
   try {
     const formData = new FormData();
     formData.append("title", title);
@@ -108,8 +99,11 @@ export async function updatePost(
     }
     formData.append("subCategoryId", subCategoryId);
 
-    const res = await fetch(`${BASE_URL}/posts${id}`, {
+    const res = await apiRequestForm("/posts${id}", {
       method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       body: formData,
     });
 
@@ -125,18 +119,20 @@ export async function updatePost(
   }
 }
 
-
 // Rota que deleta a publicação selecionada pelo ID
 export async function deletePost(id: any) {
   if (!id) {
     throw new Error("O ID da publicação é obrigatório.");
   }
 
+  const token = Cookies.get("nextauth.token");
+
   try {
     const res = await apiRequest(`/posts/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
 

@@ -6,6 +6,7 @@ import { Avatar } from "@/components/ui/avatar";
 import { IoMdMenu } from "react-icons/io";
 
 import { useEffect, useState } from "react";
+import { logout } from "@/services/auth";
 
 import {
   DrawerBackdrop,
@@ -24,9 +25,7 @@ const Sidebar: React.FC = () => {
     const cookies = document.cookie
       .split("; ")
       .map((cookie) => cookie.split("="));
-    const tokenCookie = cookies.find(
-      ([key]) => key === "nextauth.token"
-    );
+    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
 
     // Habilita a sidebar se o token estiver presente
     setUser(!!tokenCookie);
@@ -37,7 +36,7 @@ const Sidebar: React.FC = () => {
       <div className="w-56 h-full bg-green-50 text-gray-800 fixed top-0 left-0 shadow-md shadow-black hidden lg:block">
         <nav className="flex flex-col py-16 px-4 gap-4">
           <div className="px-16">
-            <Link href="/pages/users/EditUser/1">
+            <Link href="/pages/users/userid/1">
               <HStack>
                 <Avatar
                   variant="solid"
@@ -68,7 +67,7 @@ const Sidebar: React.FC = () => {
               </Button>
             </Link>
 
-            <Link href="/pages/categories/AllCategory">
+            <Link href="/pages/categories/allcategory">
               <Button
                 type="submit"
                 width="full"
@@ -82,7 +81,7 @@ const Sidebar: React.FC = () => {
               </Button>
             </Link>
 
-            <Link href="/pages/subCategories/AllSubCategory">
+            <Link href="/pages/subcategories/allsubcategory">
               <Button
                 type="submit"
                 width="full"
@@ -96,7 +95,7 @@ const Sidebar: React.FC = () => {
               </Button>
             </Link>
 
-            <Link href="/pages/posts/AllPost">
+            <Link href="/pages/posts/allpost">
               <Button
                 type="submit"
                 width="full"
@@ -110,7 +109,7 @@ const Sidebar: React.FC = () => {
               </Button>
             </Link>
 
-            <Link href="/pages/sponsors/AllSponsor">
+            <Link href="/pages/sponsors/allsponsor">
               <Button
                 type="submit"
                 width="full"
@@ -124,6 +123,21 @@ const Sidebar: React.FC = () => {
               </Button>
             </Link>
           </div>
+
+          <footer className="pt-80">
+            <Button
+              type="submit"
+              width="full"
+              variant="solid"
+              colorScheme="green"
+              className="transition-all hover:opacity-80"
+              color="white"
+              backgroundColor="green.700"
+              onClick={() => logout()}
+            >
+              Sair
+            </Button>
+          </footer>
         </nav>
       </div>
       <div className="fixed z-10 right-5 bottom-10 lg:hidden">
@@ -143,7 +157,7 @@ const Sidebar: React.FC = () => {
           <DrawerContent backgroundColor="green.50">
             <DrawerBody>
               <div className="px-24 pt-16">
-                <Link href="/pages/users/EditUser/1">
+                <Link href="/pages/users/userid/1">
                   <HStack>
                     <Avatar
                       variant="solid"
@@ -174,7 +188,7 @@ const Sidebar: React.FC = () => {
                   </Button>
                 </Link>
 
-                <Link href="/pages/categories/AllCategory">
+                <Link href="/pages/categories/allcategory">
                   <Button
                     type="submit"
                     width="full"
@@ -188,7 +202,7 @@ const Sidebar: React.FC = () => {
                   </Button>
                 </Link>
 
-                <Link href="/pages/subCategories/AllSubCategory">
+                <Link href="/pages/subcategories/allsubcategory">
                   <Button
                     type="submit"
                     width="full"
@@ -202,7 +216,7 @@ const Sidebar: React.FC = () => {
                   </Button>
                 </Link>
 
-                <Link href="/pages/posts/AllPost">
+                <Link href="/pages/posts/allpost">
                   <Button
                     type="submit"
                     width="full"
@@ -216,7 +230,7 @@ const Sidebar: React.FC = () => {
                   </Button>
                 </Link>
 
-                <Link href="/pages/sponsors/AllSponsor">
+                <Link href="/pages/sponsors/allsponsor">
                   <Button
                     type="submit"
                     width="full"
@@ -230,6 +244,21 @@ const Sidebar: React.FC = () => {
                   </Button>
                 </Link>
               </div>
+
+              <footer className="pt-44">
+                <Button
+                  type="submit"
+                  width="full"
+                  variant="solid"
+                  colorScheme="green"
+                  className="transition-all hover:opacity-80"
+                  color="white"
+                  backgroundColor="green.700"
+                  onClick={() => logout()}
+                >
+                  Sair
+                </Button>
+              </footer>
             </DrawerBody>
             <DrawerCloseTrigger />
           </DrawerContent>

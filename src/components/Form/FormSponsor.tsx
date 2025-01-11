@@ -1,5 +1,3 @@
-"use client";
-
 import { Fieldset, Input, Stack } from "@chakra-ui/react";
 import { Field } from "@/components/ui/field";
 import { useEffect, useState } from "react";
@@ -24,10 +22,10 @@ const FormSponsor = ({
     let currentSubTitle =
       "Preencha os campos abaixo para criar ou editar o patrocinador.";
 
-    if (pathname === "/pages/sponsors/CreateSponsor") {
+    if (pathname === "/pages/sponsors/createsponsor") {
       currentTitle = "Criar Patrocinador";
       currentSubTitle = "Preencha os campos abaixo para criar o patrocinador.";
-    } else if (pathname.startsWith("/pages/sponsors/EditSponsor")) {
+    } else if (pathname.startsWith("/pages/sponsors/editsponsor")) {
       currentTitle = "Editar Patrocinador";
       currentSubTitle = "Preencha os campos abaixo para editar o patrocinador.";
     }
@@ -35,6 +33,12 @@ const FormSponsor = ({
     setTitle(currentTitle);
     setSubTitle(currentSubTitle);
   }, [pathname]);
+
+  const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setLogo(e.target.files[0]);
+    }
+  };
 
   return (
     <div>
@@ -69,8 +73,7 @@ const FormSponsor = ({
             <Input
               name="logo"
               type="file"
-              value={logo}
-              onChange={(e) => setLogo(e.target.value)}
+              onChange={handleLogoChange}
               required
               border="1px solid #ddd"
               placeholder="Insira a logo do patrocinador"

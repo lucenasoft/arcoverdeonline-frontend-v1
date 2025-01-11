@@ -1,12 +1,12 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
-        
+
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 // funcao que faz o fetch das rotas
 export async function apiRequest(endpoint: string, options = {}) {
   const res = await fetch(`${BASE_URL}${endpoint}`, options);
-  
+
   if (!res.ok) {
     let errorMessage = "Erro desconhecido";
 
@@ -21,4 +21,10 @@ export async function apiRequest(endpoint: string, options = {}) {
   }
 
   return res.json();
+}
+
+export async function apiRequestForm(endpoint: string, options = {}) {
+  const res = await fetch(`${BASE_URL}${endpoint}`, options);
+
+  return res;
 }

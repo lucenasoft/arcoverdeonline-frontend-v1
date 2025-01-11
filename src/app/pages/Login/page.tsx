@@ -6,8 +6,7 @@ import { Field } from "@/components/ui/field";
 import { Alert } from "@/components/ui/alert";
 
 //SERVICES
-// import { LoginAdmin } from "@/services/auth";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "@/contexts/AuthContext";
 
 // HOOKS
@@ -21,6 +20,17 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const { LoginAdmin } = useContext(AuthContext);
 
+  const [user, setUser] = useState(false);
+
+  useEffect(() => {
+    const cookies = document.cookie
+      .split("; ")
+      .map((cookie) => cookie.split("="));
+    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
+
+    setUser(!!tokenCookie);
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSuccess(false);
@@ -29,8 +39,8 @@ export default function Login() {
 
     try {
       const res = await LoginAdmin({ email, password });
-      setSuccess(true)
-      window.location.href = "/pages/users/Dashboard"
+      setSuccess(true);
+      window.location.href = "/";
     } catch (error) {
       console.error("Login error:", error);
       setError(true);
@@ -40,75 +50,77 @@ export default function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center flex-col bg-white py-44">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg"
-      >
-        <Fieldset.Root size="lg" maxW="md" color="green.700">
-          <Stack>
-            <Fieldset.Legend className="text-2xl font-semibold text-green-700">
-              Entrar
-            </Fieldset.Legend>
+    <div className={user ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+      <div className="flex items-center justify-center flex-col bg-white py-44">
+        <form
+          onSubmit={handleSubmit}
+          className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg"
+        >
+          <Fieldset.Root size="lg" maxW="md" color="green.700">
+            <Stack>
+              <Fieldset.Legend className="text-2xl font-semibold text-green-700">
+                Entrar
+              </Fieldset.Legend>
+            </Stack>
+
+            <Fieldset.Content>
+              <Field label="Email">
+                <Input
+                  name="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  border="1px solid #ddd"
+                  placeholder="Insira o email"
+                  padding="1rem"
+                  _placeholder={{ color: "gray.400" }}
+                />
+              </Field>
+
+              <Field label="Senha">
+                <Input
+                  name="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  border="1px solid #ddd"
+                  placeholder="Insira a senha"
+                  padding="1rem"
+                  _placeholder={{ color: "gray.400" }}
+                />
+              </Field>
+            </Fieldset.Content>
+
+            <Button
+              type="submit"
+              alignSelf="flex-start"
+              marginTop="1rem"
+              width="100%"
+              backgroundColor="green.800"
+              color="white"
+              border="1px solid green.950"
+              className="hover:opacity-80"
+            >
+              {!isLoading && <p>Entrar</p>}
+              {isLoading && <p>Aguarde...</p>}
+            </Button>
+          </Fieldset.Root>
+
+          <Stack marginTop="1rem">
+            {success && (
+              <Alert status="success" title="Login feito com sucesso!"></Alert>
+            )}
+            {error && (
+              <Alert
+                status="error"
+                title="Erro ao fazer login, tente novamente mais tarde."
+              ></Alert>
+            )}
           </Stack>
-
-          <Fieldset.Content>
-            <Field label="Email">
-              <Input
-                name="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                border="1px solid #ddd"
-                placeholder="Insira o email"
-                padding="1rem"
-                _placeholder={{ color: "gray.400" }}
-              />
-            </Field>
-
-            <Field label="Senha">
-              <Input
-                name="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                border="1px solid #ddd"
-                placeholder="Insira a senha"
-                padding="1rem"
-                _placeholder={{ color: "gray.400" }}
-              />
-            </Field>
-          </Fieldset.Content>
-
-          <Button
-            type="submit"
-            alignSelf="flex-start"
-            marginTop="1rem"
-            width="100%"
-            backgroundColor="green.800"
-            color="white"
-            border="1px solid green.950"
-            className="hover:opacity-80"
-          >
-            {!isLoading && <p>Entrar</p>}
-            {isLoading && <p>Aguarde...</p>}
-          </Button>
-        </Fieldset.Root>
-
-        <Stack marginTop="1rem">
-          {success && (
-            <Alert status="success" title="Login feito com sucesso!"></Alert>
-          )}
-          {error && (
-            <Alert
-              status="error"
-              title="Erro ao fazer login, tente novamente mais tarde."
-            ></Alert>
-          )}
-        </Stack>
-      </form>
+        </form>
+      </div>
     </div>
   );
 }
