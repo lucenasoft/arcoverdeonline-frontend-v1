@@ -84,11 +84,13 @@ export default function Home() {
             {sponsors.map((sponsor) => (
               <SwiperSlide key={sponsor.id} className="bg-white">
                 <div className="carousel-item flex flex-col items-center text-center rounded-sm p-3">
-                  <img
-                    src={sponsor.logo}
-                    alt={sponsor.name}
-                    className="w-80 h-80 rounded-sm pb-5"
-                  />
+                  <a href={sponsor.url} target="_blank" className="w-full">
+                    <img
+                      src={sponsor.logo}
+                      alt={sponsor.name}
+                      className="w-full h-80 rounded-sm pb-5"
+                    />
+                  </a>
                   <h3 className="text-green-700 text-lg font-semibold">
                     {sponsor.name}
                   </h3>

@@ -76,7 +76,11 @@ const FormPost: React.FC<FormPostProps> = ({
               onChange={(e) => {
                 const file = e.target.files?.[0];
                 if (file?.type === "application/pdf") {
-                  setPdf(file);
+                  const sanitizedFileName = file.name.replace(/[-_]/g, "");
+                  const sanitizedFile = new File([file], sanitizedFileName, {
+                    type: file.type,
+                  });
+                  setPdf(sanitizedFile);
                 } else {
                   setPdf(null);
                   alert("Por favor, selecione um arquivo PDF válido.");
