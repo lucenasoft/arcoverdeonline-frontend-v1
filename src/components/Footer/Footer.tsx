@@ -4,6 +4,9 @@ import Link from "next/link";
 
 import { useEffect, useState } from "react";
 
+import Image from "next/image";
+import logoGTS from "@/assets/images/logoGTS.png";
+
 export default function Footer() {
   const [user, setUser] = useState(false);
 
@@ -11,9 +14,7 @@ export default function Footer() {
     const cookies = document.cookie
       .split("; ")
       .map((cookie) => cookie.split("="));
-    const tokenCookie = cookies.find(
-      ([key]) => key === "nextauth.token"
-    );
+    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
 
     setUser(!!tokenCookie);
   }, []);
@@ -21,7 +22,8 @@ export default function Footer() {
   return (
     <div className={user ? "lg:ml-56 sm:ml0" : "ml-0"}>
       <footer className="pt-8 pb-4 bg-green-50 text-green-800 border-t-2 border-green-700">
-        <div className="max-w-6xl mx-auto flex flex-wrap justify-between items-start gap-8 px-4">
+        <div className="max-w-6xl mx-auto flex flex-wrap justify-between items-start gap-8 px-4 pb-8">
+
           <div className="flex-1 min-w-[200px]">
             <h2 className="text-lg font-semibold mb-4">Links Rápidos</h2>
             <ul className="space-y-2">
@@ -31,7 +33,10 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/pages/About" className="hover:text-green-600 transition">
+                <Link
+                  href="/pages/About"
+                  className="hover:text-green-600 transition"
+                >
                   Sobre
                 </Link>
               </li>
@@ -48,10 +53,22 @@ export default function Footer() {
             </p>
           </div>
         </div>
-        <div className="text-center mt-6 bg-green-50 py-4">
-          <p className="text-sm font-medium">
-            &copy; {new Date().getFullYear()} Todos os direitos reservados.
-          </p>
+
+        <div className="text-center flex flex-col justify-center items-center bg-green-50">
+          <div className="bg-green-600 w-11/12 pt-px"></div>
+          <div className="flex items-center pt-2 gap-2">
+            <Link href="https://www.instagram.com/gtscreationsofc?igsh=MTA1cjZhem9wMjdmcQ==" target="_blank">
+              <Image
+                src={logoGTS}
+                alt="Logo GTS Creations"
+                width={100}
+                priority={true}
+              />
+            </Link>
+            <p className="text-sm font-medium">
+              &copy; {new Date().getFullYear()} Todos os direitos reservados.
+            </p>
+          </div>
         </div>
       </footer>
     </div>

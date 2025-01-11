@@ -124,7 +124,7 @@ const Sidebar: React.FC = () => {
             </Link>
           </div>
 
-          <footer className="pt-44">
+          <footer className="pt-32">
             <Button
               type="submit"
               width="full"

@@ -29,9 +29,9 @@ html {
 }
 
 .swiper-button-prev::after {
-  color: green;
+  color: transparent;
 }
 
 .swiper-button-next::after {
-  color: green;
+  color: transparent;
 }

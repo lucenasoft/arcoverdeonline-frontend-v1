@@ -87,7 +87,7 @@ const FormSponsor = ({
           <Field label="Contato">
             <Input
               name="contact"
-              type="text"
+              type="number"
               value={contact}
               onChange={(e) => setContact(e.target.value)}
               required
