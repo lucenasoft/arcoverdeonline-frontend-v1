@@ -105,7 +105,6 @@ const AllSponsor = () => {
 
                   <Table.ColumnHeader
                     color="green.700"
-                    className="hidden sm:block"
                   >
                     URL
                   </Table.ColumnHeader>
@@ -120,8 +119,8 @@ const AllSponsor = () => {
                     borderBottom="1px solid #ddd"
                   >
                     <Table.Cell color="green.700">{sponsor.name}</Table.Cell>
-                    <Table.Cell color="green.700">{sponsor.contact}</Table.Cell>
-                    <Table.Cell color="green.700" className="hidden sm:block">
+                    <Table.Cell color="green.700" className="break-all">{sponsor.contact}</Table.Cell>
+                    <Table.Cell color="green.700" className="break-all">
                       {sponsor.url}
                     </Table.Cell>
 

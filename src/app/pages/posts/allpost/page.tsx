@@ -14,13 +14,7 @@ interface Post {
   id: string;
   title: string;
   pdf: string;
-  subCategoryId: string; // Relacionamento com a subcategoria
-}
-
-interface SubCategory {
-  id: string;
-  name: string;
-  categoryId: string; // Relacionamento com a categoria
+  subCategoryId: string;
 }
 
 const AllPost = () => {
@@ -70,11 +64,11 @@ const AllPost = () => {
     );
   }
 
-  if (!posts) {
+  if (!posts.length) {
     return (
       <div className="flex justify-center items-center h-screen">
         <p className="text-green-700 text-xl font-semibold">
-          Publicação não encontrada.
+          Nenhuma publicação encontrada.
         </p>
       </div>
     );
@@ -100,35 +94,28 @@ const AllPost = () => {
                   borderBottom="1px solid #ddd"
                 >
                   <Table.ColumnHeader color="green.700">
-                    Nome
+                    Título
                   </Table.ColumnHeader>
+                  <Table.ColumnHeader color="green.700">PDF</Table.ColumnHeader>
                   <Table.ColumnHeader color="green.700">
-                    PDF
-                  </Table.ColumnHeader>
-                  <Table.ColumnHeader color="green.700">
-                    Sub-Categoria
+                    Subcategoria
                   </Table.ColumnHeader>
                 </Table.Row>
               </Table.Header>
               <Table.Body>
-                {posts.map((post) => {
-                  const subCategory = subCategories.find(
-                    (subCateg) => subCateg.id === post.subCategoryId
-                  );
-
-                  return (
+                {subCategories.map((subCateg) =>
+                  subCateg.posts.map((post: any) => (
                     <Table.Row
                       key={post.id}
                       backgroundColor="transparent"
                       borderBottom="1px solid #ddd"
                     >
                       <Table.Cell color="green.700">{post.title}</Table.Cell>
-                      <Table.Cell color="green.700">
+                      <Table.Cell color="green.700" className="break-all">
                         {post.pdf}
                       </Table.Cell>
-                      <Table.Cell color="green.700">
-                        {subCategory ? subCategory.name : "Sem subcategoria"}
-                      </Table.Cell>
+                      <Table.Cell color="green.700">{subCateg.name}</Table.Cell>
+
                       <Table.Cell>
                         <Link href={`/pages/posts/editpost/${post.id}`}>
                           <Button
@@ -151,8 +138,8 @@ const AllPost = () => {
                         </DialogFormDelete>
                       </Table.Cell>
                     </Table.Row>
-                  );
-                })}
+                  ))
+                )}
               </Table.Body>
             </Table.Root>
           </div>

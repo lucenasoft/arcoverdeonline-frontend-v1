@@ -91,18 +91,10 @@ export default function Home() {
                       className="w-full h-80 rounded-sm pb-5"
                     />
                   </a>
-                  <h3 className="text-green-700 text-lg font-semibold">
+                  <h3 className="text-green-700 text-lg pb-2 font-semibold">
                     {sponsor.name}
                   </h3>
-                  <p className="text-gray-600">{sponsor.contact}</p>
-                  <a
-                    href={sponsor.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-green-500 underline mt-2"
-                  >
-                    {sponsor.url}
-                  </a>
+                  <p className="text-gray-600 break-all">{sponsor.contact}</p>
                 </div>
               </SwiperSlide>
             ))}
