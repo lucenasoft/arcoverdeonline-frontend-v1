@@ -1,5 +1,3 @@
-"use client";
-
 import { Fieldset, Input, Stack } from "@chakra-ui/react";
 import { Field } from "@/components/ui/field";
 import { useEffect, useState } from "react";
@@ -36,6 +34,12 @@ const FormSponsor = ({
     setSubTitle(currentSubTitle);
   }, [pathname]);
 
+  const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setLogo(e.target.files[0]);
+    }
+  };
+
   return (
     <div>
       <Fieldset.Root size="lg" maxW="md">
@@ -69,8 +73,7 @@ const FormSponsor = ({
             <Input
               name="logo"
               type="file"
-              value={logo}
-              onChange={(e) => setLogo(e.target.value)}
+              onChange={handleLogoChange}
               required
               border="1px solid #ddd"
               placeholder="Insira a logo do patrocinador"

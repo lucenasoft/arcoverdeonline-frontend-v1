@@ -1,30 +1,13 @@
-import dotenv from "dotenv";
-dotenv.config();
-
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-
+import { apiRequestForm } from "@/utils/api";
 import { apiRequest } from "@/utils/api";
 import Cookies from "js-cookie";
 
 // Rota que cria a publicação
-export async function createPost({
-  title,
-  pdf,
-  subCategoryId,
-}: {
-  title: string;
-  pdf: File;
-  subCategoryId: string;
-}) {
+export async function createPost(formData: FormData) {
   const token = Cookies.get("nextauth.token");
 
   try {
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("pdf", pdf);
-    formData.append("subCategoryId", subCategoryId);
-
-    const res = await fetch(`${BASE_URL}/posts`, {
+    const res = await apiRequestForm("/posts", {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${token}`,
@@ -32,12 +15,13 @@ export async function createPost({
       body: formData,
     });
 
-    return res;
+    return res.json();
   } catch (error: any) {
     console.error("Erro ao criar publicação:", error.message || error);
     throw new Error("Erro ao criar publicação. Tente novamente mais tarde.");
   }
 }
+
 
 // Rota que mostra todas as publicações
 export async function getAllPost() {
@@ -115,10 +99,10 @@ export async function updatePost(
     }
     formData.append("subCategoryId", subCategoryId);
 
-    const res = await fetch(`${BASE_URL}/posts${id}`, {
+    const res = await apiRequestForm("/posts${id}", {
       method: "PUT",
       headers: {
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: formData,
     });
@@ -140,7 +124,7 @@ export async function deletePost(id: any) {
   if (!id) {
     throw new Error("O ID da publicação é obrigatório.");
   }
-  
+
   const token = Cookies.get("nextauth.token");
 
   try {
@@ -148,7 +132,7 @@ export async function deletePost(id: any) {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 

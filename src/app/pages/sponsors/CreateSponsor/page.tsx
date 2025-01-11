@@ -1,18 +1,11 @@
-"use client";
+"use client"
 
-// CHAKRA UI
-import { Stack } from "@chakra-ui/react";
-import { Alert } from "@/components/ui/alert";
-
-// SERVICES
-import { createSponsor } from "@/services/sponsor";
-
-// HOOKS
 import { useState } from "react";
-
-// COMPONENTES
 import FormSponsor from "@/components/Form/FormSponsor";
 import ButtonFormCreate from "@/components/ButtonCreate/ButtonFormCreate";
+import { createSponsor } from "@/services/sponsor";
+import { Stack } from "@chakra-ui/react";
+import { Alert } from "@/components/ui/alert";
 
 export default function CreateSponsor() {
   const [name, setName] = useState<string>("");
@@ -29,15 +22,17 @@ export default function CreateSponsor() {
     setError(false);
 
     try {
-      await createSponsor({
-        name,
-        logo: logo!,
-        contact,
-        url,
-      });
+      const formData = new FormData();
+      formData.append("name", name);
+      if (logo) formData.append("logo", logo); // Adiciona o arquivo da logo
+      formData.append("contact", contact);
+      formData.append("url", url);
+
+      await createSponsor(formData); // Envia o FormData
 
       setSuccess(true);
 
+      // Limpeza do formulário
       setName("");
       setLogo(null);
       setContact("");

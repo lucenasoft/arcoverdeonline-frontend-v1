@@ -18,7 +18,7 @@ export async function createSubCategory({
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`,
       },
-      body: JSON.stringify({ name, categoryId }),
+      body: JSON.stringify({ name, categoryId, posts: [] }),
     });
 
     return res;
@@ -118,22 +118,23 @@ export async function updateSubCategory(
 }
 
 // Rota que deleta a sub-categoria selecionada pelo ID
-export async function deleteSubCategory(subCategoryId: any) {
+export async function deleteSubCategory(id: any) {
+  if (!id) {
+    throw new Error("O ID da sub-categoria é obrigatório.");
+  }
+
   const token = Cookies.get("nextauth.token");
 
   try {
-    const response = await apiRequest(`/subcategories/${subCategoryId}`, {
+    const response = await apiRequest(`/subcategories/${id}`, {
       method: "DELETE",
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
 
-    if (!response.ok) {
-      throw new Error(`Erro ao excluir a subcategoria com o ID ${subCategoryId}`);
-    }
-
-    return response; // Retorna a resposta para a função do frontend
+    return response;
   } catch (error: any) {
     console.error("Erro ao deletar subcategoria:", error.message);
     throw new Error("Erro ao excluir subcategoria.");

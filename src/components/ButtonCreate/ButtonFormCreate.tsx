@@ -32,7 +32,7 @@ const ButtonFormCreate = () => {
       location = "/pages/subcategories/allsubcategory";
     else if (pathname.startsWith("/pages/posts/createpost"))
       location = "/pages/posts/allpost";
-    else if (pathname.startsWith("/pages/sponsors/createsponsor/"))
+    else if (pathname.startsWith("/pages/sponsors/createsponsor"))
       location = "/pages/sponsors/allsponsor";
 
     window.location.href = location;

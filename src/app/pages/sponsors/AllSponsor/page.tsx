@@ -49,7 +49,7 @@ const AllSponsor = () => {
 
   if (loading) {
     return (
-      <div className="flex pt-10 items-center h-screen">
+      <div className="flex justify-center items-center h-screen">
         <p className="text-green-700 text-xl font-semibold">Carregando...</p>
       </div>
     );
@@ -110,7 +110,7 @@ const AllSponsor = () => {
                   <Table.Cell color="green.700" className="hidden sm:block">{sponsor.url}</Table.Cell>
 
                   <Table.Cell textAlign="right">
-                    <Link href={`/pages/sponsors/EditSponsor/${sponsor.id}`}>
+                    <Link href={`/pages/sponsors/editsponsor/${sponsor.id}`}>
                       <Button
                         variant="outline"
                         size="sm"

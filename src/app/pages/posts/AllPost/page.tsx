@@ -48,7 +48,7 @@ const AllPost = () => {
         prev.filter((post) => post.id !== postId)
       );
     } catch (error: any) {
-      console.error("Erro ao deletar publicação:", error.message);
+      window.location.reload();
     }
   };
 

@@ -1,9 +1,16 @@
 import { useState, useEffect } from "react";
 import { getAllSubCategory } from "@/services/subCategory";
 
+interface Post {
+  id: string;
+  title: string;
+  pdfUrl: string;
+}
+
 interface SubCategory {
   id: string;
   name: string;
+  posts: Post[];
 }
 
 export const useGetSubCategory = () => {
@@ -11,6 +18,7 @@ export const useGetSubCategory = () => {
   const [subCategoryId, setSubCategoryId] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
 
+  // Função para buscar as subcategorias
   useEffect(() => {
     const fetchSubCategories = async () => {
       try {
@@ -26,9 +34,10 @@ export const useGetSubCategory = () => {
     fetchSubCategories();
   }, []);
 
+  // Atualiza o estado com a subcategoria selecionada
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedName = event.target.value;
-    setSubCategoryId(selectedName);
+    const selectedId = event.target.value; // Obtem o ID diretamente
+    setSubCategoryId(selectedId);
   };
 
   return {

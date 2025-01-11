@@ -1,38 +1,20 @@
-import dotenv from "dotenv";
-dotenv.config();
-
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-
+import { apiRequestForm } from "@/utils/api";
 import { apiRequest } from "@/utils/api";
 import Cookies from "js-cookie";
 
 // Rota que cria o patrocinador
-export async function createSponsor({
-  name,
-  logo,
-  contact,
-  url,
-}: {
-  name: string;
-  logo: File;
-  contact: string;
-  url: string;
-}) {
+export async function createSponsor(formData: FormData) {
   const token = Cookies.get("nextauth.token");
 
   try {
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("logo", logo);
-    formData.append("contact", contact);
-    formData.append("url", url);
-
-    const res = await fetch(`${BASE_URL}/sponsors`, {
+    // Enviando o FormData diretamente
+    const res = await apiRequestForm(`/sponsors`, {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${token}`,
+        // Não defina o 'Content-Type', o navegador vai lidar com isso
       },
-      body: formData,
+      body: formData, // O corpo da requisição é o FormData
     });
 
     return res;
@@ -93,18 +75,8 @@ export async function getSponsorId(id: any) {
 
 // Rota que faz atualização/edição do patrocinador selecionado pelo ID
 export async function updateSponsor(
-  id: any,
-  {
-    name,
-    logo,
-    contact,
-    url,
-  }: {
-    name: string;
-    logo?: File;
-    contact: string;
-    url: string;
-  }
+  id: string, // O ID do patrocinador
+  formData: FormData // FormData contendo os dados para atualizar o patrocinador
 ) {
   if (!id) {
     throw new Error("O ID do patrocinador é obrigatório.");
@@ -113,20 +85,14 @@ export async function updateSponsor(
   const token = Cookies.get("nextauth.token");
 
   try {
-    const formData = new FormData();
-    formData.append("name", name);
-    if (logo) {
-      formData.append("logo", logo);
-    }
-    formData.append("contact", contact);
-    formData.append("url", url);
-
-    const res = await fetch(`${BASE_URL}/sponsors${id}`, {
-      method: "PUT",
+    // Enviando o FormData diretamente
+    const res = await apiRequestForm(`/sponsors/${id}`, {
+      method: "PUT", // Método para atualizar
       headers: {
         "Authorization": `Bearer ${token}`,
+        // Não defina o Content-Type, o navegador vai lidar com isso automaticamente
       },
-      body: formData,
+      body: formData, // Corpo da requisição com o FormData
     });
 
     return res;

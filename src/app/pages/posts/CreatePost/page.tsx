@@ -16,40 +16,60 @@ import FormPost from "@/components/Form/FormPost";
 import ButtonFormCreate from "@/components/ButtonCreate/ButtonFormCreate";
 
 export default function CreatePost() {
-  const [title, setTitle] = useState("");
-  const [pdf, setPdf] = useState<File | null>(null);
+  const [title, setTitle] = useState<string>("");
+  const [pdf, setPdf] = useState<File | any>(null);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 
   const { subCategories, subCategoryId, setSubCategoryId, handleChange } =
     useGetSubCategory();
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    setSuccess(false);
-    setError(false);
+    const handlePdfChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (file && file.type === "application/pdf") {
+        setPdf(file);
+      } else {
+        setError(true);
+        alert("Por favor, selecione um arquivo PDF.");
+      }
+    };    
 
-    const newPost = async () => {
+    const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+      setSuccess(false);
+      setError(false);
+    
+      if (!title || !pdf || !subCategoryId) {
+        setError(true);
+        return;
+      }
+    
+      if (pdf && pdf.type !== "application/pdf") {
+        setError(true);
+        alert("O arquivo deve ser um PDF.");
+        return;
+      }
+    
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("pdf", pdf);
+      formData.append("subCategoryId", subCategoryId);
+    
       try {
-        const res = await createPost({
-          title,
-          pdf: pdf!,
-          subCategoryId,
-        });
-
+        const res = await createPost(formData);
         setSuccess(true);
         return res;
-      } catch (error) {
+      } catch (err) {
+        console.error("Erro ao criar post:", err);
         setError(true);
+      } finally {
+        setTitle("");
+        setPdf(null);
+        setSubCategoryId("");
       }
     };
-
-    newPost();
-    setTitle("");
-    setPdf(null);
-    setSubCategoryId("");
-  };
-
+    
+    
   return (
     <div className="flex items-center flex-col bg-white pt-10 h-screen">
       <form

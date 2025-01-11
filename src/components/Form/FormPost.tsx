@@ -3,7 +3,17 @@ import { Field } from "@/components/ui/field";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
-const FormPost = ({
+interface FormPostProps {
+  handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  title: string;
+  setTitle: (title: string) => void;
+  pdf: File | null;
+  setPdf: (file: File | null) => void;
+  subCategoryId: string;
+  subCategories: Array<{ id: string; name: string }>;
+}
+
+const FormPost: React.FC<FormPostProps> = ({
   handleChange,
   title,
   setTitle,
@@ -66,14 +76,19 @@ const FormPost = ({
             <Input
               name="pdf"
               type="file"
-              value={pdf}
-              onChange={(e) => setPdf(e.target.value)}
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file && file.type === "application/pdf") {
+                  setPdf(file); // Salva o arquivo PDF no estado
+                } else {
+                  setPdf(null);
+                  alert("Por favor, selecione um arquivo PDF.");
+                }
+              }}
               required
               border="1px solid #ddd"
-              placeholder="Insira o link do PDF"
               padding="1rem"
               paddingBottom="3rem"
-              _placeholder={{ color: "gray.400" }}
               className="focus:ring focus:ring-gray-600"
             />
           </Field>
