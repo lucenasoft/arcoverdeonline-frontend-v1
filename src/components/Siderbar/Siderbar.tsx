@@ -36,7 +36,7 @@ const Sidebar: React.FC = () => {
       <div className="w-56 h-full bg-green-50 text-gray-800 fixed top-0 left-0 shadow-md shadow-black hidden lg:block">
         <nav className="flex flex-col py-16 px-4 gap-4">
           <div className="px-16">
-            <Link href="/pages/users/edituser/1">
+            <Link href="/pages/users/userid/1">
               <HStack>
                 <Avatar
                   variant="solid"
@@ -157,7 +157,7 @@ const Sidebar: React.FC = () => {
           <DrawerContent backgroundColor="green.50">
             <DrawerBody>
               <div className="px-24 pt-16">
-                <Link href="/pages/users/edituser/1">
+                <Link href="/pages/users/userid/1">
                   <HStack>
                     <Avatar
                       variant="solid"
