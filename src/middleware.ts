@@ -26,7 +26,7 @@ export function middleware(request: NextRequest) {
 
   if (request.nextUrl.pathname === "/pages/login" && token) {
     return NextResponse.redirect(
-      new URL("/pages/users/dashboard", request.url)
+      new URL("/", request.url)
     );
   }
 

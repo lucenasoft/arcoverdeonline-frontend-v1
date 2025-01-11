@@ -20,6 +20,17 @@ const AllSubCategory = () => {
   const [loading, setLoading] = useState(true);
   const { categories } = useGetCategory();
 
+  const [user, setUser] = useState(false);
+
+  useEffect(() => {
+    const cookies = document.cookie
+      .split("; ")
+      .map((cookie) => cookie.split("="));
+    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
+
+    setUser(!!tokenCookie);
+  }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -66,69 +77,73 @@ const AllSubCategory = () => {
   }
 
   return (
-    <div className="pt-10 sm:px-5 h-screen bg-white">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-center text-2xl font-bold text-green-700 pb-5">
-          Sub-Categorias
-        </h2>
+    <div className={user ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+      <div className="pt-10 sm:px-5 h-screen bg-white">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-center text-2xl font-bold text-green-700 pb-5">
+            Sub-Categorias
+          </h2>
 
-        <div className="pb-5">
-          <ButtonPageAllCreate />
-        </div>
+          <div className="pb-5">
+            <ButtonPageAllCreate />
+          </div>
 
-        <div>
-          <Table.Root size="sm">
-            <Table.Header>
-              <Table.Row
-                backgroundColor="transparent"
-                borderBottom="1px solid #ddd"
-              >
-                <Table.ColumnHeader color="green.700">Nome</Table.ColumnHeader>
-                <Table.ColumnHeader color="green.700">
-                  Categoria
-                </Table.ColumnHeader>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>
-              {categories.map((category) =>
-                category.subCategories.map((subCateg: any) => (
-                  <Table.Row
-                    key={subCateg.id}
-                    backgroundColor="transparent"
-                    borderBottom="1px solid #ddd"
-                  >
-                    <Table.Cell color="green.700">{subCateg.name}</Table.Cell>
-                    <Table.Cell color="green.700">{category.name}</Table.Cell>
+          <div>
+            <Table.Root size="sm">
+              <Table.Header>
+                <Table.Row
+                  backgroundColor="transparent"
+                  borderBottom="1px solid #ddd"
+                >
+                  <Table.ColumnHeader color="green.700">
+                    Nome
+                  </Table.ColumnHeader>
+                  <Table.ColumnHeader color="green.700">
+                    Categoria
+                  </Table.ColumnHeader>
+                </Table.Row>
+              </Table.Header>
+              <Table.Body>
+                {categories.map((category) =>
+                  category.subCategories.map((subCateg: any) => (
+                    <Table.Row
+                      key={subCateg.id}
+                      backgroundColor="transparent"
+                      borderBottom="1px solid #ddd"
+                    >
+                      <Table.Cell color="green.700">{subCateg.name}</Table.Cell>
+                      <Table.Cell color="green.700">{category.name}</Table.Cell>
 
-                    <Table.Cell>
-                      <Link
-                        href={`/pages/subcategories/editsubcategory/${subCateg.id}`}
-                      >
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          border="1px solid green"
-                          width="full"
-                          color="green"
+                      <Table.Cell>
+                        <Link
+                          href={`/pages/subcategories/editsubcategory/${subCateg.id}`}
                         >
-                          <span className="hidden sm:block">Editar</span>
-                          <BsPencil />
-                        </Button>
-                      </Link>
-                    </Table.Cell>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            border="1px solid green"
+                            width="full"
+                            color="green"
+                          >
+                            <span className="hidden sm:block">Editar</span>
+                            <BsPencil />
+                          </Button>
+                        </Link>
+                      </Table.Cell>
 
-                    <Table.Cell>
-                      <DialogFormDelete
-                        handleDelete={() => handleDelete(subCateg.id)}
-                      >
-                        <span className="hidden sm:block">Apagar</span>
-                      </DialogFormDelete>
-                    </Table.Cell>
-                  </Table.Row>
-                ))
-              )}
-            </Table.Body>
-          </Table.Root>
+                      <Table.Cell>
+                        <DialogFormDelete
+                          handleDelete={() => handleDelete(subCateg.id)}
+                        >
+                          <span className="hidden sm:block">Apagar</span>
+                        </DialogFormDelete>
+                      </Table.Cell>
+                    </Table.Row>
+                  ))
+                )}
+              </Table.Body>
+            </Table.Root>
+          </div>
         </div>
       </div>
     </div>

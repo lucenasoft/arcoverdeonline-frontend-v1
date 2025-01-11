@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FormSponsor from "@/components/Form/FormSponsor";
 import ButtonFormCreate from "@/components/ButtonCreate/ButtonFormCreate";
 import { createSponsor } from "@/services/sponsor";
@@ -15,6 +15,17 @@ export default function CreateSponsor() {
 
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+
+  const [user, setUser] = useState(false);
+
+  useEffect(() => {
+    const cookies = document.cookie
+      .split("; ")
+      .map((cookie) => cookie.split("="));
+    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
+
+    setUser(!!tokenCookie);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,36 +55,41 @@ export default function CreateSponsor() {
   };
 
   return (
-    <div className="flex items-center flex-col bg-white h-screen pt-10">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg"
-      >
-        <FormSponsor
-          name={name}
-          setName={setName}
-          logo={logo}
-          setLogo={setLogo}
-          contact={contact}
-          setContact={setContact}
-          url={url}
-          setUrl={setUrl}
-        />
+    <div className={user ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+      <div className="flex items-center flex-col bg-white h-screen pt-10">
+        <form
+          onSubmit={handleSubmit}
+          className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg"
+        >
+          <FormSponsor
+            name={name}
+            setName={setName}
+            logo={logo}
+            setLogo={setLogo}
+            contact={contact}
+            setContact={setContact}
+            url={url}
+            setUrl={setUrl}
+          />
 
-        <ButtonFormCreate />
+          <ButtonFormCreate />
 
-        <Stack marginTop="1rem">
-          {success && (
-            <Alert status="success" title="Patrocinador criado com sucesso!" />
-          )}
-          {error && (
-            <Alert
-              status="error"
-              title="Erro ao criar patrocinador, tente novamente mais tarde."
-            />
-          )}
-        </Stack>
-      </form>
+          <Stack marginTop="1rem">
+            {success && (
+              <Alert
+                status="success"
+                title="Patrocinador criado com sucesso!"
+              />
+            )}
+            {error && (
+              <Alert
+                status="error"
+                title="Erro ao criar patrocinador, tente novamente mais tarde."
+              />
+            )}
+          </Stack>
+        </form>
+      </div>
     </div>
   );
 }

@@ -25,6 +25,17 @@ const AllPost = () => {
   const [loading, setLoading] = useState(true);
   const { subCategories } = useGetSubCategory();
 
+  const [user, setUser] = useState(false);
+
+  useEffect(() => {
+    const cookies = document.cookie
+      .split("; ")
+      .map((cookie) => cookie.split("="));
+    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
+
+    setUser(!!tokenCookie);
+  }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -44,9 +55,7 @@ const AllPost = () => {
   const handleDelete = async (postId: string) => {
     try {
       await deletePost(postId);
-      setPosts((prev) =>
-        prev.filter((post) => post.id !== postId)
-      );
+      setPosts((prev) => prev.filter((post) => post.id !== postId));
     } catch (error: any) {
       window.location.reload();
     }
@@ -71,81 +80,86 @@ const AllPost = () => {
   }
 
   return (
-    <div className="pt-10 sm:px-5 h-screen bg-white">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-center text-2xl font-bold text-green-700 pb-5">
-          Publicações
-        </h2>
+    <div className={user ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+      <div className="pt-10 sm:px-5 h-screen bg-white">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-center text-2xl font-bold text-green-700 pb-5">
+            Publicações
+          </h2>
 
-        <div className="pb-5">
-          <ButtonPageAllCreate />
-        </div>
+          <div className="pb-5">
+            <ButtonPageAllCreate />
+          </div>
 
-        <div>
-          <Table.Root size="sm">
-            <Table.Header>
-              <Table.Row
-                backgroundColor="transparent"
-                borderBottom="1px solid #ddd"
-              >
-                <Table.ColumnHeader color="green.700">
-                  Nome
-                </Table.ColumnHeader>
-
-                <Table.ColumnHeader color="green.700">
-                  PDF
-                </Table.ColumnHeader>
-
-                <Table.ColumnHeader color="green.700">
-                  Sub-Categoria
-                </Table.ColumnHeader>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>
-              {posts.map((post) => (
+          <div>
+            <Table.Root size="sm">
+              <Table.Header>
                 <Table.Row
-                  key={post.id}
                   backgroundColor="transparent"
                   borderBottom="1px solid #ddd"
                 >
-                  <Table.Cell color="green.700">{post.title}</Table.Cell>
-                  <Table.Cell color="green.700">{post.pdf}</Table.Cell>
-                  <Table.Cell color="green.700">
-                    {
-                      subCategories.find(
-                        (subCateg) => subCateg.id === post.subCategoryId
-                      )?.name
-                    }
-                  </Table.Cell>
+                  <Table.ColumnHeader color="green.700">
+                    Nome
+                  </Table.ColumnHeader>
 
-                  <Table.Cell>
-                    <Link
-                      href={`/pages/posts/editpost/${post.id}`}
-                    >
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        border="1px solid green"
-                        width="full"
-                        color="green"
-                      >
-                        <span className="hidden sm:block">Editar</span>
-                        <BsPencil />
-                      </Button>
-                    </Link>
-                  </Table.Cell>
+                  <Table.ColumnHeader
+                    className="hidden md:block"
+                    color="green.700"
+                  >
+                    PDF
+                  </Table.ColumnHeader>
 
-                  <Table.Cell>
-                    <DialogFormDelete
-                      handleDelete={() => handleDelete(post.id)}
-                    >
-                      <span className="hidden sm:block">Apagar</span>
-                    </DialogFormDelete>
-                  </Table.Cell>
+                  <Table.ColumnHeader color="green.700">
+                    Sub-Categoria
+                  </Table.ColumnHeader>
                 </Table.Row>
-              ))}
-            </Table.Body>
-          </Table.Root>
+              </Table.Header>
+              <Table.Body>
+                {posts.map((post) => (
+                  <Table.Row
+                    key={post.id}
+                    backgroundColor="transparent"
+                    borderBottom="1px solid #ddd"
+                  >
+                    <Table.Cell color="green.700">{post.title}</Table.Cell>
+                    <Table.Cell color="green.700" className="hidden md:block">
+                      {post.pdf}
+                    </Table.Cell>
+                    <Table.Cell color="green.700">
+                      {
+                        subCategories.find(
+                          (subCateg) => subCateg.id === post.subCategoryId
+                        )?.name
+                      }
+                    </Table.Cell>
+
+                    <Table.Cell>
+                      <Link href={`/pages/posts/editpost/${post.id}`}>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          border="1px solid green"
+                          width="full"
+                          color="green"
+                        >
+                          <span className="hidden sm:block">Editar</span>
+                          <BsPencil />
+                        </Button>
+                      </Link>
+                    </Table.Cell>
+
+                    <Table.Cell>
+                      <DialogFormDelete
+                        handleDelete={() => handleDelete(post.id)}
+                      >
+                        <span className="hidden sm:block">Apagar</span>
+                      </DialogFormDelete>
+                    </Table.Cell>
+                  </Table.Row>
+                ))}
+              </Table.Body>
+            </Table.Root>
+          </div>
         </div>
       </div>
     </div>

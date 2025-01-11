@@ -5,10 +5,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 // SERVICES
-import {
-  getCategoryId,
-  updateCategory,
-} from "@/services/category";
+import { getCategoryId, updateCategory } from "@/services/category";
 
 // COMPONENTES
 import FormCategory from "@/components/Form/FormCategory";
@@ -20,6 +17,17 @@ export default function EditCategory() {
   const [category, setCategory] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const [user, setUser] = useState(false);
+
+  useEffect(() => {
+    const cookies = document.cookie
+      .split("; ")
+      .map((cookie) => cookie.split("="));
+    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
+
+    setUser(!!tokenCookie);
+  }, []);
 
   useEffect(() => {
     if (!id) return;
@@ -57,12 +65,14 @@ export default function EditCategory() {
     );
 
   return (
-    <div className="flex items-center pt-10 flex-col h-screen bg-white">
-      <form className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg">
-        <FormCategory name={name} setName={setName} />
+    <div className={user ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+      <div className="flex items-center pt-10 flex-col h-screen bg-white">
+        <form className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg">
+          <FormCategory name={name} setName={setName} />
 
-        <DialogFormEdit handleEdit={handleEdit} />
-      </form>
+          <DialogFormEdit handleEdit={handleEdit} />
+        </form>
+      </div>
     </div>
   );
 }

@@ -12,7 +12,7 @@ export default function Footer() {
       .split("; ")
       .map((cookie) => cookie.split("="));
     const tokenCookie = cookies.find(
-      ([key]) => key === "next-auth.session-token"
+      ([key]) => key === "nextauth.token"
     );
 
     setUser(!!tokenCookie);

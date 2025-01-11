@@ -20,6 +20,17 @@ export default function EditUser() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const [token, setToken] = useState(false);
+
+  useEffect(() => {
+    const cookies = document.cookie
+      .split("; ")
+      .map((cookie) => cookie.split("="));
+    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
+
+    setToken(!!tokenCookie);
+  }, []);
+
   useEffect(() => {
     if (!id) return;
 
@@ -56,19 +67,21 @@ export default function EditUser() {
     return <p className="flex justify-center pt-8">Usuário não encontrado.</p>;
 
   return (
-    <div className="flex items-center pt-10 flex-col h-screen bg-white">
-      <form className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg">
-        <FormUser
-          name={name}
-          setName={setName}
-          email={email}
-          setEmail={setEmail}
-          password={password}
-          setPassword={setPassword}
-        />
+    <div className={token ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+      <div className="flex items-center pt-10 flex-col h-screen bg-white">
+        <form className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg">
+          <FormUser
+            name={name}
+            setName={setName}
+            email={email}
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
+          />
 
-        <DialogFormEdit handleEdit={handleEdit} />
-      </form>
+          <DialogFormEdit handleEdit={handleEdit} />
+        </form>
+      </div>
     </div>
   );
 }

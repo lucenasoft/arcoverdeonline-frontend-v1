@@ -20,6 +20,17 @@ const AllCategory = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const [user, setUser] = useState(false);
+
+  useEffect(() => {
+    const cookies = document.cookie
+      .split("; ")
+      .map((cookie) => cookie.split("="));
+    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
+
+    setUser(!!tokenCookie);
+  }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -43,7 +54,7 @@ const AllCategory = () => {
         prevCategories.filter((category) => category.id !== categoryId)
       );
     } catch (error) {
-      window.location.reload()
+      window.location.reload();
     }
   };
 
@@ -66,63 +77,66 @@ const AllCategory = () => {
   }
 
   return (
-    <div className="sm:px-5 h-screen pt-10 bg-white">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-center text-2xl font-bold text-green-700 pb-5">
-          Categorias
-        </h2>
+    <div className={user ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+      <div className="sm:px-5 h-screen pt-10 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-center text-2xl font-bold text-green-700 pb-5">
+            Categorias
+          </h2>
 
-        <div className="pb-5">
-          <ButtonPageAllCreate />
-        </div>
+          <div className="pb-5">
+            <ButtonPageAllCreate />
+          </div>
 
-        <div>
-          <Table.Root size="sm">
-            <Table.Header>
-              <Table.Row
-                backgroundColor="transparent"
-                borderBottom="1px solid #ddd"
-              >
-                <Table.ColumnHeader color="green.700">Nome</Table.ColumnHeader>
-              </Table.Row>
-            </Table.Header>
-
-            <Table.Body>
-              {categories.map((categ) => (
+          <div>
+            <Table.Root size="sm">
+              <Table.Header>
                 <Table.Row
-                  key={categ.id}
                   backgroundColor="transparent"
                   borderBottom="1px solid #ddd"
                 >
-                  <Table.Cell color="green.700">{categ.name}</Table.Cell>
-
-                  <Table.Cell textAlign="right">
-                    <Link href={`/pages/categories/editcategory/${categ.id}`}>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        border="1px solid green"
-                        width="full"
-                        color="green"
-                      >
-                        <span className="hidden sm:block">Editar</span>
-                        <BsPencil />
-                      </Button>
-                    </Link>
-                  </Table.Cell>
-
-                  <Table.Cell>
-                    <DialogFormDelete
-                      handleDelete={() => handleDelete(categ.id)}
-                    >
-                      <span className="hidden sm:block">Apagar</span>
-                    </DialogFormDelete>
-                    {/* <Button onClick={() => handleDelete(categ.id)}>Apagar</Button> */}
-                  </Table.Cell>
+                  <Table.ColumnHeader color="green.700">
+                    Nome
+                  </Table.ColumnHeader>
                 </Table.Row>
-              ))}
-            </Table.Body>
-          </Table.Root>
+              </Table.Header>
+
+              <Table.Body>
+                {categories.map((categ) => (
+                  <Table.Row
+                    key={categ.id}
+                    backgroundColor="transparent"
+                    borderBottom="1px solid #ddd"
+                  >
+                    <Table.Cell color="green.700">{categ.name}</Table.Cell>
+
+                    <Table.Cell textAlign="right">
+                      <Link href={`/pages/categories/editcategory/${categ.id}`}>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          border="1px solid green"
+                          width="full"
+                          color="green"
+                        >
+                          <span className="hidden sm:block">Editar</span>
+                          <BsPencil />
+                        </Button>
+                      </Link>
+                    </Table.Cell>
+
+                    <Table.Cell>
+                      <DialogFormDelete
+                        handleDelete={() => handleDelete(categ.id)}
+                      >
+                        <span className="hidden sm:block">Apagar</span>
+                      </DialogFormDelete>
+                    </Table.Cell>
+                  </Table.Row>
+                ))}
+              </Table.Body>
+            </Table.Root>
+          </div>
         </div>
       </div>
     </div>

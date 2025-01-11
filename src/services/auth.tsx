@@ -1,5 +1,6 @@
 import { apiRequest } from "@/utils/api";
 import Cookies from "js-cookie";
+import nookies from 'nookies';
 
 export async function getUserInfo() {
   const token = Cookies.get('nextauth.token');
@@ -26,3 +27,11 @@ export async function getUserInfo() {
     throw error;
   }
 }
+
+export const logout = () => {
+  nookies.destroy(null, 'nextauth.token', {
+    path: '/',
+  });
+
+  window.location.href = '/pages/login';
+};

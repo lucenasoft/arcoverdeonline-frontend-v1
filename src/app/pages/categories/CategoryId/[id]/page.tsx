@@ -28,6 +28,17 @@ export default function CategoryDetails() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const [user, setUser] = useState(false);
+
+  useEffect(() => {
+    const cookies = document.cookie
+      .split("; ")
+      .map((cookie) => cookie.split("="));
+    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
+
+    setUser(!!tokenCookie);
+  }, []);
+
   useEffect(() => {
     if (!id) return;
 
@@ -81,49 +92,51 @@ export default function CategoryDetails() {
   }
 
   return (
-    <div className="h-screen px-4 pt-10 bg-white">
-      <div className="max-w-5xl mx-auto">
-        <h1 className="text-4xl font-bold text-center text-green-700 pb-6">
-          {category.name}
-        </h1>
+    <div className={user ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+      <div className="h-screen px-4 pt-10 bg-white">
+        <div className="max-w-5xl mx-auto">
+          <h1 className="text-4xl font-bold text-center text-green-700 pb-6">
+            {category.name}
+          </h1>
 
-        <h2 className="py-4 text-2xl font-semibold text-green-700">
-          Subcategorias:
-        </h2>
-        {category.subCategories.length > 0 ? (
-          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {category.subCategories.map((subCategory) => (
-              <li key={subCategory.id}>
-                <Link
-                  href={`/pages/subcategories/subcategoryid/${subCategory.id}`}
-                >
-                  <Button
-                    borderBottom="1px solid green"
-                    padding="1rem"
-                    width="full"
-                    className="w-full bg-white text-green-700 font-semibold rounded-none shadow-lg hover:bg-green-700 hover:text-white transition hover:rounded-md"
+          <h2 className="py-4 text-2xl font-semibold text-green-700">
+            Subcategorias:
+          </h2>
+          {category.subCategories.length > 0 ? (
+            <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {category.subCategories.map((subCategory) => (
+                <li key={subCategory.id}>
+                  <Link
+                    href={`/pages/subcategories/subcategoryid/${subCategory.id}`}
                   >
-                    {subCategory.name}
-                  </Button>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="text-gray-600">Nenhuma subcategoria encontrada.</p>
-        )}
+                    <Button
+                      borderBottom="1px solid green"
+                      padding="1rem"
+                      width="full"
+                      className="w-full bg-white text-green-700 font-semibold rounded-none shadow-lg hover:bg-green-700 hover:text-white transition hover:rounded-md"
+                    >
+                      {subCategory.name}
+                    </Button>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-gray-600">Nenhuma subcategoria encontrada.</p>
+          )}
 
-        <Link href={`/`}>
-          <Button
-            backgroundColor="green.700"
-            padding="1rem"
-            width="4/12"
-            className="mt-6 hover:bg-green-500 transition-colors"
-            color="white"
-          >
-            Voltar
-          </Button>
-        </Link>
+          <Link href={`/`}>
+            <Button
+              backgroundColor="green.700"
+              padding="1rem"
+              width="4/12"
+              className="mt-6 hover:bg-green-500 transition-colors"
+              color="white"
+            >
+              Voltar
+            </Button>
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import { Avatar } from "@/components/ui/avatar";
 import { IoMdMenu } from "react-icons/io";
 
 import { useEffect, useState } from "react";
+import { logout } from "@/services/auth";
 
 import {
   DrawerBackdrop,
@@ -24,9 +25,7 @@ const Sidebar: React.FC = () => {
     const cookies = document.cookie
       .split("; ")
       .map((cookie) => cookie.split("="));
-    const tokenCookie = cookies.find(
-      ([key]) => key === "nextauth.token"
-    );
+    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
 
     // Habilita a sidebar se o token estiver presente
     setUser(!!tokenCookie);
@@ -124,6 +123,21 @@ const Sidebar: React.FC = () => {
               </Button>
             </Link>
           </div>
+
+          <footer className="pt-80">
+            <Button
+              type="submit"
+              width="full"
+              variant="solid"
+              colorScheme="green"
+              className="transition-all hover:opacity-80"
+              color="white"
+              backgroundColor="green.700"
+              onClick={() => logout()}
+            >
+              Sair
+            </Button>
+          </footer>
         </nav>
       </div>
       <div className="fixed z-10 right-5 bottom-10 lg:hidden">
@@ -230,6 +244,21 @@ const Sidebar: React.FC = () => {
                   </Button>
                 </Link>
               </div>
+
+              <footer className="pt-44">
+                <Button
+                  type="submit"
+                  width="full"
+                  variant="solid"
+                  colorScheme="green"
+                  className="transition-all hover:opacity-80"
+                  color="white"
+                  backgroundColor="green.700"
+                  onClick={() => logout()}
+                >
+                  Sair
+                </Button>
+              </footer>
             </DrawerBody>
             <DrawerCloseTrigger />
           </DrawerContent>

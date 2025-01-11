@@ -22,6 +22,17 @@ const AllSponsor = () => {
   const [sponsors, setSponsors] = useState<Sponsor[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const [user, setUser] = useState(false);
+
+  useEffect(() => {
+    const cookies = document.cookie
+      .split("; ")
+      .map((cookie) => cookie.split("="));
+    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
+
+    setUser(!!tokenCookie);
+  }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -43,7 +54,7 @@ const AllSponsor = () => {
       await deleteSponsor(sponsorId);
       setSponsors((prev) => prev.filter((sponsor) => sponsor.id !== sponsorId));
     } catch (error: any) {
-      console.error("Erro ao deletar patrocinador:", error.message);
+      window.location.reload();
     }
   };
 
@@ -66,75 +77,81 @@ const AllSponsor = () => {
   }
 
   return (
-    <div className="py-20 sm:px-5 h-screen bg-white">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-center text-2xl font-bold text-green-700 pb-5">
-          Patrocinadores
-        </h2>
+    <div className={user ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+      <div className="py-20 sm:px-5 h-screen bg-white">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-center text-2xl font-bold text-green-700 pb-5">
+            Patrocinadores
+          </h2>
 
-        <div className="pb-5">
-          <ButtonPageAllCreate />
-        </div>
+          <div className="pb-5">
+            <ButtonPageAllCreate />
+          </div>
 
-        <div>
-          <Table.Root size="sm">
-            <Table.Header>
-              <Table.Row
-                backgroundColor="transparent"
-                borderBottom="1px solid #ddd"
-              >
-                <Table.ColumnHeader color="green.700">
-                  Nome
-                </Table.ColumnHeader>
-
-                <Table.ColumnHeader color="green.700">
-                  Contato
-                </Table.ColumnHeader>
-
-                <Table.ColumnHeader color="green.700" className="hidden sm:block">
-                  URL
-                </Table.ColumnHeader>
-
-              </Table.Row>
-            </Table.Header>
-
-            <Table.Body>
-              {sponsors.map((sponsor) => (
+          <div>
+            <Table.Root size="sm">
+              <Table.Header>
                 <Table.Row
-                  key={sponsor.id}
                   backgroundColor="transparent"
                   borderBottom="1px solid #ddd"
                 >
-                  <Table.Cell color="green.700">{sponsor.name}</Table.Cell>
-                  <Table.Cell color="green.700">{sponsor.contact}</Table.Cell>
-                  <Table.Cell color="green.700" className="hidden sm:block">{sponsor.url}</Table.Cell>
+                  <Table.ColumnHeader color="green.700">
+                    Nome
+                  </Table.ColumnHeader>
 
-                  <Table.Cell textAlign="right">
-                    <Link href={`/pages/sponsors/editsponsor/${sponsor.id}`}>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        border="1px solid green"
-                        width="full"
-                        color="green"
-                      >
-                        <span className="hidden sm:block">Editar</span>
-                        <BsPencil />
-                      </Button>
-                    </Link>
-                  </Table.Cell>
+                  <Table.ColumnHeader color="green.700">
+                    Contato
+                  </Table.ColumnHeader>
 
-                  <Table.Cell>
-                    <DialogFormDelete
-                      handleDelete={() => handleDelete(sponsor.id)}
-                    >
-                      <span className="hidden sm:block">Apagar</span>
-                    </DialogFormDelete>
-                  </Table.Cell>
+                  <Table.ColumnHeader
+                    color="green.700"
+                    className="hidden sm:block"
+                  >
+                    URL
+                  </Table.ColumnHeader>
                 </Table.Row>
-              ))}
-            </Table.Body>
-          </Table.Root>
+              </Table.Header>
+
+              <Table.Body>
+                {sponsors.map((sponsor) => (
+                  <Table.Row
+                    key={sponsor.id}
+                    backgroundColor="transparent"
+                    borderBottom="1px solid #ddd"
+                  >
+                    <Table.Cell color="green.700">{sponsor.name}</Table.Cell>
+                    <Table.Cell color="green.700">{sponsor.contact}</Table.Cell>
+                    <Table.Cell color="green.700" className="hidden sm:block">
+                      {sponsor.url}
+                    </Table.Cell>
+
+                    <Table.Cell textAlign="right">
+                      <Link href={`/pages/sponsors/editsponsor/${sponsor.id}`}>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          border="1px solid green"
+                          width="full"
+                          color="green"
+                        >
+                          <span className="hidden sm:block">Editar</span>
+                          <BsPencil />
+                        </Button>
+                      </Link>
+                    </Table.Cell>
+
+                    <Table.Cell>
+                      <DialogFormDelete
+                        handleDelete={() => handleDelete(sponsor.id)}
+                      >
+                        <span className="hidden sm:block">Apagar</span>
+                      </DialogFormDelete>
+                    </Table.Cell>
+                  </Table.Row>
+                ))}
+              </Table.Body>
+            </Table.Root>
+          </div>
         </div>
       </div>
     </div>

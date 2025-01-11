@@ -21,6 +21,17 @@ export default function EditPost() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  const [user, setUser] = useState(false);
+
+  useEffect(() => {
+    const cookies = document.cookie
+      .split("; ")
+      .map((cookie) => cookie.split("="));
+    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
+
+    setUser(!!tokenCookie);
+  }, []);
+
   const { subCategories, subCategoryId, setSubCategoryId, handleChange } =
     useGetSubCategory();
 
@@ -63,20 +74,22 @@ export default function EditPost() {
     );
 
   return (
-    <div className="flex items-center flex-col pt-10 h-screen bg-white">
-      <form className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg">
-        <FormPost
-          handleChange={handleChange}
-          title={title}
-          setTitle={setTitle}
-          pdf={pdf}
-          setPdf={setPdf}
-          subCategoryId={subCategoryId}
-          subCategories={subCategories}
-        />
+    <div className={user ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+      <div className="flex items-center flex-col pt-10 h-screen bg-white">
+        <form className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg">
+          <FormPost
+            handleChange={handleChange}
+            title={title}
+            setTitle={setTitle}
+            pdf={pdf}
+            setPdf={setPdf}
+            subCategoryId={subCategoryId}
+            subCategories={subCategories}
+          />
 
-        <DialogFormEdit handleEdit={handleEdit} />
-      </form>
+          <DialogFormEdit handleEdit={handleEdit} />
+        </form>
+      </div>
     </div>
   );
 }
