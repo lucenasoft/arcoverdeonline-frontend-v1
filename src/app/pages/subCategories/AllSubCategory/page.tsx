@@ -66,16 +66,6 @@ const AllSubCategory = () => {
     );
   }
 
-  if (!categories || categories.length === 0) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-green-700 text-xl font-semibold">
-          Categorias não encontradas.
-        </p>
-      </div>
-    );
-  }
-
   return (
     <div className={user ? "lg:ml-56 sm:ml-0" : "ml-0"}>
       <div className="pt-10 sm:px-5 h-screen bg-white">
