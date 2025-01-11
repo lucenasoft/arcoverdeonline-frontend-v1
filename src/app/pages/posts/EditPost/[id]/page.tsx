@@ -1,21 +1,16 @@
 "use client";
 
-// HOOKS
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-
-// SERVICES
 import { getPostId, updatePost } from "@/services/post";
 import { useGetSubCategory } from "@/hooks/useGetSubCategory";
-
-// COMPONENTES
 import FormPost from "@/components/Form/FormPost";
 import DialogFormEdit from "@/components/DialogForm/DialogFormEdit";
 
 export default function EditPost() {
   const { id } = useParams();
   const [title, setTitle] = useState("");
-  const [pdf, setPdf] = useState<File | undefined>(undefined);
+  const [pdf, setPdf] = useState<File | null>(null); // Alterado para aceitar `null`
 
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -45,7 +40,7 @@ export default function EditPost() {
         setTitle(data.title || "");
         setSubCategoryId(data.subCategoryId || "");
         if (data.pdf) {
-          setPdf(undefined);
+          setPdf(null); // Consistência inicial
         }
       } catch (err) {
         setError("Erro ao buscar a publicação. Tente novamente mais tarde.");
@@ -86,7 +81,6 @@ export default function EditPost() {
             subCategoryId={subCategoryId}
             subCategories={subCategories}
           />
-
           <DialogFormEdit handleEdit={handleEdit} />
         </form>
       </div>

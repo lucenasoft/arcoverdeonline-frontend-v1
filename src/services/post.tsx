@@ -81,7 +81,7 @@ export async function updatePost(
     subCategoryId,
   }: {
     title: string;
-    pdf?: File;
+    pdf?: File | null;
     subCategoryId: string;
   }
 ) {

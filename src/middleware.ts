@@ -17,7 +17,8 @@ export function middleware(request: NextRequest) {
     "/pages/sponsors/createsponsor",
     "/pages/sponsors/editsponsor/",
     "/pages/users/dashboard",
-    "/pages/users/edituser",
+    "/pages/users/edituser/",
+    "/pages/users/userid/",
   ];
 
   const isProtectedRoute = protectedRoutes.some((route) =>

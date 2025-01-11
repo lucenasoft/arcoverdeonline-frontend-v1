@@ -21,7 +21,7 @@ const FormPost: React.FC<FormPostProps> = ({
   setPdf,
   subCategoryId,
   subCategories,
-}: any) => {
+}) => {
   const pathname = usePathname();
   const [titleForm, setTitleForm] = useState("");
   const [subTitle, setSubTitle] = useState("");
@@ -63,10 +63,7 @@ const FormPost: React.FC<FormPostProps> = ({
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
-              border="1px solid #ddd"
               placeholder="Insira o título"
-              padding="1rem"
-              _placeholder={{ color: "gray.400" }}
               className="focus:ring focus:ring-gray-600"
               autoComplete="off"
             />
@@ -78,19 +75,21 @@ const FormPost: React.FC<FormPostProps> = ({
               type="file"
               onChange={(e) => {
                 const file = e.target.files?.[0];
-                if (file && file.type === "application/pdf") {
-                  setPdf(file); // Salva o arquivo PDF no estado
+                if (file?.type === "application/pdf") {
+                  setPdf(file);
                 } else {
                   setPdf(null);
-                  alert("Por favor, selecione um arquivo PDF.");
+                  alert("Por favor, selecione um arquivo PDF válido.");
                 }
               }}
               required
-              border="1px solid #ddd"
-              padding="1rem"
-              paddingBottom="3rem"
               className="focus:ring focus:ring-gray-600"
             />
+            {pdf && (
+              <p className="mt-2 text-sm text-gray-600">
+                Arquivo selecionado: {pdf.name}
+              </p>
+            )}
           </Field>
 
           <label
@@ -107,7 +106,7 @@ const FormPost: React.FC<FormPostProps> = ({
             required
           >
             <option value="">Selecione uma sub-categoria</option>
-            {subCategories.map((categ: any) => (
+            {subCategories.map((categ) => (
               <option key={categ.id} value={categ.id}>
                 {categ.name}
               </option>
