@@ -1,15 +1,12 @@
 "use client";
 
 import { BsPencil } from "react-icons/bs";
-
 import { Button, Table } from "@chakra-ui/react";
-
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { getAllPost, deletePost } from "@/services/post";
 import DialogFormDelete from "@/components/DialogForm/DialogFormDelete";
-
 import { useGetSubCategory } from "@/hooks/useGetSubCategory";
 import ButtonPageAllCreate from "@/components/ButtonCreate/ButtonPageAllCreate";
 
@@ -17,14 +14,19 @@ interface Post {
   id: string;
   title: string;
   pdf: string;
-  subCategoryId: string;
+  subCategoryId: string; // Relacionamento com a subcategoria
+}
+
+interface SubCategory {
+  id: string;
+  name: string;
+  categoryId: string; // Relacionamento com a categoria
 }
 
 const AllPost = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const { subCategories } = useGetSubCategory();
-
   const [user, setUser] = useState(false);
 
   useEffect(() => {
@@ -32,7 +34,6 @@ const AllPost = () => {
       .split("; ")
       .map((cookie) => cookie.split("="));
     const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
-
     setUser(!!tokenCookie);
   }, []);
 
@@ -101,62 +102,57 @@ const AllPost = () => {
                   <Table.ColumnHeader color="green.700">
                     Nome
                   </Table.ColumnHeader>
-
-                  <Table.ColumnHeader
-                    className="hidden md:block"
-                    color="green.700"
-                  >
+                  <Table.ColumnHeader color="green.700">
                     PDF
                   </Table.ColumnHeader>
-
                   <Table.ColumnHeader color="green.700">
                     Sub-Categoria
                   </Table.ColumnHeader>
                 </Table.Row>
               </Table.Header>
               <Table.Body>
-                {posts.map((post) => (
-                  <Table.Row
-                    key={post.id}
-                    backgroundColor="transparent"
-                    borderBottom="1px solid #ddd"
-                  >
-                    <Table.Cell color="green.700">{post.title}</Table.Cell>
-                    <Table.Cell color="green.700" className="hidden md:block">
-                      {post.pdf}
-                    </Table.Cell>
-                    <Table.Cell color="green.700">
-                      {
-                        subCategories.find(
-                          (subCateg) => subCateg.id === post.subCategoryId
-                        )?.name
-                      }
-                    </Table.Cell>
+                {posts.map((post) => {
+                  const subCategory = subCategories.find(
+                    (subCateg) => subCateg.id === post.subCategoryId
+                  );
 
-                    <Table.Cell>
-                      <Link href={`/pages/posts/editpost/${post.id}`}>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          border="1px solid green"
-                          width="full"
-                          color="green"
+                  return (
+                    <Table.Row
+                      key={post.id}
+                      backgroundColor="transparent"
+                      borderBottom="1px solid #ddd"
+                    >
+                      <Table.Cell color="green.700">{post.title}</Table.Cell>
+                      <Table.Cell color="green.700">
+                        {post.pdf}
+                      </Table.Cell>
+                      <Table.Cell color="green.700">
+                        {subCategory ? subCategory.name : "Sem subcategoria"}
+                      </Table.Cell>
+                      <Table.Cell>
+                        <Link href={`/pages/posts/editpost/${post.id}`}>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            border="1px solid green"
+                            width="full"
+                            color="green"
+                          >
+                            <span className="hidden sm:block">Editar</span>
+                            <BsPencil />
+                          </Button>
+                        </Link>
+                      </Table.Cell>
+                      <Table.Cell>
+                        <DialogFormDelete
+                          handleDelete={() => handleDelete(post.id)}
                         >
-                          <span className="hidden sm:block">Editar</span>
-                          <BsPencil />
-                        </Button>
-                      </Link>
-                    </Table.Cell>
-
-                    <Table.Cell>
-                      <DialogFormDelete
-                        handleDelete={() => handleDelete(post.id)}
-                      >
-                        <span className="hidden sm:block">Apagar</span>
-                      </DialogFormDelete>
-                    </Table.Cell>
-                  </Table.Row>
-                ))}
+                          <span className="hidden sm:block">Apagar</span>
+                        </DialogFormDelete>
+                      </Table.Cell>
+                    </Table.Row>
+                  );
+                })}
               </Table.Body>
             </Table.Root>
           </div>

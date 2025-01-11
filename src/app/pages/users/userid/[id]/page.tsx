@@ -14,6 +14,17 @@ const UserId = () => {
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  const [token, setToken] = useState(false);
+
+  useEffect(() => {
+    const cookies = document.cookie
+      .split("; ")
+      .map((cookie) => cookie.split("="));
+    const tokenCookie = cookies.find(([key]) => key === "nextauth.token");
+
+    setToken(!!tokenCookie);
+  }, []);
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -29,36 +40,42 @@ const UserId = () => {
   }, []);
 
   return (
-    <div className="flex justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
-        {error ? (
-          <div className="text-red-600 text-center font-semibold">{error}</div>
-        ) : !user ? (
-          <div className="text-gray-600 text-center font-medium">
-            Loading...
-          </div>
-        ) : (
-          <div className="text-center">
-            <h1 className="text-2xl font-bold text-gray-800 mb-4">
-              Nome: {user.name}
-            </h1>
-            <p className="text-gray-600 pb-10">Email: {user.email}</p>
+    <div className={token ? "lg:ml-56 sm:ml-0" : "ml-0"}>
+      <div className="min-h-screen px-4 flex justify-center bg-white pb-16">
+        <div className="bg-white p-8 max-w-md w-full">
+          {error ? (
+            <div className="text-red-600 text-center font-semibold">
+              {error}
+            </div>
+          ) : !user ? (
+            <div className="flex justify-center items-center h-screen">
+              <p className="text-green-700 text-xl font-semibold">
+                Carregando...
+              </p>
+            </div>
+          ) : (
+            <div className="text-center">
+              <h1 className="text-2xl font-bold text-gray-800 mb-4">
+                Nome: {user.name}
+              </h1>
+              <p className="text-gray-600 pb-10">Email: {user.email}</p>
 
-            <Link href="/pages/users/edituser/1">
-              <Button
-                type="submit"
-                width="full"
-                variant="solid"
-                colorScheme="green"
-                className="transition-all hover:opacity-80"
-                color="white"
-                backgroundColor="green.700"
-              >
-                Editar Usuário
-              </Button>
-            </Link>
-          </div>
-        )}
+              <Link href="/pages/users/edituser/1">
+                <Button
+                  type="submit"
+                  width="full"
+                  variant="solid"
+                  colorScheme="green"
+                  className="transition-all hover:opacity-80"
+                  color="white"
+                  backgroundColor="green.700"
+                >
+                  Editar Usuário
+                </Button>
+              </Link>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

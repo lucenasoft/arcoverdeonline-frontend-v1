@@ -10,24 +10,27 @@ import { useEffect, useState } from "react";
 
 // SERVICES
 import { getSubCategoryId } from "@/services/subCategory";
-import { getAllPost } from "@/services/post";
+
+interface Post {
+  id: string;
+  title: string;
+  pdf: string;
+}
+
+interface SubCategory {
+  id: string;
+  name: string;
+  posts: Post[];
+}
 
 export default function SubCategoryDetails() {
-  interface Post {
-    id: string;
-    title: string;
-    pdf: string;
-    subCategoryId: string;
-  }
-
-  const { id } = useParams();
-  const [subCategory, setSubCategory] = useState<any>(null);
-  const [posts, setPosts] = useState<Post[]>([]);
+  const { id } = useParams(); // Obtém o ID da subcategoria pela URL
+  const [subCategory, setSubCategory] = useState<SubCategory | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
   const [user, setUser] = useState(false);
 
+  // Verifica se o usuário está autenticado
   useEffect(() => {
     const cookies = document.cookie
       .split("; ")
@@ -37,10 +40,11 @@ export default function SubCategoryDetails() {
     setUser(!!tokenCookie);
   }, []);
 
+  // Carrega a subcategoria e publicações
   useEffect(() => {
     if (!id) return;
 
-    const fetchPostAndSubCategories = async () => {
+    const fetchSubCategory = async () => {
       try {
         setLoading(true);
 
@@ -51,28 +55,19 @@ export default function SubCategoryDetails() {
           return;
         }
 
-        const allPosts = await getAllPost();
-
-        const filteredPosts = allPosts.filter(
-          (sub) => sub.subCategoryId === id
-        );
-
         setSubCategory(subCategoryData);
-        setPosts(filteredPosts);
       } catch (err: any) {
         setError("Erro ao carregar os dados. Tente novamente mais tarde.");
-        console.error(
-          "Erro ao buscar as publicações ou subcategorias:",
-          err.message
-        );
+        console.error("Erro ao buscar a subcategoria:", err.message);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchPostAndSubCategories();
+    fetchSubCategory();
   }, [id]);
 
+  // Exibe carregamento
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -81,6 +76,7 @@ export default function SubCategoryDetails() {
     );
   }
 
+  // Exibe erro
   if (error) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -89,6 +85,7 @@ export default function SubCategoryDetails() {
     );
   }
 
+  // Exibe mensagem caso a subcategoria não seja encontrada
   if (!subCategory) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -99,31 +96,39 @@ export default function SubCategoryDetails() {
     );
   }
 
+  // Renderiza a página
   return (
     <div className={user ? "lg:ml-56 sm:ml-0" : "ml-0"}>
       <div className="px-4 bg-white pt-10 h-screen">
         <div className="max-w-5xl mx-auto">
+          {/* Título da subcategoria */}
           <h1 className="text-4xl font-bold text-center text-green-700 pb-6">
             {subCategory.name}
           </h1>
 
+          {/* Lista de publicações */}
           <h2 className="py-4 text-2xl font-semibold text-green-700">
             Publicações:
           </h2>
-          {posts.length > 0 ? (
+          {subCategory.posts.length > 0 ? (
             <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {posts.map((post) => (
+              {subCategory.posts.map((post) => (
                 <li key={post.id}>
-                  <Link href={``}>
-                    <Button
-                      borderBottom="1px solid green"
-                      padding="1rem"
-                      width="full"
-                      className="w-full bg-white text-green-700 font-semibold rounded-none shadow-lg hover:bg-green-700 hover:text-white transition hover:rounded-md"
-                    >
-                      {post.title}
-                    </Button>
-                  </Link>
+                  <Button
+                    borderBottom="1px solid green"
+                    padding="1rem"
+                    width="full"
+                    className="w-full bg-white text-green-700 font-semibold rounded-none shadow-lg hover:bg-green-700 hover:text-white transition hover:rounded-md"
+                    onClick={() => {
+                      if (post.pdf) {
+                        window.open(post.pdf, "_blank"); // Abre o PDF em uma nova guia
+                      } else {
+                        alert("PDF não disponível."); // Exibe alerta caso o PDF não esteja disponível
+                      }
+                    }}
+                  >
+                    {post.title}
+                  </Button>
                 </li>
               ))}
             </ul>
@@ -131,6 +136,7 @@ export default function SubCategoryDetails() {
             <p className="text-gray-600">Nenhuma publicação encontrada.</p>
           )}
 
+          {/* Botão de voltar */}
           <Link href={`/`}>
             <Button
               backgroundColor="green.700"

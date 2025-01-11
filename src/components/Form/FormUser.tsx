@@ -30,7 +30,7 @@ const FormUser = ({
               onChange={(e) => setName(e.target.value)}
               required
               border="1px solid #ddd"
-              placeholder="Insira o nome da categoria"
+              placeholder="Insira o nome do usuário"
               padding="1rem"
               _placeholder={{ color: "gray.400" }}
               className="focus:ring focus:ring-gray-600"
@@ -46,7 +46,7 @@ const FormUser = ({
               onChange={(e) => setEmail(e.target.value)}
               required
               border="1px solid #ddd"
-              placeholder="Insira o nome da categoria"
+              placeholder="Insira o email do usuário"
               padding="1rem"
               _placeholder={{ color: "gray.400" }}
               className="focus:ring focus:ring-gray-600"
@@ -62,7 +62,7 @@ const FormUser = ({
               onChange={(e) => setPassword(e.target.value)}
               required
               border="1px solid #ddd"
-              placeholder="Insira o nome da categoria"
+              placeholder="Insira a senha do usuário"
               padding="1rem"
               _placeholder={{ color: "gray.400" }}
               className="focus:ring focus:ring-gray-600"
